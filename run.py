@@ -4,6 +4,8 @@ game_grid = [[]]
 grid_size = 0
 # Global variable for the grid level
 grid_level = 0
+# Global variable for the untargeted grid coordiantes
+ocean_wave = "~"
 
 
 # the function below will set the game grid size
@@ -22,7 +24,7 @@ def setGridLevel():
             else:
                 print(f"Your input is not within the range, please input an number between 5 and 20.\n")
                 continue
-            
+
         # print valueError is input is not a an integer and restart loop
         except ValueError:
             print(f"Your input is not valid, please input an integer, e.g. a whole number between 5 and 20.\n")
@@ -35,3 +37,19 @@ def setGridLevel():
 
 
 setGridLevel()
+
+def make_grid(ocean_wave, grid_level):
+    header_row = ''
+    row = ''
+    for x in range(1,grid_level+1):
+        header_row = header_row + '|' + str(x)
+        row = row + '|' + ocean_wave 
+    print(header_row + '|')
+    print('-' * (len(row)+1))
+    char = 64
+    for x in range(1,grid_level+1):
+        char = char  +1 
+        print(chr(char) + row + '|')
+
+
+make_grid(ocean_wave, grid_level)
