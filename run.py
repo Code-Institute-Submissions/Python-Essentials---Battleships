@@ -67,16 +67,19 @@ def make_grid(ocean_wave, grid_level):
 def print_play_area():
     global game_grid
 
+    # create a string of the alphabet to be used as coordiantes
     characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
+    
+    # pull the relevant amount of characters from above into a new variable and print the Header.
     game_size = characters[0: len(game_grid) + 1]
-
     print("  BOMBS AHOY!  ")
     
-
+    # for each row within game grid, print the corresponding letter.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
+        # then for every column in game_grid print the symbol representing a wave
         for col in range(len(game_grid[row])):
+            # this code will check for the placement of a ship 
             if game_grid[row][col] == "O":
                 print(ocean_wave, end=" ")
             else:
