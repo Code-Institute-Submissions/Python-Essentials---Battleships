@@ -5,11 +5,17 @@ grid_size = 0
 # Global variable for the grid level
 grid_level = 0
 # Global variable for the untargeted grid coordiantes
-ocean_wave = "~"
+ocean_wave = " ~ "
 
 
-# the function below will set the game grid size
 def setGridLevel(): 
+    """
+    This function shall fire first and shall welcome the user to the game
+    and request that they input a number between 5 and 20. This figure is used
+    to set how difficult the game shall be by altering the size of the playable grid.
+    The code will validate the user input by checking if the figure is an integer, equal to 
+    or less then 5 and equal too or less than 20.
+    """
     global grid_level
     
     while True:
@@ -36,30 +42,52 @@ def setGridLevel():
             return False
 
 
-# the function below shall compose and print a grid set to the size input by the user
 def make_grid(ocean_wave, grid_level):
-    # set rows as empty strings
-    header_row = ''
-    standard_row = ''
-    # compose the rows and seperating characters, loop as many times as stated in grid_level +1 to ensure 5 playable rows are printed
-    for num in range(1,grid_level+1):
-        # creates the header numbers
-        header_row = header_row + '|' + str(num)
-        # creates the playing area
-        standard_row = standard_row + '|' + ocean_wave 
-    print(header_row + '|')
-    print('-' * (len(standard_row)+1))
-    # Apply alphabetical characters to the rows for coordiantion
-    char = 64
-    for x in range(1,grid_level+1):
-        char = char  +1 
-        print(chr(char) + standard_row + '|')
-    print(f" BOMBS AHOY!\n")
+    """
+    This function will build a sequence of lists which shall then be used,
+    later in this script to print the playing area of the game to the terminal.
+    """
+    global game_grid
+    # set rows and columns to the returned grid_level int.
+    rows, columns = (grid_level, grid_level)
+
+    # Create an empty list for the playing area
+    game_grid = []
+
+    # loop through the number of rows 
+    for row in range(rows):
+        row = []
+        # for every column append a wave 
+        for col in range(columns):
+            row.append(ocean_wave)
+        # append the return lists to the game_grid variable
+        game_grid.append(row)
+
+
+def print_play_area():
+    global game_grid
+
+    characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    game_size = characters[0: len(game_grid) + 1]
+
+    print("  BOMBS AHOY!  ")
+    
+
+    for row in range(len(game_grid)):
+        print(characters[row], end="| ")
+        for col in range(len(game_grid[row])):
+            if game_grid[row][col] == "O":
+                print(ocean_wave, end=" ")
+            else:
+                print(game_grid[row][col], end=" ")
+        print("")
 
 
 # main function
 def main():
     setGridLevel()
     make_grid(ocean_wave, grid_level)
+    print_play_area()
 
 main()
