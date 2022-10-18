@@ -1,4 +1,5 @@
-from random import randint
+import random
+import snoop
 
 # Global variable for the grid
 game_grid = [[]]
@@ -70,10 +71,9 @@ def make_grid():
         game_grid.append(row)
         hit_tracker.append(row)
 
-
 def print_play_area():
     # global game_grid
-
+    debug_mode = False
     # create a string of the alphabet to be used as coordiantes
     characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     print("   BOMBS AHOY!")
@@ -84,7 +84,10 @@ def print_play_area():
         for col in range(len(game_grid[row])):
             # this code will check for the placement of a ship 
             if game_grid[row][col] == "O":
-                print(ocean_wave, end=" ")
+                if debug_mode:
+                    print("O", end=" ")
+                else:
+                    print(ocean_wave, end=" ")
             else:
                 print(game_grid[row][col], end=" ")
         print("")
@@ -97,7 +100,6 @@ def print_play_area():
 
 def build_ships():
     global grid_level
-    global hit_tracker
 
     ships_to_place = 0
     enemy_counter = 0
@@ -112,16 +114,18 @@ def build_ships():
     while enemy_counter != ships_to_place:
         heading = random.choice(["north", "south", "east", "west"])
         latitude = random.randint(0, grid_level - 1)
-        random_col = random.randint(0, grid_level - 1)
+        longitude = random.randint(0, grid_level - 1)
         if grid_level < 4:
             ship_size = random.randint(1, 2)
         elif grid_level > 4 and grid_level < 8:
             ship_size = random.randint(1, 4)
         elif grid_level > 8:
             ship_size = random.randint(1, 5)
+        if place_ship(latitude, longitude, heading, ship_size):
+            enemy_counter += 1
 
 
-# main function
+
 def main():
     setGridLevel()
     make_grid()
