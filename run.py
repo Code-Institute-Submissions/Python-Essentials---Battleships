@@ -95,6 +95,42 @@ def build_ships(grid_level, game_grid, hit_tracker):
             enemy_counter += 1
 
 
+def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tracker):
+    # the variables below define where to begin 
+    # and end the placement of the ships
+    lat_start = latitude
+    lat_end = latitude + 1
+    long_start = longitude
+    long_end = longitude + 1 
+    # if the randomly generated heading is north
+    if heading == "north":
+        # check is the length generated for the ship is less than 0  
+        if latitude - size < 0:
+            # returns false to prevent placement off grid
+            return False
+        # if true will set the starting latitude of the ship to the 
+        # length of the latitude row, minus the size of the ship but plus 1 
+        lat_start = latitude - size + 1
+
+    elif heading == "east":
+        if longitude + size >= grid_level:
+            return False
+        long_end = longitude + size
+    
+    elif heading == "south":
+        if latitude + size >= grid_level:
+            return False
+        lat_end = latitude + size
+
+    if heading == "west":
+        if longitude - size < 0:
+            return False
+        long_start = longitude - size + 1
+
+
+    return validate_grid_and_place_ship(lat_start, lat_end, long_start, long_end, game_grid, hit_tracker)
+
+
 def print_play_area(game_grid):
     debug_mode = True
     # create a string of the alphabet to be used as coordiantes
