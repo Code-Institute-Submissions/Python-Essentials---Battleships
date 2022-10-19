@@ -1,14 +1,6 @@
 import random
 import snoop
-
-# # Global variable for the grid
-# game_grid = [[]]
-# # Global variable for the grid copy to track ships 
-# hit_tracker = [[]]
-# # Global variable for the grid size
-# grid_size = 0
-# # Global variable for the grid level
-# grid_level = 0
+import time
 
 
 def setGridLevel(): 
@@ -69,33 +61,49 @@ def make_grid(grid_level):
     build_ships(grid_level, game_grid, hit_tracker)
     print_play_area(game_grid, grid_level)
 
-
+@snoop
 def build_ships(grid_level, game_grid, hit_tracker):
-
+    """
+    This function shall take in the grid_level, this value is then used to determine the
+    amount of enemy ships to place on the grid, and the particular size of those ships. 
+    the location and direction of these ships is handled randomly via the random import.
+    These locations are than passed into a seperate function to confirm if they can fit into 
+    that particular detination within the game_grid. The function tracks how many ships have been 
+    placed and shall continue placing ships until the required figure has been reached. 
+    """
+    # below set the variables for the amoutn of ships to place and the amount currently placed
     ships_to_place = 0
     enemy_counter = 0
 
-    if grid_level < 4:
-        ships_to_place = 2
+    # the if elif statement below will cahgne the amount of ships to place 
+    # based on the level input by the user
+    if grid_level <= 4:
+        ships_to_place = 1
     elif grid_level > 4 and grid_level < 8:
-        ships_to_place = 5
-    elif grid_level > 8:
-        ships_to_place = 7
+        ships_to_place = 1
+    elif grid_level >= 8:
+        ships_to_place = 1
 
+    # while the amount of ships placed is NOT equal to the amount of ships to BE placed the
+    # script below shall continue to generate random locations for ship placement
     while enemy_counter != ships_to_place:
         heading = random.choice(["north", "south", "east", "west"])
         latitude = random.randint(0, grid_level - 1)
         longitude = random.randint(0, grid_level - 1)
-        if grid_level < 4:
+        # the if elif statement below will change the size of ships being placed
+        # based on the level input by the user
+        if grid_level <= 4:
             ship_size = random.randint(1, 2)
         elif grid_level > 4 and grid_level < 8:
             ship_size = random.randint(1, 4)
-        elif grid_level > 8:
+        elif grid_level >= 8:
             ship_size = random.randint(1, 5)
+        # once the location, size and direction of the ship are determined, these are passed through
+        # to a seperate funtion thats uses these values to pinpoint a valid location on the grid for ship placement.
         if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid, hit_tracker):
             enemy_counter += 1
 
-
+@snoop
 def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tracker):
     # the variables below define where to begin 
     # and end the placement of the ships
@@ -136,12 +144,12 @@ def print_play_area(game_grid, grid_level):
     debug_mode = True
     # create a string of the alphabet to be used as coordiantes
     characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    if grid_level < 4:
+    if grid_level <= 4:
         print("Two enemies detected! Must be a scouting party.")
     elif grid_level > 4 and grid_level < 8:
         print("Our sonar has detected five enemy vessels!")
         print("")
-    elif grid_level > 8:
+    elif grid_level >= 8:
         print("Our sonar has detected a fleet of 7 ships!")
     # print("   BOMBS AHOY!")
     # for each row within game grid, print the corresponding letter.
