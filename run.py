@@ -51,13 +51,14 @@ def make_grid(grid_level):
     This function will build a sequence of lists which shall then be used,
     later in this script to print the playing area of the game to the terminal.
     """
-    game_grid = [[]]
-    hit_tracker = [[]]
+    
     # set rows and columns to the returned grid_level int.
     rows, columns = (grid_level, grid_level)
-
+    # setup empty lists to hold the printed game area and as a method to track shots later
+    game_grid = []
+    hit_tracker = []
     # loop through the number of rows 
-    for row in range(rows):
+    for r in range(rows):
         row = []
         # for every column append a wave 
         for col in range(columns):
@@ -66,7 +67,7 @@ def make_grid(grid_level):
         game_grid.append(row)
         hit_tracker.append(row)
     build_ships(grid_level, game_grid, hit_tracker)
-    print_play_area(game_grid)
+    print_play_area(game_grid, grid_level)
 
 
 def build_ships(grid_level, game_grid, hit_tracker):
@@ -131,11 +132,18 @@ def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tr
     return validate_grid_and_place_ship(lat_start, lat_end, long_start, long_end, game_grid, hit_tracker)
 
 
-def print_play_area(game_grid):
+def print_play_area(game_grid, grid_level):
     debug_mode = True
     # create a string of the alphabet to be used as coordiantes
     characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    print("   BOMBS AHOY!")
+    if grid_level < 4:
+        print("Two enemies detected! Must be a scouting party.")
+    elif grid_level > 4 and grid_level < 8:
+        print("Our sonar has detected five enemy vessels!")
+        print("")
+    elif grid_level > 8:
+        print("Our sonar has detected a fleet of 7 ships!")
+    # print("   BOMBS AHOY!")
     # for each row within game grid, print the corresponding letter.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
@@ -154,6 +162,7 @@ def print_play_area(game_grid):
     print("  ", end=" ")
     for num in range(len(game_grid)):
         print(str(num), end=" ")
+    print("")
     print("")
 
 
