@@ -5,7 +5,11 @@ import time
 
 grid_level = 0
 game_grid = []
+hit_tracker = []
 characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+enemy_counter = 0
+kills = 0
+game_start = True
 
 def setGridLevel(): 
     """
@@ -44,12 +48,14 @@ def setGridLevel():
 
 def fire_cannons():
     global game_grid
+    global kills
 
     game_running = True
     while game_running: 
         valid_target = False
         while not valid_target:
-            target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1': ")
+            target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1':")
+            print("")
             target = target.upper()
             if len(target) <= 0 or len(target) > 2:
                 print("Misfire! Please enter only one alphabetical character followed by a number e.g. 'A1'")
@@ -58,28 +64,38 @@ def fire_cannons():
             long = target[1]
             if not lat.isalpha() or not long.isnumeric():
                 print("Misfire! For the Latitude, please enter a letter. For the Longtitude please enter a Number e.g. 'A1'")
+                print("")
                 continue
             lat = characters.find(lat)
             if not (-1 < lat < grid_level):
                 print("Misfire! That letter is not on the grid! Please enter a valid letter.")
+                print("")
                 continue
             long = int(long)
             if not (-1 < long < grid_level):
                 print("Misfire! The number you entered is not on the grid! Please enter a valid number.")
+                print("")
                 continue
             if game_grid[lat][long] in ["#", "X"]:
                 print("You've hit this location already Captain! Fire again!")
+                print("")
                 continue
             if game_grid[lat][long] in ["~", "O"]:
                 valid_target = True
 
         if game_grid[lat][long] == "~":
             print("Captain! Our shot missed! Fire another round!")
+            print("")
             game_grid[lat][long] = "#"
         elif game_grid[lat][long] == "O":
-            print("That's a direct hit! Well done Captian!", end=" ")
+            print("That's a direct hit! Well done Captian!")
+            print("")
             game_grid[lat][long] = "X"
+            if track_kills(lat, long):
+                kills +=1
+        
         print_play_area(game_grid, grid_level)
+        
 
 
 def make_grid(grid_level):
@@ -90,20 +106,16 @@ def make_grid(grid_level):
     global game_grid
     # set rows and columns to the returned grid_level int.
     rows, columns = (grid_level, grid_level)
-    # setup empty lists to hold the printed game area and as a method to track shots later
-    # game_grid = []
-    hit_tracker = []
     # loop through the number of rows
     for _ in range(rows):
         row = ["~" for _ in range(columns)]
         # append the return lists to the game_grid variable
         game_grid.append(row)
-        hit_tracker.append(row)
-    build_ships(grid_level, game_grid, hit_tracker)
+    build_ships(grid_level, game_grid)
     print_play_area(game_grid, grid_level)
 
 
-def build_ships(grid_level, game_grid, hit_tracker):
+def build_ships(grid_level, game_grid):
     """
     This function shall take in the grid_level, this value is then used to determine the
     amount of enemy ships to place on the grid, and the particular size of those ships. 
@@ -113,8 +125,7 @@ def build_ships(grid_level, game_grid, hit_tracker):
     placed and shall continue placing ships until the required figure has been reached. 
     """
     # below set the variables for the amoutn of ships to place and the amount currently placed
-    ships_to_place = 0
-    enemy_counter = 0
+    global enemy_counter
 
     ships_to_place = 1
     # while the amount of ships placed is NOT equal to the amount of ships to BE placed the
@@ -127,17 +138,20 @@ def build_ships(grid_level, game_grid, hit_tracker):
         # based on the level input by the user
         if grid_level <= 4:
             ship_size = random.randint(1, 2)
+            ships_to_place = 3
         elif grid_level < 8:
             ship_size = random.randint(1, 4)
+            ships_to_place = 5
         else:
             ship_size = random.randint(1, 5)
+            ships_to_place = 7
         # once the location, size and direction of the ship are determined, these are passed through
         # to a seperate funtion thats uses these values to pinpoint a valid location on the grid for ship placement.
-        if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid, hit_tracker):
+        if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid):
             enemy_counter += 1
 
 
-def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tracker):
+def place_ship(latitude, longitude, heading, size, grid_level, game_grid):
     """
     The goal of this function is to take in the overal positon of each ship, randomly generated by the build ship method
     then to check the game_grid lists to see if a ships location is valid, it so this method returns True.
@@ -148,6 +162,7 @@ def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tr
     
     If the position is valid, this method returns True and allows for the enemy counter in the build_ship method to increment by 1.
     """
+    global hit_tracker
     # the variables below define where to begin 
     # and end the placement of the ships
     lat_start = latitude
@@ -206,17 +221,32 @@ def place_ship(latitude, longitude, heading, size, grid_level, game_grid, hit_tr
 
 
 def print_play_area(game_grid, grid_level):
+    global game_start
+    global enemy_counter
+    global kills
     debug_mode = True
     # create a string of the alphabet to be used as coordiantes
     # characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    if grid_level <= 4:
-        print("Two enemies detected! Must be a scouting party.")
-    elif grid_level < 8:
-        print("Our sonar has detected five enemy vessels!")
-        print("")
+    if game_start:
+        if grid_level <= 4:
+            print("Two enemies detected! Must be a scouting party.")
+            print("")
+            game_start = False
+        elif grid_level < 8:
+            print("Our sonar has detected five enemy vessels!")
+            print("")
+            game_start = False
+        else:
+            print("Our sonar has detected a fleet of 7 ships!")
+            print("")
+            game_start = False
     else:
-        print("Our sonar has detected a fleet of 7 ships!")
-    # print("   BOMBS AHOY!")
+        if enemy_counter - kills <= 1:
+            print("Only the one left Captain! Let's finish this and salvage the wreckage!")
+            print("")
+        else:
+            print(f"Looks like there are {(enemy_counter-kills)} ships left on the battlefield!")
+            print("")
     # for each row within game grid, print the corresponding letter.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
@@ -240,6 +270,21 @@ def print_play_area(game_grid, grid_level):
     print("")
     print("")
 
+@snoop
+def track_kills(lat, long):
+    global hit_tracker
+    global game_grid
+
+    for hit in hit_tracker:
+        lat_start = hit[0]
+        lat_end = hit[1]
+        long_start = hit[2]
+        long_end = hit[3]
+        if lat_start <= lat <= lat_end and long_start <= long <= long_end:
+            for r, c in itertools.product(range(lat_start, lat_end), range(long_start, long_end)):
+                if game_grid[r][c] != "X":
+                    return False
+    return True
 
 
 def main():
