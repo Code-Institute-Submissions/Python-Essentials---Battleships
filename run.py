@@ -115,15 +115,7 @@ def build_ships(grid_level, game_grid, hit_tracker):
     ships_to_place = 0
     enemy_counter = 0
 
-    # the if elif statement below will cahgne the amount of ships to place 
-    # based on the level input by the user
-    if grid_level <= 4:
-        ships_to_place = 1
-    elif grid_level > 4 and grid_level < 8:
-        ships_to_place = 1
-    elif grid_level >= 8:
-        ships_to_place = 1
-
+    ships_to_place = 1
     # while the amount of ships placed is NOT equal to the amount of ships to BE placed the
     # script below shall continue to generate random locations for ship placement
     while enemy_counter != ships_to_place:
@@ -134,9 +126,9 @@ def build_ships(grid_level, game_grid, hit_tracker):
         # based on the level input by the user
         if grid_level <= 4:
             ship_size = random.randint(1, 2)
-        elif grid_level > 4 and grid_level < 8:
+        elif grid_level < 8:
             ship_size = random.randint(1, 4)
-        elif grid_level >= 8:
+        else:
             ship_size = random.randint(1, 5)
         # once the location, size and direction of the ship are determined, these are passed through
         # to a seperate funtion thats uses these values to pinpoint a valid location on the grid for ship placement.
