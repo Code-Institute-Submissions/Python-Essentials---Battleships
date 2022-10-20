@@ -47,7 +47,7 @@ def fire_cannons():
     game_running = True
     while game_running: 
         valid_target = False
-        while valid_target is False:
+        while not valid_target:
             target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1': ")
             target = target.upper()
             if len(target) <= 0 or len(target) > 2:
@@ -66,12 +66,12 @@ def fire_cannons():
             if not (-1 < long < grid_level):
                 print("Misfire! The number you entered is not on the grid! Please enter a valid number.")
                 continue
-            if game_grid[lat][long] == "#" or game_grid[lat][long] == "X":
+            if game_grid[lat][long] in ["#", "X"]:
                 print("You've hit this location already Captain! Fire again!")
                 continue
-            if game_grid[lat][long] == "~" or game_grid[lat][long] == "O":
+            if game_grid[lat][long] in ["~", "O"]:
                 valid_target = True
-        
+
         if game_grid[lat][long] == "~":
             print("Captain! Our shot missed! Fire another round!")
             game_grid[lat][long] = "#"
@@ -92,12 +92,9 @@ def make_grid(grid_level):
     # setup empty lists to hold the printed game area and as a method to track shots later
     # game_grid = []
     hit_tracker = []
-    # loop through the number of rows 
-    for r in range(rows):
-        row = []
-        # for every column append a wave 
-        for col in range(columns):
-            row.append("~")
+    # loop through the number of rows
+    for _ in range(rows):
+        row = ["~" for _ in range(columns)]
         # append the return lists to the game_grid variable
         game_grid.append(row)
         hit_tracker.append(row)
