@@ -211,10 +211,10 @@ def print_play_area(game_grid, grid_level):
     # characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if grid_level <= 4:
         print("Two enemies detected! Must be a scouting party.")
-    elif grid_level > 4 and grid_level < 8:
+    elif grid_level < 8:
         print("Our sonar has detected five enemy vessels!")
         print("")
-    elif grid_level >= 8:
+    else:
         print("Our sonar has detected a fleet of 7 ships!")
     # print("   BOMBS AHOY!")
     # for each row within game grid, print the corresponding letter.
@@ -236,9 +236,10 @@ def print_play_area(game_grid, grid_level):
 
     print("  ", end=" ")
     for num in range(len(game_grid)):
-        print(str(num), end=" ")
+        print(num, end=" ")
     print("")
     print("")
+
 
 
 def main():
