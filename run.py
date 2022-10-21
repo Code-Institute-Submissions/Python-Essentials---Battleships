@@ -2,6 +2,8 @@ import itertools
 import random
 import snoop
 import time
+import os
+
 
 grid_level = 0
 game_grid = []
@@ -12,6 +14,7 @@ enemy_power_level = 0
 power_level = 0
 game_start = True
 target_located = 0
+ammo = 30
 
 def setGridLevel(): 
     """
@@ -52,6 +55,7 @@ def fire_cannons():
     global game_grid
     global power_level
     global target_located
+    global ammo
 
     game_running = True
     while game_running: 
@@ -60,6 +64,7 @@ def fire_cannons():
             target_located = 0
             target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1':")
             print("")
+            os.system('cls' if os.name == 'nt' else 'clear')
             target = target.upper()
             if len(target) <= 0 or len(target) > 2:
                 print("Misfire! Please enter only one alphabetical character followed by a number e.g. 'A1'")
@@ -81,6 +86,7 @@ def fire_cannons():
                 print("")
                 continue
             if game_grid[lat][long] in ["#", "X"]:
+                ammo = ammo - 1
                 print("You've hit this location already Captain! Fire again!")
                 print("")
                 continue
@@ -88,16 +94,21 @@ def fire_cannons():
                 valid_target = True
 
         if game_grid[lat][long] == "~":
+            ammo = ammo - 1
             print("Captain! Our shot missed! Fire another round!")
             print("")
             game_grid[lat][long] = "#"
         elif game_grid[lat][long] == "O":
+            ammo = ammo - 1
+            # time.sleep(0.2)
             print("That's a direct hit! Well done Captian!")
             print("")
             game_grid[lat][long] = "X"
             # time.sleep(1)
             if track_kills(lat, long):
-                print("That's a vessel sunk Captain!")
+                # time.sleep(0.2)
+                print("That's a vessel sunk!")
+                print("")
                 power_level = power_level + 1
         
         print_play_area(game_grid, grid_level)
@@ -157,8 +168,6 @@ def build_ships(grid_level, game_grid):
         if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid):
             enemy_counter = enemy_counter + 1
             enemy_power_level += ship_size
-            print(f"Enemy Number is: {enemy_counter}")
-            print(f"Enemy Power level is:{enemy_power_level}")
 
 
 def place_ship(latitude, longitude, heading, size, grid_level, game_grid):
@@ -248,7 +257,6 @@ def print_play_area(game_grid, grid_level):
         game_start = False
     else:
         tracker = enemy_counter - power_level
-        print(tracker)
         if tracker <= 1:
             print("The battle is ours!")
         elif tracker < 3:
@@ -256,11 +264,11 @@ def print_play_area(game_grid, grid_level):
         elif tracker == 3:
             print("The battle could be over soon, brace!")
         elif tracker >= 4:
+            # time.sleep(0.2)
             print("It's not over yet, stay frosty!")
         else:
             print("The enemy approaches, ready the cannons!")
         print("")
-        print(tracker)
     # for each row within game grid, print the corresponding letter.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
@@ -309,11 +317,52 @@ def ship_located():
     global enemy_power_level
     global enemy_counter
     global target_located
+    global ammo
 
     if target_located == 0:
         enemy_power_level = enemy_power_level - 1
         print(enemy_power_level)
         target_located = target_located + 1
+    if enemy_power_level == 0:
+        win_game()
+    elif ammo == 0 and enemy_power_level > 0:
+        loose_game()
+        
+
+def win_game():
+
+    print("im a winner")
+    replay = input(f"Well done for beating Level: {grid_level}\nWould you like to play again? Y/N")
+    replay = replay.upper()
+
+    if replay == "Y":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("python run.py")
+        exit()
+
+    if replay == "N":
+        exit()
+
+    else:
+        print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+
+
+def loose_game():
+    print("you lost")
+
+    replay = input(f"GAME OVER\nYou failed level: {grid_level}\nWould you like to play again? Y/N")
+    replay = replay.upper()
+
+    if replay == "Y":
+        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system("python run.py")
+        exit()
+
+    if replay == "N":
+        exit()
+
+    else:
+        print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
 
 
 def main():
