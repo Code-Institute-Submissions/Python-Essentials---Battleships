@@ -11,6 +11,7 @@ enemy_counter = 0
 enemy_power_level = 0
 power_level = 0
 game_start = True
+target_located = 0
 
 def setGridLevel(): 
     """
@@ -50,11 +51,13 @@ def setGridLevel():
 def fire_cannons():
     global game_grid
     global power_level
+    global target_located
 
     game_running = True
     while game_running: 
         valid_target = False
         while not valid_target:
+            target_located = 0
             target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1':")
             print("")
             target = target.upper()
@@ -94,7 +97,8 @@ def fire_cannons():
             game_grid[lat][long] = "X"
             # time.sleep(1)
             if track_kills(lat, long):
-                power_level +=1
+                print("That's a vessel sunk Captain!")
+                power_level = power_level + 1
         
         print_play_area(game_grid, grid_level)
         
@@ -151,9 +155,10 @@ def build_ships(grid_level, game_grid):
         # once the location, size and direction of the ship are determined, these are passed through
         # to a seperate funtion thats uses these values to pinpoint a valid location on the grid for ship placement.
         if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid):
-            enemy_counter += 1
+            enemy_counter = enemy_counter + 1
             enemy_power_level += ship_size
-            print(enemy_power_level)
+            print(f"Enemy Number is: {enemy_counter}")
+            print(f"Enemy Power level is:{enemy_power_level}")
 
 
 def place_ship(latitude, longitude, heading, size, grid_level, game_grid):
@@ -235,31 +240,27 @@ def print_play_area(game_grid, grid_level):
     if game_start:
         if grid_level <= 4:
             print("Two enemies detected! Must be a scouting party.")
-            print("")
-            game_start = False
         elif grid_level < 8:
             print("Our sonar has detected five enemy vessels!")
-            print("")
-            game_start = False
         else:
             print("Our sonar has detected a fleet of 7 ships!")
-            print("")
-            game_start = False
+        print("")
+        game_start = False
     else:
-        if enemy_counter - power_level <= 1:
-            print("Only the one left Captain! Let's finish this and salvage the wreckage!")
-            print("")
-        elif enemy_counter - power_level > 1:
+        tracker = enemy_counter - power_level
+        print(tracker)
+        if tracker <= 1:
+            print("The battle is ours!")
+        elif tracker < 3:
+            print("Their forces are weak!")
+        elif tracker == 3:
             print("The battle could be over soon, brace!")
-            print("")
-            # print(enemy_counter)
-            # print(power_level)
-        elif enemy_counter - power_level > 3:
+        elif tracker >= 4:
             print("It's not over yet, stay frosty!")
-            print("")
         else:
             print("The enemy approaches, ready the cannons!")
-            print("")
+        print("")
+        print(tracker)
     # for each row within game grid, print the corresponding letter.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
@@ -283,34 +284,36 @@ def print_play_area(game_grid, grid_level):
     print("")
     print("")
 
-@snoop
+
 def track_kills(lat, long):
     global hit_tracker
     global game_grid
-    global enemy_power_level
-    ship_found = False
 
     for hit in hit_tracker:
         lat_start = hit[0]
         lat_end = hit[1]
         long_start = hit[2]
         long_end = hit[3]
-        ship_found = True
+
         if lat_start <= lat <= lat_end and long_start <= long <= long_end:
-            
+            ship_located()
+
             for r, c in itertools.product(range(lat_start, lat_end), range(long_start, long_end)):
                 if game_grid[r][c] != "X":
-                    if ship_found:
-                        enemy_power_level = enemy_power_level - 1
-                        print(enemy_power_level)
-                    ship_found = False
                     return False
-                if ship_found:
-                    enemy_power_level = enemy_power_level - 1
-                    print(enemy_power_level)
-                    ship_found = False
 
     return True
+
+
+def ship_located():
+    global enemy_power_level
+    global enemy_counter
+    global target_located
+
+    if target_located == 0:
+        enemy_power_level = enemy_power_level - 1
+        print(enemy_power_level)
+        target_located = target_located + 1
 
 
 def main():
