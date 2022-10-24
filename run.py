@@ -64,10 +64,11 @@ def fire_cannons():
             target_located = 0
             target = input(f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1':")
             print("")
-            os.system('cls' if os.name == 'nt' else 'clear')
+            
             target = target.upper()
             if len(target) <= 0 or len(target) > 2:
                 print("Misfire! Please enter only one alphabetical character followed by a number e.g. 'A1'")
+                print("")
                 continue
             lat = target[0]
             long = target[1]
@@ -92,6 +93,7 @@ def fire_cannons():
                 continue
             if game_grid[lat][long] in ["~", "O"]:
                 valid_target = True
+            os.system('cls' if os.name == 'nt' else 'clear')
 
         if game_grid[lat][long] == "~":
             ammo = ammo - 1
@@ -100,13 +102,10 @@ def fire_cannons():
             game_grid[lat][long] = "#"
         elif game_grid[lat][long] == "O":
             ammo = ammo - 1
-            # time.sleep(0.2)
             print("That's a direct hit! Well done Captian!")
             print("")
             game_grid[lat][long] = "X"
-            # time.sleep(1)
             if track_kills(lat, long):
-                # time.sleep(0.2)
                 print("That's a vessel sunk!")
                 print("")
                 power_level = power_level + 1
@@ -264,7 +263,6 @@ def print_play_area(game_grid, grid_level):
         elif tracker == 3:
             print("The battle could be over soon, brace!")
         elif tracker >= 4:
-            # time.sleep(0.2)
             print("It's not over yet, stay frosty!")
         else:
             print("The enemy approaches, ready the cannons!")
