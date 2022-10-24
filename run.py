@@ -3,7 +3,7 @@ import random
 import snoop
 import time
 import os
-
+from pyfiglet import Figlet
 
 grid_level = 0
 game_grid = []
@@ -15,6 +15,7 @@ power_level = 0
 game_start = True
 target_located = 0
 ammo = 30
+game_running = True
 
 def setGridLevel(): 
     """
@@ -56,8 +57,8 @@ def fire_cannons():
     global power_level
     global target_located
     global ammo
+    global game_running
 
-    game_running = True
     while game_running: 
         valid_target = False
         while not valid_target:
@@ -328,47 +329,80 @@ def ship_located():
         
 
 def win_game():
+    global game_running
 
-    print("im a winner")
-    replay = input(f"Well done for beating Level: {grid_level}\nWould you like to play again? Y/N")
-    replay = replay.upper()
+    game_running = False
 
-    if replay == "Y":
-        os.system('cls' if os.name == 'nt' else 'clear')
-        os.system("python run.py")
-        exit()
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-    if replay == "N":
-        exit()
+    f = Figlet(font='slant')
+    print(f.renderText("VICTORY"))
 
-    else:
-        print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+
+    while True:
+        try:
+            replay = input(f"Well done for beating Level: {grid_level}\n\nWould you like to play again? Y/N:\n")
+            replay = replay.upper()
+
+            if replay == "Y":
+                os.system('cls' if os.name == 'nt' else 'clear')
+                os.system("python run.py")
+                exit()
+            elif replay == "N":
+                exit()
+
+            else:
+                print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+                continue
+
+        except ValueError:
+            print(f"Your input is not valid, please input either Y or N.\n")
+            continue
+
+        else:
+            # if input is valid, print chosen level and return false to close the while loop
+            print(f"Reloading...\n")
+            return False
+
 
 
 def loose_game():
-    print("you lost")
+    global game_running
 
-    replay = input(f"GAME OVER\nYou failed level: {grid_level}\nWould you like to play again? Y/N")
-    replay = replay.upper()
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-    if replay == "Y":
-        os.system('cls' if os.name == 'nt' else 'clear')
-        os.system("python run.py")
-        exit()
+    f = Figlet(font='slant')
+    print(f.renderText("GAME OVER"))
 
-    if replay == "N":
-        exit()
 
-    else:
-        print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+    while True:
+        try:
+            replay = input(f"You failed level: {grid_level}\n\nWould you like to play again? Y/N")
+            replay = replay.upper()
 
+            if replay == "Y":
+                os.system('cls' if os.name == 'nt' else 'clear')
+                os.system("python run.py")
+                exit()
+            elif replay == "N":
+                exit()
+
+            else:
+                print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+                continue
+
+        except ValueError:
+            print(f"Your input is not valid, please input either Y or N.\n")
+            continue
+
+        else:
+            # if input is valid, print chosen level and return false to close the while loop
+            print(f"Reloading...\n")
+            return False
 
 def main():
     setGridLevel()
     fire_cannons()
-    # make_grid()
-    # # build_ships()
-    # print_play_area()
     
 
 main()
