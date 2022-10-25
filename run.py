@@ -18,106 +18,198 @@ ammo = 30
 game_running = True
 
 
-def setGridLevel():
+def set_grid_level():
     """
-    This function shall fire first and shall welcome the user to the game
-    and request that they input a number between 3 and 10.
-    This figure is used to set how difficult the game shall be
-    by altering the size of the playable grid. The code will validate
-    the user input by checking if the figure is an integer, equal to
-    or less then 3 and equal too or less than 10.
+    This method is called first in main its purpose is
+    to welcome the user to the game and request
+    that they input a number between 3 and 10.
+    This figure is used to set how difficult
+    the game shall be by altering the size of
+    the playable grid. The code will validate
+    the user input by checking if the figure is
+    an integer, equal to or less then 3 and equal
+    too or less than 10.
     """
     global grid_level
 
     while True:
         try:
             # get an integer from 3 to 10 from user
-            grid_level = int(input("Enter a number from 3 - 10 to set the level."))
+            grid_level = int(input("Enter a number from 3 - 10."))
             print("")
 
             # check if input is between 3 and 10 if yes call make_grid
+            # pass in the captured input
             if grid_level >= 3 and grid_level <= 10:
                 print("Setting difficulty...")
                 print("")
                 make_grid(grid_level)
 
             else:
-                print("Your input is not within range, please input a number from 3 to 10.")
+                # if not within range, confirm not valid
+                # and restart
+                print("Your input is not valid, input a number from 3 to 10.")
                 print("")
                 continue
 
-        # print valueError is input is not a an integer and restart loop
+        # check if input is an integer, if not confirm not valid
+        # and restart
         except ValueError:
-            print("Your input is not valid, please input an integer from 3 to 10.")
+            print("Your input is not valid, input an integer from 3 to 10.")
             print("")
             continue
 
         else:
-            # if input is valid, print chosen level and return false to close the while loop
+            # if input is valid, print chosen level and
+            # return false to close the loop
             print(f"You selected Level {grid_level}. Game Ready.\n")
             return False
 
 
 def fire_cannons():
+    """
+    This method is called once the user has input
+    a level and the grid has been printed to the
+    terminal. The program will request an input
+    from the user to confirm the location on the
+    grid in which they suspect to find a vessel.
+    the input is passed through various layers of
+    validation to confirm if it is a valid location
+    and to check if that particular location has been
+    either fired upon already, is a miss, or a direct
+    hit.
+    """
     global game_grid
     global power_level
     global target_located
     global ammo
     global game_running
 
+    # creates a loop that shall run until
+    # an engame situation occurs
     while game_running:
+
+        # creates a variable for later use
         valid_target = False
+
+        # while valid_target is false the following
+        # loop occurs
         while not valid_target:
+
+            # the variable below is used to ensure 
+            # that a valid hit to a new target counts
+            # for only a 1 point deduction of enemy_power_level
+            # without this a bug can cause a 2 point deduction.
             target_located = 0
-            target = input
-            (f"To make your shot, enter a Latitude: {characters[0]}-{characters[grid_level-1]}. Then a Longitude from: 0-{grid_level-1} such as 'A1':")
+
+            # requst an input from user
+            print("To make your shot...")
+            print(f"Enter a Latitude {characters[0]} - {characters[grid_level-1]}.")
+            target = input(f"Then a Longitude from: 0 - {grid_level-1} such as A1:")
             print("")
 
+            # incase of lower case input, convert to uppercase
             target = target.upper()
+
+            # if the user input is less than or equal to 0
+            # or greater than 2 in length, invalidate and
+            # restart
             if len(target) <= 0 or len(target) > 2:
-                print("Misfire! Please enter only one alphabetical character followed by a number e.g. 'A1'")
+                print("Misfire!")
+                print("Please enter only one alphabetical character...")
+                print("Followed by a number e.g. 'A1'")
                 print("")
                 continue
+
+            # if input length is valid, set lat to input
+            # prefix and long to suffix
             lat = target[0]
             long = target[1]
+
+            # if prefix not alphabetical and suffix
+            # not numeric, invalidate and restart
             if not lat.isalpha() or not long.isnumeric():
-                print("Misfire! For the Latitude, please enter a letter. For the Longtitude please enter a Number e.g. 'A1'")
+                print("Misfire!")
+                print("For the Latitude, please enter a letter...")
+                print("For the Longtitude please enter a Number e.g. 'A1'")
                 print("")
                 continue
+
+            # creates a string from the input prefix
             lat = characters.find(lat)
+
+            # check if the input prefix is a character
+            # on the current grid printed. If not
+            # invalidate and restart.
             if not (-1 < lat < grid_level):
-                print("Misfire! That letter is not on the grid! Please enter a valid letter.")
+                print("Misfire!")
+                print("That letter is not on the grid!..")
+                print("Please enter a valid letter.")
                 print("")
                 continue
+
+            # creates an integer from the input suffix
             long = int(long)
+
+            # check if the input prefix is a integer
+            # on the current grid printed. If not
+            # invalidate and restart.
             if not (-1 < long < grid_level):
-                print("Misfire! The number you entered is not on the grid! Please enter a valid number.")
+                print("Misfire!")
+                print("The number entered is not valid! Enter a valid number.")
                 print("")
                 continue
+
+            # if all valid, check if the location has been hit already
             if game_grid[lat][long] in ["#", "X"]:
+
+                # if yes, lower the current ammo count
                 ammo = ammo - 1
                 print("You've hit this location already Captain! Fire again!")
                 print("")
+
+                # then restart
                 continue
+
+            # if the input lands on either open water or 
+            # an enemy ship, set valid_target to true to
+            # close the looping request
             if game_grid[lat][long] in ["~", "O"]:
                 valid_target = True
+
+            # clears the terminal to prevent long flowing readouts
             os.system('cls' if os.name == 'nt' else 'clear')
 
+        # once target confirmed valid if open water,
+        # annouce a miss and reduce ammo count
         if game_grid[lat][long] == "~":
             ammo = ammo - 1
             print("Captain! Our shot missed! Fire another round!")
             print("")
+
+            # then alter the value for that position in the grid
+            # to reflect the miss to the user
             game_grid[lat][long] = "#"
+
+        # once target confirmed valid if enemy ship,
+        # annouce a hit and reduce ammo count
         elif game_grid[lat][long] == "O":
             ammo = ammo - 1
             print("That's a direct hit! Well done Captian!")
             print("")
             game_grid[lat][long] = "X"
+
+            # pass the chosen location to a method
+            # that will check if the entire ship placed
+            # in that location has been hit. if so
+            # annouce sunk and increment power_level.
             if track_kills(lat, long):
                 print("That's a vessel sunk!")
                 print("")
                 power_level = power_level + 1
 
+        # finally reprint the grid with the updated
+        # hit or miss so the user can track their hits.
         print_play_area(game_grid, grid_level)
 
 
@@ -405,7 +497,7 @@ def loose_game():
 
 
 def main():
-    setGridLevel()
+    set_grid_level()
     fire_cannons()
 
 
