@@ -30,6 +30,7 @@ def set_grid_level():
     an integer, equal to or less then 3 and equal
     too or less than 10.
     """
+    # Must access the grid_level global variable.
     global grid_level
 
     while True:
@@ -79,6 +80,8 @@ def fire_cannons():
     either fired upon already, is a miss, or a direct
     hit.
     """
+    # must be able to read from and change the
+    # following globals.
     global game_grid
     global power_level
     global target_located
@@ -96,17 +99,16 @@ def fire_cannons():
         # loop occurs
         while not valid_target:
 
-            # the variable below is used to ensure 
+            # the variable below is used to ensure
             # that a valid hit to a new target counts
             # for only a 1 point deduction of enemy_power_level
             # without this a bug can cause a 2 point deduction.
             target_located = 0
 
             # requst an input from user
-            print("To make your shot...")
-            print(f"Enter a Latitude {characters[0]} - {characters[grid_level-1]}.")
-            target = input(f"Then a Longitude from: 0 - {grid_level-1} such as A1:")
-            print("")
+            print("To make your shot", end = '')
+            print(f" enter a Latitude {characters[0]} - {characters[grid_level-1]}.", end = '')
+            target = input(f" Then a Longitude from: 0 - {grid_level-1} such as A1:\n")
 
             # incase of lower case input, convert to uppercase
             target = target.upper()
@@ -116,9 +118,8 @@ def fire_cannons():
             # restart
             if len(target) <= 0 or len(target) > 2:
                 print("Misfire!")
-                print("Please enter only one alphabetical character...")
-                print("Followed by a number e.g. 'A1'")
-                print("")
+                print("Please enter only one alphabetical character", end = '')
+                print(f" followed by a number e.g. 'A1'\n")
                 continue
 
             # if input length is valid, set lat to input
@@ -130,9 +131,8 @@ def fire_cannons():
             # not numeric, invalidate and restart
             if not lat.isalpha() or not long.isnumeric():
                 print("Misfire!")
-                print("For the Latitude, please enter a letter...")
-                print("For the Longtitude please enter a Number e.g. 'A1'")
-                print("")
+                print("For the Latitude, please enter a letter", end = '')
+                print(f" for the Longtitude please enter a Number e.g. 'A1'\n")
                 continue
 
             # creates a string from the input prefix
@@ -143,9 +143,8 @@ def fire_cannons():
             # invalidate and restart.
             if not (-1 < lat < grid_level):
                 print("Misfire!")
-                print("That letter is not on the grid!..")
-                print("Please enter a valid letter.")
-                print("")
+                print("That letter is not on the grid!", end = '')
+                print(f" Please enter a valid letter.\n")
                 continue
 
             # creates an integer from the input suffix
@@ -156,8 +155,7 @@ def fire_cannons():
             # invalidate and restart.
             if not (-1 < long < grid_level):
                 print("Misfire!")
-                print("The number entered is not valid! Enter a valid number.")
-                print("")
+                print(f"The number entered is not valid! Enter a valid number.\n")
                 continue
 
             # if all valid, check if the location has been hit already
@@ -165,8 +163,7 @@ def fire_cannons():
 
                 # if yes, lower the current ammo count
                 ammo = ammo - 1
-                print("You've hit this location already Captain! Fire again!")
-                print("")
+                print(f"You've hit this location already Captain! Fire again!\n")
 
                 # then restart
                 continue
@@ -184,8 +181,7 @@ def fire_cannons():
         # annouce a miss and reduce ammo count
         if game_grid[lat][long] == "~":
             ammo = ammo - 1
-            print("Captain! Our shot missed! Fire another round!")
-            print("")
+            print(f"Captain! Our shot missed! Fire another round!\n")
 
             # then alter the value for that position in the grid
             # to reflect the miss to the user
@@ -195,8 +191,7 @@ def fire_cannons():
         # annouce a hit and reduce ammo count
         elif game_grid[lat][long] == "O":
             ammo = ammo - 1
-            print("That's a direct hit! Well done Captian!")
-            print("")
+            print(f"That's a direct hit! Well done Captian!\n")
             game_grid[lat][long] = "X"
 
             # pass the chosen location to a method
@@ -204,8 +199,7 @@ def fire_cannons():
             # in that location has been hit. if so
             # annouce sunk and increment power_level.
             if track_kills(lat, long):
-                print("That's a vessel sunk!")
-                print("")
+                print(f"That's a vessel sunk!\n")
                 power_level = power_level + 1
 
         # finally reprint the grid with the updated
@@ -215,18 +209,33 @@ def fire_cannons():
 
 def make_grid(grid_level):
     """
-    This function will build a sequence of lists which shall then be used,
-    later in this script to print the playing area of the game to the terminal.
+    This method is called once the user has chosen a level
+    its purpose is to build a sequence of lists which shall
+    then be appended to the game_grid for later printing.
+    when the grid has been made, this method calls the
+    build_ships method to assing boat positions. Then
+    calls print_game_grid.
     """
+    # Must access the game_grid global variable.
     global game_grid
+
     # set rows and columns to the returned grid_level int.
     rows, columns = (grid_level, grid_level)
-    # loop through the number of rows
+
+    # add an ~ to every positon across the rows
+    # and columns of the grid.
     for _ in range(rows):
         row = ["~" for _ in range(columns)]
-        # append the return lists to the game_grid variable
+
+        # append the return lists to the game_grid
         game_grid.append(row)
+
+    # once grid has been created call the method to
+    # build and place ships on grid
     build_ships(grid_level, game_grid)
+
+    # once ships have been placed, call method to print
+    # the grid to the terminal.
     print_play_area(game_grid, grid_level)
 
 
@@ -239,18 +248,26 @@ def build_ships(grid_level, game_grid):
     that particular detination within the game_grid. The function tracks how many ships have been
     placed and shall continue placing ships until the required figure has been reached.
     """
-    # below set the variables for the amoutn of ships to place and the amount currently placed
+    # Must access the following
+    # global variables.
     global enemy_counter
     global enemy_power_level
 
+    # create a variable for the amount
+    # of enemy ships to place on grid.
     ships_to_place = 1
-    # while the amount of ships placed is NOT equal to the amount of ships to BE placed the
-    # script below shall continue to generate random locations for ship placement
+
+    # while the amount of ships placed is NOT equal
+    # to the amount of ships to BE placed the
+    # script below shall continue to generate
+    # random locations for ship placement
     while enemy_counter != ships_to_place:
         heading = random.choice(["north", "south", "east", "west"])
         latitude = random.randint(0, grid_level - 1)
         longitude = random.randint(0, grid_level - 1)
-        # the if elif statement below will change the size of ships being placed
+
+        # the if elif statement below will change
+        # the size of ships being placed
         # based on the level input by the user
         if grid_level <= 4:
             ship_size = 1
@@ -261,8 +278,12 @@ def build_ships(grid_level, game_grid):
         else:
             ship_size = random.randint(2, 5)
             ships_to_place = 6
-        # once the location, size and direction of the ship are determined, these are passed through
-        # to a seperate funtion thats uses these values to pinpoint a valid location on the grid for ship placement.
+
+        # once the location, size and direction of the ship
+        # are determined, these are passed through
+        # to the place_ship method thats uses these
+        # values to pinpoint a valid location on the
+        # grid for ship placement.
         if place_ship(latitude, longitude, heading, ship_size, grid_level, game_grid):
             enemy_counter = enemy_counter + 1
             enemy_power_level += ship_size
