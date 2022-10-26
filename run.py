@@ -412,19 +412,47 @@ def print_play_area(game_grid, grid_level):
 
 
 def track_kills(lat, long):
+    """
+    This method fires on the condition that the user
+    has performed a direct hit on an enemy vessel.
+    its purpose is to iterate through the track ship
+    positions in the hit_tracker global, checking if
+    they match against the users input. if so, the
+    ship_located method is called. On the condition
+    that the targetted ship's size is above 0, This
+    method will also confirm if the other sections
+    of the targetted ship have been hit, to confirm
+    a sunken vessel.
+    """
+    # Must access the following
+    # global variables.
     global hit_tracker
     global game_grid
 
+    # Assigns the list values from the hit_tracker global
+    # to variables
     for hit in hit_tracker:
         lat_start = hit[0]
         lat_end = hit[1]
         long_start = hit[2]
         long_end = hit[3]
 
+        # The code below will confirm if the users input
+        # matches a target on the hit tracker.
+        # and call the ship_located method if true.
         if lat_start <= lat <= lat_end and long_start <= long <= long_end:
             ship_located()
 
+            # the code below will check the list
+            # positions surrounding the targeted
+            # location, to confirm if the connected
+            # sections of the ship currently
+            # targeted have all been hit.
             for r, c in itertools.product(range(lat_start, lat_end), range(long_start, long_end)):
+
+                # If the list positions connected to the
+                # targeted ship are not X signifying a
+                # previous direct hit, return false.
                 if game_grid[r][c] != "X":
                     return False
 
@@ -432,17 +460,46 @@ def track_kills(lat, long):
 
 
 def ship_located():
+    """
+    This method is called on the condition that the users input
+    matches the location of a freshly targeted enemy ship.
+    its purpose is to check the current ammo count for the user,
+    to check and alter the current enemy_power_level, to call the
+    method to win or loose the game if conditions are met, or run
+    code to reduce the value asssigned to the enemy_power_level global.
+    which is neccesary for the game to accurately call a victory or game
+    over.
+    """
+    # Must access the following
+    # global variables.
     global enemy_power_level
     global enemy_counter
     global target_located
     global ammo
 
+    # The code below will only run if the value
+    # of the target_located variable is 0.
+    # This ensures the indented code runs only
+    # once per confirmed hit on target.
     if target_located == 0:
+
+        # Will reduce the value of enemy_power_level by 1
+        # to track for a winning situation.
         enemy_power_level = enemy_power_level - 1
-        print(enemy_power_level)
+
+        # Increments target_located by 1 to prevent
+        # running twice per hit target.
         target_located = target_located + 1
+
+    # If the value of enemy_power_level is equal to 0
+    # call the win_game method.    
     if enemy_power_level == 0:
         win_game()
+
+    # The code below will run if the value of the ammo
+    # global is 0 whilst the enemy_power_level is simultaneously
+    # greater than 0. This is to ensure that the users final shot
+    # can still win the game if it sinks the final target.
     elif ammo == 0 and enemy_power_level > 0:
         loose_game()
 
