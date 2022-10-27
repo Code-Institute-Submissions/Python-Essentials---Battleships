@@ -14,7 +14,7 @@ enemy_power_level = 0
 power_level = 0
 game_start = True
 target_located = 0
-ammo = 30
+ammo = 2
 game_running = True
 
 
@@ -101,12 +101,15 @@ def make_grid(grid_level):
 
 def build_ships(grid_level, game_grid):
     """
-    This function shall take in the grid_level, this value is then used to determine the
-    amount of enemy ships to place on the grid, and the particular size of those ships.
-    the location and direction of these ships is handled randomly via the random import.
-    These locations are than passed into a seperate function to confirm if they can fit into
-    that particular detination within the game_grid. The function tracks how many ships have been
-    placed and shall continue placing ships until the required figure has been reached.
+    This function shall take in the grid_level, this value is
+    then used to determine the amount of enemy ships to place
+    on the grid, and the particular size of those ships. The
+    location and direction of these ships is handled randomly
+    via the random import. These locations are than passed into
+    a seperate function to confirm if they can fit into that
+    particular detination within the game_grid. The function
+    tracks how many ships have been placed and shall continue
+    placing ships until the required figure has been reached.
     """
     # Must access the following
     # global variables.
@@ -219,12 +222,36 @@ def place_ship(latitude, longitude, heading, size, grid_level, game_grid):
 
 
 def print_play_area(game_grid, grid_level):
+    """
+    This method is called first once the game grid has
+    been created and populated with enemy ships. It is
+    later called by the fire_cannons method to reprint
+    a fresh grid to the terminal with a record of the
+    users shots/misses. Its purpose is to read the value
+    of the game_grid variable. Then print a Letter, a border
+    then a row of ~ symbols to symbolise the targetable area
+    it will detect if a ship has been hit and print an X.
+    it will detect if a shot has missed and print an #.
+    a cheat has been hidden within this method, debug_mode
+    which when activated will reveal the position of ships
+    on the grid with a O.
+    """
+    # Must access the following
+    # global variables.
     global game_start
     global enemy_counter
     global power_level
+
+    # This code is a toggle, for developers and
+    # assessors of the project, it can be changed
+    # to True. if so ship positions are revealed on
+    # the grid.
     debug_mode = True
-    # create a string of the alphabet to be used as coordiantes
-    # characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    # The code below will read the grid level chosen by
+    # the user and print a statement when the grid is printed
+    # for the first time, indicating how many enemies are on
+    # the grid.
     if game_start:
         if grid_level <= 4:
             print("Two enemies detected! Must be a scouting party.")
@@ -233,8 +260,14 @@ def print_play_area(game_grid, grid_level):
         else:
             print("Our sonar has detected a fleet of 7 ships!")
         print("")
+        # The line below ensures that the print statments above only
+        # occur on the first printing of the grid.
         game_start = False
+
     else:
+        # The code below keeps track of the current number
+        # of enemy vessels still on the grid. It shall print
+        # clue statements as an indictation of the users progress.
         tracker = enemy_counter - power_level
         if tracker <= 1:
             print("The battle is ours!")
@@ -247,23 +280,41 @@ def print_play_area(game_grid, grid_level):
         else:
             print("The enemy approaches, ready the cannons!")
         print("")
-    # for each row within game grid, print the corresponding letter.
+
+    # Begin printing the rows of the Grid, start with
+    # the alphabetical character beginning with A, and
+    # follow with a border |. Do this for every row of the grid.
     for row in range(len(game_grid)):
         print(characters[row], end="| ")
-        # then for every column in game_grid print the symbol representing a wave
+
+        # Then print the collumns of the grid, this is where ships
+        # are located and shots are made.
         for col in range(len(game_grid[row])):
-            # this code will check for the placement of a ship
+
+            # The code below will check to see if debug_mode
+            # is True, if so the ship locations as they are placed
+            # are revealed when the grid is printed to the terminal
+            # this allows assessors to confirm their placement.
             if game_grid[row][col] == "O":
                 if debug_mode:
                     print("O", end=" ")
                 else:
+                    # If debug is flase, the standard grid is
+                    # printed and the ships are hidden.
                     print("~", end=" ")
+
+            # If a ship has been hit, the grid is printed with
+            # an X to notify the user.
             elif game_grid[row][col] == "X":
                 print("X", end=" ")
             else:
                 print(game_grid[row][col], end=" ")
         print("")
 
+    # The code below will print a row of numbers beneath
+    # the game grid, beginning at 0, the combination of
+    # letter and number are used to pinpoint targets on
+    # the grid.
     print("  ", end=" ")
     for num in range(len(game_grid)):
         print(num, end=" ")
@@ -536,7 +587,8 @@ def win_game():
         try:
 
             # request a Y to play agian or an N to exit
-            replay = input(f"Well done for beating Level: {grid_level}\n\nWould you like to play again? Y/N:\n")
+            print(f"Well done for beating Level: {grid_level}\n\n")
+            replay = input(f"Would you like to play again? Y/N:\n")
             replay = replay.upper()
 
             # If Y is input, clear the terminal and re run the program
@@ -597,7 +649,6 @@ def win_game():
             continue
 
 
-
 def loose_game():
     """
     This method is called on the condition that the
@@ -619,8 +670,9 @@ def loose_game():
     # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Using the PyFiglet Library, print VICTORY rendered
-    # in an alternate fontf = Figlet(font='slant')
+    # Using the PyFiglet Library, print GAME OVER rendered
+    # in an alternate font
+    f = Figlet(font='slant')
     print(f.renderText("GAME OVER"))
 
     # Create a loop to request a user input
@@ -629,7 +681,8 @@ def loose_game():
         try:
 
             # request a Y to play agian or an N to exit
-            replay = input(f"You failed Level: {grid_level}\n\nWould you like to play again? Y/N:\n")
+            print(f"You failed Level: {grid_level}\n\n")
+            replay = input(f"Would you like to play again? Y/N:\n")
             replay = replay.upper()
 
             # If Y is input, clear the terminal and re run the program
