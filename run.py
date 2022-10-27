@@ -67,146 +67,6 @@ def set_grid_level():
             return False
 
 
-def fire_cannons():
-    """
-    This method is called once the user has input
-    a level and the grid has been printed to the
-    terminal. The program will request an input
-    from the user to confirm the location on the
-    grid in which they suspect to find a vessel.
-    the input is passed through various layers of
-    validation to confirm if it is a valid location
-    and to check if that particular location has been
-    either fired upon already, is a miss, or a direct
-    hit.
-    """
-    # must be able to read from and change the
-    # following globals.
-    global game_grid
-    global power_level
-    global target_located
-    global ammo
-    global game_running
-
-    # creates a loop that shall run until
-    # an engame situation occurs
-    while game_running:
-
-        # creates a variable for later use
-        valid_target = False
-
-        # while valid_target is false the following
-        # loop occurs
-        while not valid_target:
-
-            # the variable below is used to ensure
-            # that a valid hit to a new target counts
-            # for only a 1 point deduction of enemy_power_level
-            # without this a bug can cause a 2 point deduction.
-            target_located = 0
-
-            # requst an input from user
-            print("To make your shot", end = '')
-            print(f" enter a Latitude {characters[0]} - {characters[grid_level-1]}.", end = '')
-            target = input(f" Then a Longitude from: 0 - {grid_level-1} such as A1:\n")
-
-            # incase of lower case input, convert to uppercase
-            target = target.upper()
-
-            # if the user input is less than or equal to 0
-            # or greater than 2 in length, invalidate and
-            # restart
-            if len(target) <= 0 or len(target) > 2:
-                print("Misfire!")
-                print("Please enter only one alphabetical character", end = '')
-                print(f" followed by a number e.g. 'A1'\n")
-                continue
-
-            # if input length is valid, set lat to input
-            # prefix and long to suffix
-            lat = target[0]
-            long = target[1]
-
-            # if prefix not alphabetical and suffix
-            # not numeric, invalidate and restart
-            if not lat.isalpha() or not long.isnumeric():
-                print("Misfire!")
-                print("For the Latitude, please enter a letter", end = '')
-                print(f" for the Longtitude please enter a Number e.g. 'A1'\n")
-                continue
-
-            # creates a string from the input prefix
-            lat = characters.find(lat)
-
-            # check if the input prefix is a character
-            # on the current grid printed. If not
-            # invalidate and restart.
-            if not (-1 < lat < grid_level):
-                print("Misfire!")
-                print("That letter is not on the grid!", end = '')
-                print(f" Please enter a valid letter.\n")
-                continue
-
-            # creates an integer from the input suffix
-            long = int(long)
-
-            # check if the input prefix is a integer
-            # on the current grid printed. If not
-            # invalidate and restart.
-            if not (-1 < long < grid_level):
-                print("Misfire!")
-                print(f"The number entered is not valid! Enter a valid number.\n")
-                continue
-
-            # if all valid, check if the location has been hit already
-            if game_grid[lat][long] in ["#", "X"]:
-
-                # if yes, lower the current ammo count
-                ammo = ammo - 1
-                print(f"You've hit this location already Captain! Fire again!\n")
-
-                # then restart
-                continue
-
-            # if the input lands on either open water or 
-            # an enemy ship, set valid_target to true to
-            # close the looping request
-            if game_grid[lat][long] in ["~", "O"]:
-                valid_target = True
-
-            # clears the terminal to prevent long flowing readouts
-            os.system('cls' if os.name == 'nt' else 'clear')
-
-        # once target confirmed valid if open water,
-        # annouce a miss and reduce ammo count
-        if game_grid[lat][long] == "~":
-            ammo = ammo - 1
-            print(f"Captain! Our shot missed! Fire another round!\n")
-
-            # then alter the value for that position in the grid
-            # to reflect the miss to the user
-            game_grid[lat][long] = "#"
-
-        # once target confirmed valid if enemy ship,
-        # annouce a hit and reduce ammo count
-        elif game_grid[lat][long] == "O":
-            ammo = ammo - 1
-            print(f"That's a direct hit! Well done Captian!\n")
-            game_grid[lat][long] = "X"
-
-            # pass the chosen location to a method
-            # that will check if the entire ship placed
-            # in that location has been hit. if so
-            # annouce sunk and increment power_level.
-            if track_kills(lat, long):
-                print(f"That's a vessel sunk!\n")
-                power_level = power_level + 1
-
-        # finally reprint the grid with the updated
-        # hit or miss so the user can track their hits.
-        print_play_area(game_grid, grid_level)
-
-
 def make_grid(grid_level):
     """
     This method is called once the user has chosen a level
@@ -411,6 +271,146 @@ def print_play_area(game_grid, grid_level):
     print("")
 
 
+def fire_cannons():
+    """
+    This method is called once the user has input
+    a level and the grid has been printed to the
+    terminal. The program will request an input
+    from the user to confirm the location on the
+    grid in which they suspect to find a vessel.
+    the input is passed through various layers of
+    validation to confirm if it is a valid location
+    and to check if that particular location has been
+    either fired upon already, is a miss, or a direct
+    hit.
+    """
+    # must be able to read from and change the
+    # following globals.
+    global game_grid
+    global power_level
+    global target_located
+    global ammo
+    global game_running
+
+    # creates a loop that shall run until
+    # an engame situation occurs
+    while game_running:
+
+        # creates a variable for later use
+        valid_target = False
+
+        # while valid_target is false the following
+        # loop occurs
+        while not valid_target:
+
+            # the variable below is used to ensure
+            # that a valid hit to a new target counts
+            # for only a 1 point deduction of enemy_power_level
+            # without this a bug can cause a 2 point deduction.
+            target_located = 0
+
+            # requst an input from user
+            print("To make your shot", end = '')
+            print(f" enter a Latitude {characters[0]} - {characters[grid_level-1]}.", end = '')
+            target = input(f" Then a Longitude from: 0 - {grid_level-1} such as A1:\n")
+
+            # incase of lower case input, convert to uppercase
+            target = target.upper()
+
+            # if the user input is less than or equal to 0
+            # or greater than 2 in length, invalidate and
+            # restart
+            if len(target) <= 0 or len(target) > 2:
+                print("Misfire!")
+                print("Please enter only one alphabetical character", end = '')
+                print(f" followed by a number e.g. 'A1'\n")
+                continue
+
+            # if input length is valid, set lat to input
+            # prefix and long to suffix
+            lat = target[0]
+            long = target[1]
+
+            # if prefix not alphabetical and suffix
+            # not numeric, invalidate and restart
+            if not lat.isalpha() or not long.isnumeric():
+                print("Misfire!")
+                print("For the Latitude, please enter a letter", end = '')
+                print(f" for the Longtitude please enter a Number e.g. 'A1'\n")
+                continue
+
+            # creates a string from the input prefix
+            lat = characters.find(lat)
+
+            # check if the input prefix is a character
+            # on the current grid printed. If not
+            # invalidate and restart.
+            if not (-1 < lat < grid_level):
+                print("Misfire!")
+                print("That letter is not on the grid!", end = '')
+                print(f" Please enter a valid letter.\n")
+                continue
+
+            # creates an integer from the input suffix
+            long = int(long)
+
+            # check if the input prefix is a integer
+            # on the current grid printed. If not
+            # invalidate and restart.
+            if not (-1 < long < grid_level):
+                print("Misfire!")
+                print(f"The number entered is not valid! Enter a valid number.\n")
+                continue
+
+            # if all valid, check if the location has been hit already
+            if game_grid[lat][long] in ["#", "X"]:
+
+                # if yes, lower the current ammo count
+                ammo = ammo - 1
+                print(f"You've hit this location already Captain! Fire again!\n")
+
+                # then restart
+                continue
+
+            # if the input lands on either open water or 
+            # an enemy ship, set valid_target to true to
+            # close the looping request
+            if game_grid[lat][long] in ["~", "O"]:
+                valid_target = True
+
+            # clears the terminal to prevent long flowing readouts
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+        # once target confirmed valid if open water,
+        # annouce a miss and reduce ammo count
+        if game_grid[lat][long] == "~":
+            ammo = ammo - 1
+            print(f"Captain! Our shot missed! Fire another round!\n")
+
+            # then alter the value for that position in the grid
+            # to reflect the miss to the user
+            game_grid[lat][long] = "#"
+
+        # once target confirmed valid if enemy ship,
+        # annouce a hit and reduce ammo count
+        elif game_grid[lat][long] == "O":
+            ammo = ammo - 1
+            print(f"That's a direct hit! Well done Captian!\n")
+            game_grid[lat][long] = "X"
+
+            # pass the chosen location to a method
+            # that will check if the entire ship placed
+            # in that location has been hit. if so
+            # annouce sunk and increment power_level.
+            if track_kills(lat, long):
+                print(f"That's a vessel sunk!\n")
+                power_level = power_level + 1
+
+        # finally reprint the grid with the updated
+        # hit or miss so the user can track their hits.
+        print_play_area(game_grid, grid_level)
+
+
 def track_kills(lat, long):
     """
     This method fires on the condition that the user
@@ -492,7 +492,7 @@ def ship_located():
         target_located = target_located + 1
 
     # If the value of enemy_power_level is equal to 0
-    # call the win_game method.    
+    # call the win_game method.   
     if enemy_power_level == 0:
         win_game()
 
@@ -505,73 +505,189 @@ def ship_located():
 
 
 def win_game():
+    """
+    This method is called on the condition that the
+    enemy_power_level has reached 0 by the time the
+    ammo has reached 0. This would be a winning situation.
+    the purpose of this method is to congradulate the user
+    then as if they wish to play again. the code shall validate
+    their input, on the condition the user wants to exit the
+    program, a second input shall request confirmation and validate
+    the input given. This method will either restart the program
+    or exit the program.
+    """
+    # Must be able to alter the game_running global
     global game_running
 
+    # Stop the loop requesting user input if a target.
     game_running = False
 
+    # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
 
+    # Using the PyFiglet Library, print VICTORY rendered
+    # in an alternate font
     f = Figlet(font='slant')
     print(f.renderText("VICTORY"))
 
+    # Create a loop to request a user input
+    # and validate said input
     while True:
         try:
+
+            # request a Y to play agian or an N to exit
             replay = input(f"Well done for beating Level: {grid_level}\n\nWould you like to play again? Y/N:\n")
             replay = replay.upper()
 
+            # If Y is input, clear the terminal and re run the program
             if replay == "Y":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 os.system("python run.py")
                 exit()
-            elif replay == "N":
-                exit()
 
+            # If input is N close the program.
+            elif replay == "N":
+
+                # first start a loop to confirm if the
+                # user wants to exit
+                confirm = True
+                while confirm:
+                    try:
+
+                        # Ask if sure and request a Y/N input once more.
+                        confirm = input(f"Are you sure you want to close the game? Y/N:\n")
+                        confirm = confirm.upper()
+
+                        # If Y close the game.
+                        if confirm == "Y":
+                            exit()
+
+                        # if N close the loop
+                        elif confirm == "N":
+                            confirm = False
+
+                        # If invalid input, notify of an error
+                        # and ask again.
+                        else:
+                            print(f"Your input is not valid,", end= "")
+                            print(f" please input Y to play again or N to leave the game.\n")
+                            continue
+
+                    # The code below does not appear to run
+                    # through testing various inputs. I have
+                    # included it to address any inputs i may
+                    # not have considered. 
+                    except ValueError:
+                        print(f"Your input is not valid, please input either Y or N.\n")
+                        continue
+
+            # If invalid input, notify of an error
+            # and ask again.
             else:
-                print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+                print(f"Your input is not valid,", end= "")
+                print(f" please input Y to play again or N to leave the game.\n")
                 continue
 
+        # The code below does not appear to run
+        # through testing various inputs. I have
+        # included it to address any inputs i may
+        # not have considered.
         except ValueError:
             print(f"Your input is not valid, please input either Y or N.\n")
             continue
 
-        else:
-            # if input is valid, print chosen level and return false to close the while loop
-            print(f"Reloading...\n")
-            return False
 
 
 def loose_game():
+    """
+    This method is called on the condition that the
+    enemy_power_level remains above 0 by the time the
+    ammo has reached 0. This would be a game over situation.
+    the purpose of this method is to notify the user of the loss
+    then as if they wish to play again. The code shall validate
+    their input, on the condition the user wants to exit the
+    program, a second input shall request confirmation and validate
+    the input given. This method will either restart the program
+    or exit the program.
+    """
+    # Must be able to alter the game_running global
     global game_running
 
+    # Stop the loop requesting user input if a target.
+    game_running = False
+
+    # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    f = Figlet(font='slant')
+    # Using the PyFiglet Library, print VICTORY rendered
+    # in an alternate fontf = Figlet(font='slant')
     print(f.renderText("GAME OVER"))
 
+    # Create a loop to request a user input
+    # and validate said input
     while True:
         try:
-            replay = input(f"You failed level: {grid_level}\n\nWould you like to play again? Y/N")
+
+            # request a Y to play agian or an N to exit
+            replay = input(f"You failed Level: {grid_level}\n\nWould you like to play again? Y/N:\n")
             replay = replay.upper()
 
+            # If Y is input, clear the terminal and re run the program
             if replay == "Y":
                 os.system('cls' if os.name == 'nt' else 'clear')
                 os.system("python run.py")
                 exit()
-            elif replay == "N":
-                exit()
 
+            # If input is N close the program.
+            elif replay == "N":
+
+                # first start a loop to confirm if the
+                # user wants to exit
+                confirm = True
+                while confirm:
+                    try:
+
+                        # Ask if sure and request a Y/N input once more.
+                        confirm = input(f"Are you sure you want to close the game? Y/N:\n")
+                        confirm = confirm.upper()
+
+                        # If Y close the game.
+                        if confirm == "Y":
+                            exit()
+
+                        # if N close the loop
+                        elif confirm == "N":
+                            confirm = False
+
+                        # If invalid input, notify of an error
+                        # and ask again.
+                        else:
+                            print(f"Your input is not valid,", end= "")
+                            print(f" please input Y to play again or N to leave the game.\n")
+                            continue
+
+                    # The code below does not appear to run
+                    # through testing various inputs. I have
+                    # included it to address any inputs i may
+                    # not have considered.
+                    except ValueError:
+                        print(f"Your input is not valid, please input either Y or N.\n")
+                        continue
+
+            # If invalid input, notify of an error
+            # and ask again.
             else:
-                print(f"Your input is not valid, please input Y to play again or N to leave the game.\n")
+                print(f"Your input is not valid,", end= "")
+                print(f" please input Y to play again or N to leave the game.\n")
                 continue
 
+        # The code below does not appear to run
+        # through testing various inputs. I have
+        # included it to address any inputs i may
+        # not have considered.
         except ValueError:
             print(f"Your input is not valid, please input either Y or N.\n")
             continue
-
-        else:
-            # if input is valid, print chosen level and return false to close the while loop
-            print(f"Reloading...\n")
-            return False
 
 
 def main():
