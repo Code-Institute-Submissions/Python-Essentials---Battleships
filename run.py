@@ -17,6 +17,12 @@ target_located = 0
 ammo = 2
 game_running = True
 
+# This code is a toggle, for developers and
+# assessors of the project, it can be changed
+# to True. if so ship positions are revealed on
+# the grid.
+debug_mode = False
+
 
 def set_grid_level():
     """
@@ -166,8 +172,8 @@ def place_ship(latitude, longitude, heading, size):
     # Must access the following
     # global variables
     global game_grid
-    global grid_level
     global hit_tracker
+
     # the variables below define where to begin
     # and end the placement of the ships
     lat_start = latitude
@@ -307,14 +313,6 @@ def print_play_area(game_grid, grid_level):
     # Must access the following
     # global variables.
     global game_start
-    global enemy_counter
-    global power_level
-
-    # This code is a toggle, for developers and
-    # assessors of the project, it can be changed
-    # to True. if so ship positions are revealed on
-    # the grid.
-    debug_mode = True
 
     # The code below will read the grid level chosen by
     # the user and print a statement when the grid is printed
@@ -407,11 +405,10 @@ def fire_cannons():
     """
     # must be able to read from and change the
     # following globals.
-    global game_grid
     global power_level
     global target_located
     global ammo
-    global game_running
+    global debug_mode
 
     # creates a loop that shall run until
     # an engame situation occurs
@@ -439,6 +436,37 @@ def fire_cannons():
 
             # incase of lower case input, convert to uppercase
             target = target.upper()
+
+            if target == "CHEATMODE":
+                time.sleep(0.5)
+                debug_mode = True
+                if debug_mode:
+                    print("Cheat activated! All ships have been revealed!")
+                    continue
+
+            if target == "FIVESHOTS":
+                time.sleep(0.5)
+                ammo = ammo + 5
+                print("Cheat activated! Ammo increased!")
+                continue
+
+            if target == "TENSHOTS":
+                time.sleep(0.5)
+                ammo = ammo + 5
+                print("Cheat activated! Ammo increased!")
+                continue
+
+            if target == "DAVEYJONES":
+                time.sleep(0.5)
+                print("You fled the battle!")
+                time.sleep(1)
+                loose_game()
+
+            if target == "KRAKENTIME":
+                time.sleep(0.5)
+                print("The Kraken has swallowed the enemy whole!")
+                time.sleep(1)
+                win_game()
 
             # if the user input is less than or equal to 0
             # or greater than 2 in length, invalidate and
@@ -552,11 +580,6 @@ def track_kills(lat, long):
     of the targetted ship have been hit, to confirm
     a sunken vessel.
     """
-    # Must access the following
-    # global variables.
-    global hit_tracker
-    global game_grid
-
     # Assigns the list values from the hit_tracker global
     # to variables
     for hit in hit_tracker:
@@ -601,9 +624,7 @@ def ship_located():
     # Must access the following
     # global variables.
     global enemy_power_level
-    global enemy_counter
     global target_located
-    global ammo
 
     # The code below will only run if the value
     # of the target_located variable is 0.
