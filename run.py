@@ -60,7 +60,7 @@ def set_grid_level():
             if grid_level >= 3 and grid_level <= 10:
                 print("Setting difficulty...")
                 print("")
-                make_grid(grid_level)
+                make_grid()
 
             else:
                 # if not within range, confirm not valid
@@ -83,7 +83,7 @@ def set_grid_level():
             return False
 
 
-def make_grid(grid_level):
+def make_grid():
     """
     This method is called once the user has chosen a level
     its purpose is to build a sequence of lists which shall
@@ -92,9 +92,6 @@ def make_grid(grid_level):
     build_ships method to assing boat positions. Then
     calls print_game_grid.
     """
-    # Must access the game_grid global variable.
-    global game_grid
-
     # set rows and columns to the returned grid_level int.
     rows, columns = (grid_level, grid_level)
 
@@ -108,14 +105,14 @@ def make_grid(grid_level):
 
     # once grid has been created call the method to
     # build and place ships on grid
-    build_ships(grid_level)
+    build_ships()
 
     # once ships have been placed, call method to print
     # the grid to the terminal.
-    print_play_area(game_grid, grid_level)
+    print_play_area()
 
 
-def build_ships(grid_level):
+def build_ships():
     """
     This function shall take in the grid_level, this value is
     then used to determine the amount of enemy ships to place
@@ -179,11 +176,6 @@ def place_ship(latitude, longitude, heading, size):
     returns True. If the position overlaps or lands off the grid
     itself, it is considered not valid and this method returns false
     """
-    # Must access the following
-    # global variables
-    global game_grid
-    global hit_tracker
-
     # the variables below define where to begin
     # and end the placement of the ships
     lat_start = latitude
@@ -295,8 +287,8 @@ def place_ship(latitude, longitude, heading, size):
         # to assign a new value to, that being a O. to
         # track the ships location on the grid itself.
         for lat, long in itertools.product(
-            range(lat_start, lat_end),
-            range(long_start, long_end)):
+                range(lat_start, lat_end),
+                range(long_start, long_end)):
             game_grid[lat][long] = "O"
 
     # finally return either true of false
@@ -304,7 +296,7 @@ def place_ship(latitude, longitude, heading, size):
     return position_valid
 
 
-def print_play_area(game_grid, grid_level):
+def print_play_area():
     """
     This method is called first once the game grid has
     been created and populated with enemy ships. It is
@@ -483,7 +475,7 @@ def fire_cannons():
             # if the user input is less than or equal to 0
             # or greater than 2 in length, invalidate and
             # restart
-            if len(target) <= 0 or len(target) > 2:
+            if len(target) < 2 or len(target) > 2:
                 print("Misfire!")
                 print("Please enter only one alphabetical character", end='')
                 print(f" followed by a number e.g. 'A1'\n")
@@ -579,7 +571,7 @@ def fire_cannons():
 
         # finally reprint the grid with the updated
         # hit or miss so the user can track their hits.
-        print_play_area(game_grid, grid_level)
+        print_play_area()
 
 
 def track_kills(lat, long):
@@ -614,8 +606,9 @@ def track_kills(lat, long):
             # location, to confirm if the connected
             # sections of the ship currently
             # targeted have all been hit.
-            for r, c in itertools.product(range(lat_start, lat_end), range(long_start, long_end)):
-
+            for r, c in itertools.product(
+                    range(lat_start, lat_end),
+                    range(long_start, long_end)):
                 # If the list positions connected to the
                 # targeted ship are not X signifying a
                 # previous direct hit, return false.
@@ -733,7 +726,8 @@ def end_game():
                     try:
 
                         # Ask if sure and request a Y/N input once more.
-                        confirm = input(f"Are you sure you want to close the game? Y/N:\n")
+                        print("Are you sure you want", end='')
+                        confirm = input(" to close the game? Y/N: ")
                         confirm = confirm.upper()
 
                         # If Y close the game.
@@ -748,7 +742,8 @@ def end_game():
                         # and ask again.
                         else:
                             print(f"Your input is not valid,", end='')
-                            print(f" please input Y to play again or N to leave the game.\n")
+                            print(" please input Y to play ", end='')
+                            print(f"again or N to leave the game.\n")
                             continue
 
                     # The code below does not appear to run
@@ -756,14 +751,16 @@ def end_game():
                     # included it to address any inputs i may
                     # not have considered.
                     except ValueError:
-                        print(f"Your input is not valid, please input either Y or N.\n")
+                        print("Your input is not valid")
+                        print(f", please input either Y or N.\n")
                         continue
 
             # If invalid input, notify of an error
             # and ask again.
             else:
                 print(f"Your input is not valid,", end="")
-                print(f" please input Y to play again or N to leave the game.\n")
+                print(" please input Y to play", end='')
+                print(f" again or N to leave the game.\n")
                 continue
 
         # The code below does not appear to run
