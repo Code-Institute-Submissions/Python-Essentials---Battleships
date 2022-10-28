@@ -4,7 +4,6 @@ import itertools
 # used to generate random information
 # for ship placements
 import random
-import snoop
 
 # used to delay certain elements of the script
 import time
