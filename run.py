@@ -1,10 +1,24 @@
+# Used to refactor a statement
 import itertools
+
+# used to generate random information
+# for ship placements
 import random
 import snoop
+
+# used to delay certain elements of the script
 import time
+
+# used to clear the terminal readout
+# in various stages of the script
 import os
+
+# used to render illustrative text to the terminal.
 from pyfiglet import Figlet
 
+# The following variables are used or altered by
+# more than 1 of the methods below and are required
+# to be iun global scope.
 grid_level = 0
 game_grid = []
 hit_tracker = []
@@ -14,13 +28,9 @@ enemy_power_level = 0
 power_level = 0
 game_start = True
 target_located = 0
-ammo = 2
+ammo = 3
 game_running = True
-
-# This code is a toggle, for developers and
-# assessors of the project, it can be changed
-# to True. if so ship positions are revealed on
-# the grid.
+result = ""
 debug_mode = False
 
 
@@ -98,14 +108,14 @@ def make_grid(grid_level):
 
     # once grid has been created call the method to
     # build and place ships on grid
-    build_ships(grid_level, game_grid)
+    build_ships(grid_level)
 
     # once ships have been placed, call method to print
     # the grid to the terminal.
     print_play_area(game_grid, grid_level)
 
 
-def build_ships(grid_level, game_grid):
+def build_ships(grid_level):
     """
     This function shall take in the grid_level, this value is
     then used to determine the amount of enemy ships to place
@@ -286,8 +296,7 @@ def place_ship(latitude, longitude, heading, size):
         # track the ships location on the grid itself.
         for lat, long in itertools.product(
             range(lat_start, lat_end),
-            range(long_start, long_end)
-            ):
+            range(long_start, long_end)):
             game_grid[lat][long] = "O"
 
     # finally return either true of false
@@ -409,6 +418,7 @@ def fire_cannons():
     global target_located
     global ammo
     global debug_mode
+    global result
 
     # creates a loop that shall run until
     # an engame situation occurs
@@ -460,13 +470,15 @@ def fire_cannons():
                 time.sleep(0.5)
                 print("You fled the battle!")
                 time.sleep(1)
-                loose_game()
+                result = "loose"
+                end_game()
 
             if target == "KRAKENTIME":
                 time.sleep(0.5)
                 print("The Kraken has swallowed the enemy whole!")
                 time.sleep(1)
-                win_game()
+                result = "win"
+                end_game()
 
             # if the user input is less than or equal to 0
             # or greater than 2 in length, invalidate and
@@ -519,9 +531,11 @@ def fire_cannons():
 
                 # if yes, lower the current ammo count
                 ammo = ammo - 1
-                print(f"You've hit this location already Captain! Fire again!\n")
+                print("You've hit this location already", end='')
+                print(f"Captain! Fire again!\n")
                 if ammo <= 0:
-                    loose_game()
+                    result = "loose"
+                    end_game()
 
                 # then restart
                 continue
@@ -541,7 +555,8 @@ def fire_cannons():
             ammo = ammo - 1
             print(f"Captain! Our shot missed! Fire another round!\n")
             if ammo <= 0:
-                loose_game()
+                result = "loose"
+                end_game()
 
             # then alter the value for that position in the grid
             # to reflect the miss to the user
@@ -623,6 +638,7 @@ def ship_located():
     """
     # Must access the following
     # global variables.
+    global result
     global enemy_power_level
     global target_located
 
@@ -643,17 +659,19 @@ def ship_located():
     # If the value of enemy_power_level is equal to 0
     # call the win_game method.
     if enemy_power_level == 0:
-        win_game()
+        result = "win"
+        end_game()
 
     # The code below will run if the value of the ammo
     # global is 0 whilst the enemy_power_level is simultaneously
     # greater than 0. This is to ensure that the users final shot
     # can still win the game if it sinks the final target.
     elif ammo <= 0 and enemy_power_level > 0:
-        loose_game()
+        result = "loose"
+        end_game()
 
 
-def win_game():
+def end_game():
     """
     This method is called on the condition that the
     enemy_power_level has reached 0 by the time the
@@ -674,18 +692,28 @@ def win_game():
     # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    # Using the PyFiglet Library, print VICTORY rendered
-    # in an alternate font
-    f = Figlet(font='slant')
-    print(f.renderText("VICTORY"))
+    if result == "win":
+        # Using the PyFiglet Library, print VICTORY rendered
+        # # in an alternate font
+        f = Figlet(font='slant')
+        print(f.renderText("VICTORY"))
+
+    else:
+        # Using the PyFiglet Library, print GAME OVER rendered
+        # # in an alternate font
+        f = Figlet(font='slant')
+        print(f.renderText("GAME OVER"))
 
     # Create a loop to request a user input
     # and validate said input
     while True:
         try:
+            if result == "win":
+                print(f"Well done for beating Level: {grid_level}\n\n")
+            else:
+                print(f"You failed Level: {grid_level}\n\n")
 
             # request a Y to play agian or an N to exit
-            print(f"Well done for beating Level: {grid_level}\n\n")
             replay = input(f"Would you like to play again? Y/N:\n")
             replay = replay.upper()
 
@@ -720,100 +748,6 @@ def win_game():
                         # and ask again.
                         else:
                             print(f"Your input is not valid,", end='')
-                            print(f" please input Y to play again or N to leave the game.\n")
-                            continue
-
-                    # The code below does not appear to run
-                    # through testing various inputs. I have
-                    # included it to address any inputs i may
-                    # not have considered.
-                    except ValueError:
-                        print(f"Your input is not valid, please input either Y or N.\n")
-                        continue
-
-            # If invalid input, notify of an error
-            # and ask again.
-            else:
-                print(f"Your input is not valid,", end="")
-                print(f" please input Y to play again or N to leave the game.\n")
-                continue
-
-        # The code below does not appear to run
-        # through testing various inputs. I have
-        # included it to address any inputs i may
-        # not have considered.
-        except ValueError:
-            print(f"Your input is not valid, please input either Y or N.\n")
-            continue
-
-
-def loose_game():
-    """
-    This method is called on the condition that the
-    enemy_power_level remains above 0 by the time the
-    ammo has reached 0. This would be a game over situation.
-    the purpose of this method is to notify the user of the loss
-    then as if they wish to play again. The code shall validate
-    their input, on the condition the user wants to exit the
-    program, a second input shall request confirmation and validate
-    the input given. This method will either restart the program
-    or exit the program.
-    """
-    # Must be able to alter the game_running global
-    global game_running
-
-    # Stop the loop requesting user input if a target.
-    game_running = False
-
-    # clear the terminal
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-    # Using the PyFiglet Library, print GAME OVER rendered
-    # in an alternate font
-    f = Figlet(font='slant')
-    print(f.renderText("GAME OVER"))
-
-    # Create a loop to request a user input
-    # and validate said input
-    while True:
-        try:
-
-            # request a Y to play agian or an N to exit
-            print(f"You failed Level: {grid_level}\n\n")
-            replay = input(f"Would you like to play again? Y/N:\n")
-            replay = replay.upper()
-
-            # If Y is input, clear the terminal and re run the program
-            if replay == "Y":
-                os.system('cls' if os.name == 'nt' else 'clear')
-                os.system("python run.py")
-                exit()
-
-            # If input is N close the program.
-            elif replay == "N":
-
-                # first start a loop to confirm if the
-                # user wants to exit
-                confirm = True
-                while confirm:
-                    try:
-
-                        # Ask if sure and request a Y/N input once more.
-                        confirm = input(f"Are you sure you want to close the game? Y/N:\n")
-                        confirm = confirm.upper()
-
-                        # If Y close the game.
-                        if confirm == "Y":
-                            exit()
-
-                        # if N close the loop
-                        elif confirm == "N":
-                            confirm = False
-
-                        # If invalid input, notify of an error
-                        # and ask again.
-                        else:
-                            print(f"Your input is not valid,", end="")
                             print(f" please input Y to play again or N to leave the game.\n")
                             continue
 
