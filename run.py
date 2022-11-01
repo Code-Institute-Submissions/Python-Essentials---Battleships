@@ -1,7 +1,6 @@
 # Used to refactor a statement
 import itertools
 
-import snoop
 # used to generate random information
 # for ship placements
 import random
@@ -35,27 +34,49 @@ debug_mode = False
 
 
 def run_intro():
+    # Set colors of text to be printed.
     print("\033[0;31;40m")
-    print(f"Welcome to...\n")
+
+    # setup figlet fonts.
     f = Figlet(font='xtimes')
     f_two = Figlet(font='zone7___')
+
+    # Print a wall of black to terminal then clear
+    # makes the text background color render cleanly.
+    print(f.renderText(""))
+    print(f.renderText(""))
+    print(f.renderText(""))
+    print(f.renderText(""))
+    print(f.renderText(""))
+    print(f.renderText(""))
+    print(f"Welcome to...\n")
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    # then print the intro terminal
     print(f.renderText("B L A C K B E A R D ' S"))
     print(f.renderText("B A T T L E S H I P S !"))
     print("")
 
+    # Required variable to close the below while loop.
     stage_one = True
 
     while stage_one:
         try:
+            # Request user input.
             print("\033[0;37;40mInput 'HELP' to read the game manual.", end="")
             user_call = input(f" Input 'RUN' to start the game: \033[0;32;40m")
-            # incase of lower case input, convert to uppercase
 
+            # incase of lower case input, convert to uppercase
             user_call = user_call.upper()
 
+            # clear terminal.
             os.system('cls' if os.name == 'nt' else 'clear')
 
+            # if HELP begin printing the instruction manual.
             if user_call == "HELP":
+
+                # close the parent loop.
                 stage_one = False
                 print(f"\033[1;34;40mHow to Play:\n")
                 print("\033[0;37;40mWhen starting the game", end="")
@@ -78,6 +99,7 @@ def run_intro():
                 print(f" be displayed beneath the grid.\n")
                 print("")
 
+                # Required variable to close the below while loop.
                 stage_two = True
 
                 while stage_two:
