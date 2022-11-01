@@ -7,3 +7,5 @@ __pycache__/
 node_modules/
 .github/
 test.py
+fonts.py
+pyfigletfonts.txt
