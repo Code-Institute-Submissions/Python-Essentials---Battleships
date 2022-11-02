@@ -38,17 +38,9 @@ def run_intro():
     print("\033[0;31;40m")
 
     # setup figlet fonts.
-    f = Figlet(font='xtimes')
+    f = Figlet(font='xttyb')
     f_two = Figlet(font='zone7___')
 
-    # Print a wall of black to terminal then clear
-    # makes the text background color render cleanly.
-    print(f.renderText(""))
-    print(f.renderText(""))
-    print(f.renderText(""))
-    print(f.renderText(""))
-    print(f.renderText(""))
-    print(f.renderText(""))
     print(f"Welcome to...\n")
 
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -64,8 +56,9 @@ def run_intro():
     while stage_one:
         try:
             # Request user input.
-            print("\033[0;37;40mInput 'HELP' to read the game manual.", end="")
-            user_call = input(f" Input 'RUN' to start the game: \033[0;32;40m")
+            print("\033[0;37;40mInput 'HELP' to read the game manual.")
+            print(f"Input 'RUN' to start the game\033[0;32;40m\n")
+            user_call = input("INPUT: ")
 
             # incase of lower case input, convert to uppercase
             user_call = user_call.upper()
@@ -74,28 +67,39 @@ def run_intro():
             os.system('cls' if os.name == 'nt' else 'clear')
 
             # if HELP begin printing the instruction manual.
-            if user_call == "HELP":
+            if user_call == "EXIT":
+                stage_one = False
+                print("Thank you for playing!")
+                print("")
+                print("Leaving game...")
+                time.sleep(0.75)
+                exit()
 
+            if user_call == "HELP":
                 # close the parent loop.
                 stage_one = False
-                print(f"\033[1;34;40mHow to Play:\n")
-                print("\033[0;37;40mWhen starting the game", end="")
+
+                print(f.renderText(" B L A C K B E A R D ' S"))
+                print(f.renderText(" B A T T L E S H I P S !"))
+                # print("")
+                print(f"\033[1;34;40mHow to Play:\033[0;37;40m\n")
+                print("\033[0;37;40m When starting the game", end="")
                 print(" the computer shall request", end="")
                 print(f" a Number from 3 to 10.\n")
 
-                print("This number is used to determin", end="")
+                print(" This number is used to determin", end="")
                 print(f" the playing area of the game.\n")
-                print(f"Entering 4 for example, will produce a 4x4 grid.\n")
-                print("Higher numbers will also effect the size", end="")
+                print(f" Entering 4 for example, will produce a 4x4 grid.\n")
+                print(" Higher numbers will also effect the size", end="")
                 print(f" and number of enemy ships on the grid.\n")
                 print("")
 
-                print(f"You will have a finite amount of shots available.\n")
-                print(f"You will be penalised ", end="")
+                print(f" You have a limited amount of shots available.\n")
+                print(f" You will be penalised ", end="")
                 print(f"if you miss of shoot a target twice.\n")
-                print(f"You will NOT be penalised ", end="")
+                print(f" You will NOT be penalised ", end="")
                 print(f"if you enter an invalid input.\n")
-                print(f"Your current ammo count shall ", end="")
+                print(f" Your current ammo count shall ", end="")
                 print(f" be displayed beneath the grid.\n")
                 print("")
 
@@ -105,88 +109,130 @@ def run_intro():
                 while stage_two:
                     try:
                         print("Input 'N' to continue or 'Q'", end="")
-                        next_slide = input(f" to leave... \033[0;32;40m\n")
+                        print(f" to leave...\033[0;32;40m\n")
+                        next_slide = input("INPUT: ")
                         next_slide = next_slide.upper()
 
                         os.system('cls' if os.name == 'nt' else 'clear')
 
                         if next_slide == "N":
                             stage_two = False
-                            print("")
-                            print("\033[0;37;40mSink completely, ", end="")
+                            print(f.renderText(" B L A C K B E A R D ' S"))
+                            print(f.renderText(" B A T T L E S H I P S !"))
+                            print(f"\033[1;34;40mContinued...\033[0;37;40m\n")
+                            print("\033[0;37;40m Sink completely, ", end="")
                             print(f"all of the enemies ships to win.\n")
-                            print(f"Run out of ammo before ", end="")
+                            print(f" Run out of ammo before ", end="")
                             print(f"and you will loose.\n")
-                            print(f"You will be alerted when ", end="")
+                            print(f" You will be alerted when ", end="")
                             print(f"ships have been destroyed.\n")
-                            print("Hints towards remaining amount of ", end="")
+                            print(" Hints towards remaining amount of ", end="")
                             print(f"ships will be printed above the grid.\n")
 
                             print("")
-                            print("When you have chosen the level ", end="")
+                            print(" When you have chosen the level ", end="")
                             print(", the computer shall request ", end="")
                             print(f"a target on the grid.\n")
-                            print("Input first an ", end="")
+                            print(" Input first an ", end="")
                             print("alphabetical character", end="")
                             print(f", then a number such as 'A1'\n")
-                            print("Cheat codes can be entered when ", end="")
+                            print(" Cheat codes can be entered when ", end="")
                             print(f"the computer requests ", end="")
                             print(f"your target input.\n")
                             print("")
+
+                            print(f" At anytime enter 'EXIT' to leave the game.\n")
 
                             stage_three = True
 
                             while stage_three:
                                 try:
                                     print(f"Input 'QUIT' to return to the main menu or ", end="")
-                                    next_slide = input(f"'START' to play the game\033[0;32;40m\n")
+                                    print(f"'START' to play the game.\033[0;32;40m\n")
+                                    next_slide = input("INPUT: ")
                                     next_slide = next_slide.upper()
 
                                     os.system('cls' if os.name == 'nt' else 'clear')
 
                                     if next_slide == "QUIT":
                                         stage_three = False
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                         run_intro()
+                                        break
                                     if next_slide == "START":
                                         stage_three = False
                                         set_grid_level()
+                                        break
+                                    if next_slide == "EXIT":
+                                        stage_three = False
+                                        print("Thank you for playing!")
+                                        print("")
+                                        print("Leaving game...")
+                                        time.sleep(0.75)
+                                        exit()
                                     else:
-                                        print("Input not recognised, please try again")
-                                        continue
+                                        if stage_three == False:
+                                            break
+                                        if stage_three == True:
+                                            print("Input not recognised, please try again")
+                                            continue
                                 except ValueError():
                                     print(f"\031[0;32;40mYour input is not ", end="")
                                     print(f"valid. Please try again.\n")
                                     print("")
                                     continue
                                 else:
-                                    return False
+                                    break
+                        if next_slide == "EXIT":
+                            stage_two = False
+                            print("Thank you for playing!")
+                            print("")
+                            print("Leaving game...")
+                            time.sleep(0.75)
+                            exit()
+
                         if next_slide == "Q":
                             stage_two = False
                             os.system('cls' if os.name == 'nt' else 'clear')
-
                             run_intro()
+                            break
                         else:
-                            print("Input not recognised, please try again")
-                            continue
+                            if stage_two == False:
+                                break
+                            if stage_two == True:
+                                print("Input not recognised, please try again")
+                                continue
                     except ValueError():
                         print(f"\031[0;32;40mYour input is not valid. Please try again.\n")
                         print("")
                         continue
                     else:
-                        return False
+                        break
 
             if user_call == "RUN":
                 stage_one = False
                 set_grid_level()
+                break
+
+            if user_call == "EXIT":
+                stage_one = False
+                print("Thank you for playing!")
+                print("")
+                print("Leaving game...")
+                time.sleep(0.75)
+                exit()
             else:
-                print(f"Input not recognised, please try again\n")
-                continue
+                if stage_one == False:
+                    break
+                if stage_one == True:
+                    print("Input not recognised, please try again")
+                    continue
         except ValueError():
             print(f"\031[0;32;40mYour input is not valid. Please try again.\n")
             print("")
             continue
         else:
-            return False
+            break
 
 
 def set_grid_level():
@@ -469,6 +515,10 @@ def print_play_area():
     # global variables.
     global game_start
 
+    f = Figlet(font='z-pilot_')
+    print("\033[0;36;40m")
+    print(f.renderText(" F I G H T "))
+
     # The code below will read the grid level chosen by
     # the user and print a statement when the grid is printed
     # for the first time, indicating how many enemies are on
@@ -586,12 +636,20 @@ def fire_cannons():
             # requst an input from user
             print("\033[0;37;40mTo make your shot", end='')
             print(f" enter a Latitude {characters[0]} -", end='')
-            print(f" {characters[set_grid_level.grid_level-1]}.", end='')
-            print(" Then a Longitude from 0 - ", end='')
-            target = input(f"{set_grid_level.grid_level-1} such as A1:\033[0;32;40m \n")
+            print(f" {characters[set_grid_level.grid_level-1]}.")
+            print("Then a Longitude from 0 - ", end='')
+            print(f"{set_grid_level.grid_level-1} such as A1.\033[0;32;40m \n")
+            target = input("INPUT: ")
 
             # incase of lower case input, convert to uppercase
             target = target.upper()
+
+            if target == "EXIT":
+                print("Thank you for playing!")
+                print("")
+                print("Leaving game...")
+                time.sleep(0.75)
+                exit()
 
             if target == "CHEATMODE":
                 time.sleep(0.5)
@@ -931,7 +989,7 @@ def end_game():
 def main():
     run_intro()
     # set_grid_level()
-    # fire_cannons()
+    fire_cannons()
 
 
 main()
