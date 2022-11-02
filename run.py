@@ -35,7 +35,7 @@ debug_mode = False
 
 def run_intro():
     # Set colors of text to be printed.
-    print("\033[0;31;40m")
+    print("\033[1;31;40m")
 
     # setup figlet fonts.
     f = Figlet(font='xttyb')
@@ -56,7 +56,7 @@ def run_intro():
         try:
             # Request user input.
             print("\033[0;37;40mInput 'HELP' to read the game manual.")
-            print(f"Input 'RUN' to start the game\033[0;32;40m\n")
+            print(f"Input 'RUN' to start the game\033[1;32;40m\n")
             user_call = input("INPUT: ")
 
             # incase of lower case input, convert to uppercase
@@ -78,29 +78,22 @@ def run_intro():
                 # close the parent loop.
                 stage_one = False
 
-                print(f.renderText(" B L A C K B E A R D ' S"))
-                print(f.renderText(" B A T T L E S H I P S !"))
-                # print("")
+                print(f.renderText(" BLACKBEARD's"))
+                print(f.renderText(" BATTLESHIPS"))
+
                 print(f"\033[1;34;40mHow to Play:\033[0;37;40m\n")
                 print("\033[0;37;40m When starting the game", end="")
-                print(" the computer shall request", end="")
-                print(f" a Number from 3 to 10.\n")
+                run_manual_two(" the computer shall request", " a Number from 3 to 10.\n", " This number is used to determin")
 
-                print(" This number is used to determin", end="")
                 print(f" the playing area of the game.\n")
                 print(f" Entering 4 for example, will produce a 4x4 grid.\n")
-                print(" Higher numbers will also effect the size", end="")
-                print(f" and number of enemy ships on the grid.\n")
-                print("")
+                run_manual_one(" Higher numbers will also effect the size", " and number of enemy ships on the grid.\n")
 
                 print(f" You have a limited amount of shots available.\n")
-                print(f" You will be penalised ", end="")
-                print(f"if you miss of shoot a target twice.\n")
-                print(f" You will NOT be penalised ", end="")
+                run_manual_two(" You will be penalised ", "if you miss of shoot a target twice.\n", " You will NOT be penalised ")
+
                 print(f"if you enter an invalid input.\n")
-                print(f" Your current ammo count shall ", end="")
-                print(f" be displayed beneath the grid.\n")
-                print("")
+                run_manual_one(" Your current ammo count shall ", " be displayed beneath the grid.\n")
 
                 # Required variable to close the below while loop.
                 stage_two = True
@@ -108,46 +101,41 @@ def run_intro():
                 while stage_two:
                     try:
                         print("Input 'N' to continue or 'Q'", end="")
-                        print(f" to leave...\033[0;32;40m\n")
+                        print(f" to leave...\033[1;32;40m\n")
                         next_slide = input("INPUT: ")
                         next_slide = next_slide.upper()
 
                         os.system('cls' if os.name == 'nt' else 'clear')
 
                         if next_slide == "N":
+
                             stage_two = False
-                            print(f.renderText(" B L A C K B E A R D ' S"))
-                            print(f.renderText(" B A T T L E S H I P S !"))
+
+                            print(f.renderText(" BLACKBEARD's"))
+                            print(f.renderText(" BATTLESHIPS"))
+
                             print(f"\033[1;34;40mContinued...\033[0;37;40m\n")
-                            print("\033[0;37;40m Sink completely, ", end="")
-                            print(f"all of the enemies ships to win.\n")
-                            print(f" Run out of ammo before ", end="")
+                            run_manual_two("\033[0;37;40m Sink completely, ", "all of the enemies ships to win.\n", " Run out of ammo before ")
+
                             print(f"and you will loose.\n")
-                            print(f" You will be alerted when ", end="")
+                            print(" You will be alerted when ", end="")
                             print(f"ships have been destroyed.\n")
-                            print(" Hints towards remaining amount of ", end="")
-                            print(f"ships will be printed above the grid.\n")
+                            run_manual_one(" Hints towards remaining amount of ", "ships will be printed above the grid.\n")
 
-                            print("")
                             print(" When you have chosen the level ", end="")
-                            print(", the computer shall request ", end="")
-                            print(f"a target on the grid.\n")
-                            print(" Input first an ", end="")
-                            print("alphabetical character", end="")
-                            print(f", then a number such as 'A1'\n")
-                            print(" Cheat codes can be entered when ", end="")
-                            print(f"the computer requests ", end="")
-                            print(f"your target input.\n")
-                            print("")
+                            run_manual_two(", the computer shall request ", "a target on the grid.\n", " Input first an ")
 
+                            run_manual_two("alphabetical character", ", then a number such as 'A1'\n", " Cheat codes can be entered when ")
+
+                            run_manual_one("the computer requests ", "your target input.\n")
                             print(f" At anytime enter 'EXIT' to leave the game.\n")
 
                             stage_three = True
 
                             while stage_three:
                                 try:
-                                    print(f"Input 'QUIT' to return to the main menu or ", end="")
-                                    print(f"'START' to play the game.\033[0;32;40m\n")
+                                    print("Input 'QUIT' to return to the main menu or ", end="")
+                                    print(f"'START' to play the game.\033[1;32;40m\n")
                                     next_slide = input("INPUT: ")
                                     next_slide = next_slide.upper()
 
@@ -170,11 +158,10 @@ def run_intro():
                                         time.sleep(0.75)
                                         exit()
                                     else:
-                                        if stage_three is False:
+                                        if not stage_three:
                                             break
-                                        if stage_three:
-                                            print("Input not recognised, please try again")
-                                            continue
+                                        print("Input not recognised, please try again")
+                                        continue
                                 except ValueError():
                                     print(f"\031[0;32;40mYour input is not ", end="")
                                     print(f"valid. Please try again.\n")
@@ -196,11 +183,10 @@ def run_intro():
                             run_intro()
                             break
                         else:
-                            if stage_two is False:
+                            if not stage_two:
                                 break
-                            if stage_two:
-                                print("Input not recognised, please try again")
-                                continue
+                            print("Input not recognised, please try again")
+                            continue
                     except ValueError():
                         print(f"\031[0;32;40mYour input is not valid. Please try again.\n")
                         print("")
@@ -221,17 +207,29 @@ def run_intro():
                 time.sleep(0.75)
                 exit()
             else:
-                if stage_one is False:
+                if not stage_one:
                     break
-                if stage_one:
-                    print("Input not recognised, please try again")
-                    continue
+                print("Input not recognised, please try again")
+                continue
         except ValueError():
             print(f"\031[0;32;40mYour input is not valid. Please try again.\n")
             print("")
             continue
         else:
             break
+
+
+def run_manual_one(arg0, arg1):
+    print(arg0, end="")
+    print(f"{arg1}")
+
+    print("")
+
+
+def run_manual_two(arg0, arg1, arg2):
+    print(arg0, end="")
+    print(f"{arg1}")
+    print(arg2, end="")
 
 
 def set_grid_level():
@@ -250,7 +248,7 @@ def set_grid_level():
         try:
             # get an integer from 3 to f10 from user
             set_grid_level.grid_level = int(input(
-                "\033[0;37;40mEnter a number from 3 - 10: \033[0;32;40m"))
+                "\033[0;37;40mEnter a number from 3 - 10: \033[1;32;40m"))
             print("")
 
             # check if input is between 3 and 10 if yes call make_grid
@@ -520,11 +518,11 @@ def print_play_area():
     # the grid.
     if game_start:
         if set_grid_level.grid_level <= 4:
-            print("\033[0;36;40mTwo enemies detected! Must be a scouting party.")
+            print("\033[1;36;40mTwo enemies detected! Must be a scouting party.")
         elif set_grid_level.grid_level < 8:
-            print("\033[0;36;40mOur sonar has detected five enemy vessels!")
+            print("\033[1;36;40mOur sonar has detected five enemy vessels!")
         else:
-            print("\033[0;36;40mOur sonar has detected a fleet of 7 ships!")
+            print("\033[1;36;40mOur sonar has detected a fleet of 7 ships!")
         print("")
         # The line below ensures that the print statments above only
         # occur on the first printing of the grid.
@@ -536,23 +534,23 @@ def print_play_area():
         # clue statements as an indictation of the users progress.
         tracker = enemy_counter - power_level
         if tracker <= 1:
-            print("\033[0;32;40mThe battle is ours!")
+            print("\033[1;32;40mThe battle is ours!")
         elif tracker < 3:
-            print("\033[0;36;40mTheir forces are weak!")
+            print("\033[1;36;40mTheir forces are weak!")
         elif tracker == 3:
-            print("\033[0;34;40mThe battle could be over soon, brace!")
+            print("\033[1;34;40mThe battle could be over soon, brace!")
         elif tracker >= 4:
-            print("\033[0;35;40mIt's not over yet, stay frosty!")
+            print("\033[1;35;40mIt's not over yet, stay frosty!")
         else:
-            print("\033[0;31;40mThe enemy approaches, ready the cannons!")
+            print("\033[1;31;40mThe enemy approaches, ready the cannons!")
         print("")
 
     # Begin printing the rows of the Grid, start with
     # the alphabetical character beginning with A, and
     # follow with a border |. Do this for every row of the grid.
-    print("\033[0;34;40m")
+    print("\033[1;34;40m")
     for row in range(len(game_grid)):
-        print(characters[row], end="| ")
+        print(characters[row], end="| \033[0;34;40m")
 
         # Then print the collumns of the grid, this is where ships
         # are located and shots are made.
@@ -564,19 +562,19 @@ def print_play_area():
             # this allows assessors to confirm their placement.
             if game_grid[row][col] == "O":
                 if debug_mode:
-                    print("O", end=" ")
+                    print("\033[1;36;40mO\033[0;34;40m", end=" ")
                 else:
                     # If debug is flase, the standard grid is
                     # printed and the ships are hidden.
-                    print("~", end=" ")
+                    print("\033[0;34;40m~", end=" ")
 
             # If a ship has been hit, the grid is printed with
             # an X to notify the user.
             elif game_grid[row][col] == "X":
-                print("X", end=" ")
+                print("\033[1;32;40mX\033[0;34;40m", end=" ")
             else:
                 print(game_grid[row][col], end=" ")
-        print("")
+        print("\033[1;34;40m")
 
     # The code below will print a row of numbers beneath
     # the game grid, beginning at 0, the combination of
@@ -588,7 +586,7 @@ def print_play_area():
     print("")
     print("")
 
-    print(f"\033[0;31;40mYou have \033[0;33;40m{ammo}\033[0;31;40m shots remaining.\n")
+    print(f"\033[0;31;40mYou have \033[1;33;40m{ammo}\033[0;31;40m shots remaining.\n")
 
 
 def fire_cannons():
@@ -630,10 +628,10 @@ def fire_cannons():
 
             # requst an input from user
             print("\033[0;37;40mTo make your shot", end='')
-            print(f" enter a Latitude {characters[0]} -", end='')
-            print(f" {characters[set_grid_level.grid_level-1]}.")
-            print("Then a Longitude from 0 - ", end='')
-            print(f"{set_grid_level.grid_level-1} such as A1.\033[0;32;40m \n")
+            print(f" enter a Latitude \033[1;37;40m{characters[0]} -", end='')
+            print(f" {characters[set_grid_level.grid_level-1]}\033[0;37;40m.")
+            print("Then a Longitude from \033[1;37;40m0 - ", end='')
+            print(f"{set_grid_level.grid_level-1}\033[0;37;40m such as A1.\033[1;32;40m \n")
             target = input("INPUT: ")
 
             # incase of lower case input, convert to uppercase
@@ -642,14 +640,14 @@ def fire_cannons():
             if target == "RANDO":
                 print("\033[0;37;40mWhat's all this then?")
                 time.sleep(0.5)
-                print(f"\033[0;31;40mHANGFIRE!\n")
+                print(f"\033[1;31;40mHANGFIRE!\n")
                 print("\033[0;37;40mCareful mateys! This cannon could fire anywhere!")
                 time.sleep(0.75)
                 random_letter = chr(random.randrange(97, 97 + set_grid_level.grid_level - 1))
                 random_letter = random_letter.upper()
                 random_number = random.randrange(0, set_grid_level.grid_level - 1)
                 target = random_letter+str(random_number)
-                print("Looks like it landed on \033[0;32;40m" + target)
+                print("Looks like it landed on \033[1;32;40m" + target)
                 time.sleep(2)
 
             if target == "EXIT":
@@ -663,27 +661,28 @@ def fire_cannons():
                 time.sleep(0.5)
                 debug_mode = True
                 if debug_mode:
-                    print("\033[0;37;40mCheat activated! All ships have been revealed!")
+                    print("\033[1;37;40mCheat activated!\033[0;37;40m All ships have been revealed!")
                     continue
 
             if target == "FIVESHOTS":
                 time.sleep(0.5)
                 ammo = ammo + 5
-                print("\033[0;37;40mCheat activated! Ammo increased!")
+                print("\033[1;37;40mCheat activated!\033[0;37;40m Ammo increased by \033[1;37;40m5!")
+                time.sleep(1)
                 continue
 
             if target == "TENSHOTS":
                 time.sleep(0.5)
-                ammo = ammo + 5
-                print("\033[0;37;40mCheat activated! Ammo increased!")
+                ammo = ammo + 10
+                print("\033[1;37;40mCheat activated!\033[0;37;40m Ammo increased by \033[1;37;40m10!")
+                time.sleep(1)
                 continue
 
             if target == "DAVEYJONES":
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("\033[0;31;40m")
+                print("\033[1;31;40m")
                 f = Figlet(font='slant')
-                print(f.renderText(" T I M E"))
-                print(f.renderText(" T O   P A Y"))
+                print(f.renderText("TIME TO PAY"))
                 time.sleep(1)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\033[0;31;40mDavey Jones has arrived to collect your soul!")
@@ -693,10 +692,10 @@ def fire_cannons():
 
             if target == "KRAKENTIME":
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("\033[0;31;40m")
-                f = Figlet(font='slant')
-                print(f.renderText(" K R A K E N"))
-                print(f.renderText(" A T T A C K"))
+                print("\033[1;31;40m")
+                f = Figlet(font='radical_')
+                print(f.renderText("KRAKEN"))
+                print(f.renderText("ATTACK"))
                 time.sleep(1)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\033[0;31;40mThe Kraken has swallowed the enemy whole!")
@@ -708,7 +707,7 @@ def fire_cannons():
             # or greater than 2 in length, invalidate and
             # restart
             if len(target) < 2 or len(target) > 2:
-                print("\033[0;31;40mMisfire!")
+                print("\033[1;31;40mMisfire!")
                 print("Please enter only one alphabetical character", end='')
                 print(f" followed by a number e.g. 'A1'\n")
                 continue
@@ -721,7 +720,7 @@ def fire_cannons():
             # if prefix not alphabetical and suffix
             # not numeric, invalidate and restart
             if not lat.isalpha() or not long.isnumeric():
-                print("\033[0;31;40mMisfire!")
+                print("\033[1;31;40mMisfire!")
                 print("For the Latitude, please enter a letter", end='')
                 print(f" for the Longtitude please enter a Number e.g. 'A1'\n")
                 continue
@@ -733,7 +732,7 @@ def fire_cannons():
             # on the current grid printed. If not
             # invalidate and restart.
             if not (-1 < lat < set_grid_level.grid_level):
-                print("\033[0;31;40mMisfire!")
+                print("\033[1;31;40mMisfire!")
                 print("That letter is not on the grid!", end='')
                 print(f" Please enter a valid letter.\n")
                 continue
@@ -745,7 +744,7 @@ def fire_cannons():
             # on the current grid printed. If not
             # invalidate and restart.
             if not (-1 < long < set_grid_level.grid_level):
-                print("\033[0;31;40mMisfire!")
+                print("\033[1;31;40mMisfire!")
                 print("The number entered is not valid!", end='')
                 print(f" Enter a valid number.\n")
                 continue
@@ -755,7 +754,7 @@ def fire_cannons():
 
                 # if yes, lower the current ammo count
                 ammo = ammo - 1
-                print("\033[0;31;40mYou've hit this location already", end='')
+                print("\033[1;31;40mYou've hit this location already ", end='')
                 print(f"Captain! Fire again!\n")
                 if ammo <= 0:
                     fire_cannons.result = "loose"
@@ -784,7 +783,7 @@ def fire_cannons():
 
             # then alter the value for that position in the grid
             # to reflect the miss to the user
-            game_grid[lat][long] = "#"
+            game_grid[lat][long] = "\033[1;31;40m#\033[0;34;40m"
 
         # once target confirmed valid if enemy ship,
         # annouce a hit and reduce ammo count
@@ -917,31 +916,21 @@ def end_game():
     os.system('cls' if os.name == 'nt' else 'clear')
 
     if fire_cannons.result == "win":
-        # Using the PyFiglet Library, print VICTORY rendered
-        # # in an alternate font
-        print("\033[0;32;40m")
-        f = Figlet(font='radical_')
-        print(f.renderText("VICTORY"))
-
+        illustrate("\033[1;32;40m", 'radical_', "VICTORY")
     else:
-        # Using the PyFiglet Library, print GAME OVER rendered
-        # # in an alternate font
-        print("\033[0;31;40m")
-        f = Figlet(font='slant')
-        print(f.renderText("GAME OVER"))
-
+        illustrate("\033[1;31;40m", 'slant', "GAME OVER")
     # Create a loop to request a user input
     # and validate said input
     while True:
         try:
             if fire_cannons.result == "win":
-                print("\033[0;32;40mWell done for completing Level: ", end="")
+                print("\033[0;32;40mWell done for completing Level: \033[1;32;40m", end="")
                 print(f"{set_grid_level.grid_level}\n\n")
             else:
-                print(f"\033[0;31;40mYou failed Level: {set_grid_level.grid_level}\n\n")
+                print(f"\033[0;31;40mYou failed Level: \033[1;31;40m{set_grid_level.grid_level}\n\n")
 
             # request a Y to play agian or an N to exit
-            replay = input(f"\033[0;37;40mWould you like to play again? Y/N:\033[0;32;40m\n")
+            replay = input(f"\033[0;37;40mWould you like to play again? Y/N:\033[1;32;40m\n")
             replay = replay.upper()
 
             # If Y is input, clear the terminal and re run the program
@@ -1004,6 +993,14 @@ def end_game():
         except ValueError:
             print(f"\033[0;31;40mYour input is not valid, please input either Y or N.\n")
             continue
+
+
+def illustrate(arg0, font, arg2):
+    # Using the PyFiglet Library, print VICTORY rendered
+    # # in an alternate font
+    print(arg0)
+    f = Figlet(font=font)
+    print(f.renderText(arg2))
 
 
 def main():
