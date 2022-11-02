@@ -39,15 +39,14 @@ def run_intro():
 
     # setup figlet fonts.
     f = Figlet(font='xttyb')
-    f_two = Figlet(font='zone7___')
 
     print(f"Welcome to...\n")
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # then print the intro terminal
-    print(f.renderText("B L A C K B E A R D ' S"))
-    print(f.renderText("B A T T L E S H I P S !"))
+    print(f.renderText(" BLACKBEARD's"))
+    print(f.renderText(" BATTLESHIPS"))
     print("")
 
     # Required variable to close the below while loop.
@@ -171,9 +170,9 @@ def run_intro():
                                         time.sleep(0.75)
                                         exit()
                                     else:
-                                        if stage_three == False:
+                                        if stage_three is False:
                                             break
-                                        if stage_three == True:
+                                        if stage_three:
                                             print("Input not recognised, please try again")
                                             continue
                                 except ValueError():
@@ -197,9 +196,9 @@ def run_intro():
                             run_intro()
                             break
                         else:
-                            if stage_two == False:
+                            if stage_two is False:
                                 break
-                            if stage_two == True:
+                            if stage_two:
                                 print("Input not recognised, please try again")
                                 continue
                     except ValueError():
@@ -222,9 +221,9 @@ def run_intro():
                 time.sleep(0.75)
                 exit()
             else:
-                if stage_one == False:
+                if stage_one is False:
                     break
-                if stage_one == True:
+                if stage_one:
                     print("Input not recognised, please try again")
                     continue
         except ValueError():
@@ -515,10 +514,6 @@ def print_play_area():
     # global variables.
     global game_start
 
-    f = Figlet(font='z-pilot_')
-    print("\033[0;36;40m")
-    print(f.renderText(" F I G H T "))
-
     # The code below will read the grid level chosen by
     # the user and print a statement when the grid is printed
     # for the first time, indicating how many enemies are on
@@ -644,6 +639,19 @@ def fire_cannons():
             # incase of lower case input, convert to uppercase
             target = target.upper()
 
+            if target == "RANDO":
+                print("\033[0;37;40mWhat's all this then?")
+                time.sleep(0.5)
+                print(f"\033[0;31;40mHANGFIRE!\n")
+                print("\033[0;37;40mCareful mateys! This cannon could fire anywhere!")
+                time.sleep(0.75)
+                random_letter = chr(random.randrange(97, 97 + set_grid_level.grid_level - 1))
+                random_letter = random_letter.upper()
+                random_number = random.randrange(0, set_grid_level.grid_level - 1)
+                target = random_letter+str(random_number)
+                print("Looks like it landed on \033[0;32;40m" + target)
+                time.sleep(2)
+
             if target == "EXIT":
                 print("Thank you for playing!")
                 print("")
@@ -671,14 +679,26 @@ def fire_cannons():
                 continue
 
             if target == "DAVEYJONES":
-                time.sleep(0.5)
-                print("\033[0;31;40mYou fled the battle!")
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\033[0;31;40m")
+                f = Figlet(font='slant')
+                print(f.renderText(" T I M E"))
+                print(f.renderText(" T O   P A Y"))
                 time.sleep(1)
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\033[0;31;40mDavey Jones has arrived to collect your soul!")
+                time.sleep(1.35)
                 fire_cannons.result = "loose"
                 end_game()
 
             if target == "KRAKENTIME":
-                time.sleep(0.5)
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\033[0;31;40m")
+                f = Figlet(font='slant')
+                print(f.renderText(" K R A K E N"))
+                print(f.renderText(" A T T A C K"))
+                time.sleep(1)
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print("\033[0;31;40mThe Kraken has swallowed the enemy whole!")
                 time.sleep(1)
                 fire_cannons.result = "win"
