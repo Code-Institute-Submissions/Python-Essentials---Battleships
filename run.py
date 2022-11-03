@@ -1,3 +1,30 @@
+"""
+Welcome to Blackbeard's Battleships. A Python Terminal battelships
+game. The game is one player, users will battle against the
+computer. Users can chose from several difficulty options ranging
+from 3 to 10 with grid sizes starting at 3x3 then incrementing by
+1x1 to 10x10 at max. The size range, and number of ships will also
+increase with higher levels. Positions, directions and ship lengths
+are all randomised each game. Users can input coordinates from the
+grid in a 'CharacterNumber' format such as A1. These coordinates are
+validated and an outcome is determined. Ammo is limited to 30 shots per
+game, if users reach 0 before sinking all enemy ships they will loose.
+Users must sink all enemy ships to win
+
+Cheat codes:
+RANDO: Generates a randomised target location.
+CHEATMODE: Reveals the enemy ships on the grid.
+TENSHOTS: Ammo increased by 5.
+FIVESHOTS: Ammo increased by 5.
+DAVEYJONES: Instant Game Over.
+KRAKENTIME: Instant Victory.
+
+Legend:
+Green colored 'X': Relates to an succesful hit in that grid position.
+Red colored '#': Relates to a previous target in that grid position.
+Blue colored '~': Relates to open water in that grid position.
+Cyan colored 'O': Relates to an enemy ship in that grid position.
+"""
 # Used to refactor a statement
 import itertools
 
@@ -164,6 +191,16 @@ def run_intro():
                                 "your target input.\n")
                             print(" At anytime enter ", end="")
                             print(f"'EXIT' to leave the game.\n")
+
+                            print(f"\033[1;34;40mLegend:\033[0;37;40m\n")
+                            print("Green colored '\033[1;32;40mX\033[0;37;40m': ", end="")
+                            print("Relates to an succesful hit in that grid position.")
+                            print("Red colored '\033[1;31;40m#\033[0;37;40m': ", end="")
+                            print("Relates to a previous target in that grid position.")
+                            print("Blue colored '\033[1;34;40m~\033[0;37;40m': ", end="")
+                            print("Relates to open water in that grid position.")
+                            print("Cyan colored '\033[1;36;40mO\033[0;37;40m': ", end="")
+                            print(f"Relates to an enemy ship in that grid position.\n")
 
                             stage_three = True
 
@@ -714,13 +751,11 @@ def fire_cannons():
 
             # CHEATCODE: Will fire on a random location of the grid.
             if target == "RANDO":
-                print("\033[0;37;40mWhat's all this then?")
-                time.sleep(0.5)
+                print(f"\033[0;37;40mWhat's all this then?\n")
                 print(f"\033[1;31;40mHANGFIRE!\n")
                 print("\033[0;37;40mCareful mateys!", end="")
                 print(" This cannon could fire anywhere!")
-                os.system('cls' if os.name == 'nt' else 'clear')
-                time.sleep(0.75)
+                time.sleep(2.25)
                 random_letter = chr(
                     random.randrange(97, 97 + set_grid_level.grid_level - 1)
                     )
@@ -731,7 +766,9 @@ def fire_cannons():
                 target = random_letter+str(random_number)
                 print("")
                 print("Looks like it landed on \033[1;32;40m" + target)
+                print("")
                 time.sleep(1.5)
+                os.system('cls' if os.name == 'nt' else 'clear')
 
             # Method to exit the game.
             if target == "EXIT":
@@ -868,7 +905,7 @@ def fire_cannons():
                 continue
 
             # if all valid, check if the location has been hit already
-            if game_grid[lat][long] in ["#", "X"]:
+            if game_grid[lat][long] in ["\033[1;31;40m#\033[0;34;40m", "X"]:
 
                 # if yes, lower the current ammo count
                 ammo = ammo - 1
@@ -891,7 +928,7 @@ def fire_cannons():
                 valid_target = True
 
             # clears the terminal to prevent long flowing readouts
-            os.system('cls' if os.name == 'nt' else 'clear')
+            # os.system('cls' if os.name == 'nt' else 'clear')
 
         # once target confirmed valid if open water,
         # annouce a miss and reduce ammo count
@@ -904,7 +941,6 @@ def fire_cannons():
                 end_game()
             time.sleep(1.5)
             os.system('cls' if os.name == 'nt' else 'clear')
-            print_play_area()
 
             # then alter the value for that position in the grid
             # to reflect the miss to the user
@@ -915,6 +951,8 @@ def fire_cannons():
         elif game_grid[lat][long] == "O":
             ammo = ammo - 1
             print(f"\033[0;32;40mThat's a direct hit! Well done Captian!\n")
+            time.sleep(1.5)
+            os.system('cls' if os.name == 'nt' else 'clear')
             game_grid[lat][long] = "X"
 
             # pass the chosen location to a method
