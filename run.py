@@ -38,7 +38,7 @@ import time
 # used to clear the terminal readout
 # in various stages of the script
 import os
-import webbrowser
+
 # used to render illustrative text to the terminal.
 from pyfiglet import Figlet
 
@@ -53,8 +53,6 @@ enemy_counter = 0
 enemy_power_level = 0
 power_level = 0
 game_start = True
-target_located = 0
-ammo = 30
 game_running = True
 result = ""
 debug_mode = False
@@ -192,14 +190,22 @@ def run_intro():
                             print(f"'EXIT' to leave the game.\n")
 
                             print(f"\033[1;34;40mLegend:\033[0;37;40m\n")
-                            print("Green colored '\033[1;32;40mX\033[0;37;40m': ", end="")
-                            print("Relates to an succesful hit in that grid position.")
-                            print("Red colored '\033[1;31;40m#\033[0;37;40m': ", end="")
-                            print("Relates to a previous target in that grid position.")
-                            print("Blue colored '\033[1;34;40m~\033[0;37;40m': ", end="")
-                            print("Relates to open water in that grid position.")
-                            print("Cyan colored '\033[1;36;40mO\033[0;37;40m': ", end="")
-                            print(f"Relates to an enemy ship in that grid position.\n")
+                            print("Green colored ", end="")
+                            print("'\033[1;32;40mX\033[0;37;40m': ", end="")
+                            print("Relates to a succesful ", end="")
+                            print("hit in that grid position.")
+                            print("Red colored ", end="")
+                            print("'\033[1;31;40m#\033[0;37;40m': ", end="")
+                            print("Relates to a previous ", end="")
+                            print("target in that grid position.")
+                            print("Blue colored ", end="")
+                            print("'\033[1;34;40m~\033[0;37;40m': ", end="")
+                            print("Relates to open water", end="")
+                            print(" in that grid position.")
+                            print("Cyan colored ", end="")
+                            print("'\033[1;36;40mO\033[0;37;40m': ", end="")
+                            print("Relates to an enemy ", end="")
+                            print(f"ship in that grid position.\n")
 
                             stage_three = True
 
@@ -217,7 +223,14 @@ def run_intro():
                                         )
 
                                     if next_slide == "MORE":
-                                        webbrowser.open("https://whlw27.github.io/Python-Essentials---Battleships/", new=2)
+                                        r = open(
+                                            "instruction.txt",
+                                            "r",
+                                            "t",
+                                            encoding="utf-8"
+                                            )
+                                        instruction = r.read()
+                                        print(instruction)
 
                                     if next_slide == "QUIT":
                                         stage_three = False
@@ -432,7 +445,6 @@ def build_ships():
     """
     # Must access the following
     # global variables.
-    global ammo
     global enemy_counter
     global enemy_power_level
 
@@ -455,17 +467,17 @@ def build_ships():
         if set_grid_level.grid_level <= 4:
             ship_size = 1
             ships_to_place = 3
-            ammo = 10
+            build_ships.ammo = 10
 
         elif set_grid_level.grid_level < 8:
             ship_size = random.randint(1, 3)
             ships_to_place = 5
-            ammo = 20
+            build_ships.ammo = 20
 
         else:
             ship_size = random.randint(2, 5)
             ships_to_place = 7
-            ammo = 30
+            build_ships.ammo = 30
 
         # once the location, size and direction of the ship
         # are determined, these are passed through
@@ -705,7 +717,7 @@ def print_play_area():
     print("")
 
     print("\033[0;31;46mYou have \033[1;33;46m", end="")
-    print(f"{ammo}\033[0;31;46m shots remaining.\033[0;31;40m\n")
+    print(f"{build_ships.ammo}\033[0;31;46m shots remaining.\033[0;31;40m\n")
 
 
 def fire_cannons():
@@ -724,8 +736,6 @@ def fire_cannons():
     # must be able to read from and change the
     # following globals.
     global power_level
-    global target_located
-    global ammo
     global debug_mode
 
     # creates a loop that shall run until
@@ -743,7 +753,7 @@ def fire_cannons():
             # that a valid hit to a new target counts
             # for only a 1 point deduction of enemy_power_level
             # without this a bug can cause a 2 point deduction.
-            target_located = 0
+            fire_cannons.target_located = 0
 
             # requst an input from user
             print("\033[0;37;40mTo make your shot", end='')
@@ -803,7 +813,7 @@ def fire_cannons():
             # CHEATCODE: Will increase current ammo count by 5.
             if target == "FIVESHOTS":
                 time.sleep(0.5)
-                ammo = ammo + 5
+                build_ships.ammo = build_ships.ammo + 5
                 print("\033[1;37;40mCheat activated!", end="")
                 print("\033[0;37;40m Ammo increased by \033[1;37;40m5!")
                 time.sleep(1.5)
@@ -814,7 +824,7 @@ def fire_cannons():
             # CHEATCODE: Will increase current ammo count by 10.
             if target == "TENSHOTS":
                 time.sleep(0.5)
-                ammo = ammo + 10
+                build_ships.ammo = build_ships.ammo + 10
                 print("\033[1;37;40mCheat activated!", end="")
                 print("\033[0;37;40m Ammo increased by \033[1;37;40m10!")
                 time.sleep(1.5)
@@ -916,10 +926,10 @@ def fire_cannons():
             if game_grid[lat][long] in ["\033[1;31;40m#\033[0;34;40m", "X"]:
 
                 # if yes, lower the current ammo count
-                ammo = ammo - 1
+                build_ships.ammo = build_ships.ammo - 1
                 print("\033[1;31;40mYou've hit this location already ", end='')
                 print(f"Captain! Fire again!\n")
-                if ammo <= 0:
+                if build_ships.ammo <= 0:
                     fire_cannons.result = "loose"
                     end_game()
 
@@ -941,10 +951,10 @@ def fire_cannons():
         # once target confirmed valid if open water,
         # annouce a miss and reduce ammo count
         if game_grid[lat][long] == "~":
-            ammo = ammo - 1
+            build_ships.ammo = build_ships.ammo - 1
             print("\033[0;31;40mCaptain! Our ", end="")
             print(f"shot missed! Fire another round!\n")
-            if ammo <= 0:
+            if build_ships.ammo <= 0:
                 fire_cannons.result = "loose"
                 end_game()
             time.sleep(1.5)
@@ -957,7 +967,7 @@ def fire_cannons():
         # once target confirmed valid if enemy ship,
         # annouce a hit and reduce ammo count
         elif game_grid[lat][long] == "O":
-            ammo = ammo - 1
+            build_ships.ammo = build_ships.ammo - 1
             print(f"\033[0;32;40mThat's a direct hit! Well done Captian!\n")
             time.sleep(1.5)
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -1034,13 +1044,12 @@ def ship_located():
     # Must access the following
     # global variables.
     global enemy_power_level
-    global target_located
 
     # The code below will only run if the value
     # of the target_located variable is 0.
     # This ensures the indented code runs only
     # once per confirmed hit on target.
-    if target_located == 0:
+    if fire_cannons.target_located == 0:
 
         # Will reduce the value of enemy_power_level by 1
         # to track for a winning situation.
@@ -1048,7 +1057,7 @@ def ship_located():
 
         # Increments target_located by 1 to prevent
         # running twice per hit target.
-        target_located = target_located + 1
+        fire_cannons.target_located = fire_cannons.target_located + 1
 
     # If the value of enemy_power_level is equal to 0
     # call the win_game method.
@@ -1060,7 +1069,7 @@ def ship_located():
     # global is 0 whilst the enemy_power_level is simultaneously
     # greater than 0. This is to ensure that the users final shot
     # can still win the game if it sinks the final target.
-    elif ammo <= 0 and enemy_power_level > 0:
+    elif build_ships.ammo <= 0 and enemy_power_level > 0:
         fire_cannons.result = "loose"
         end_game()
 
