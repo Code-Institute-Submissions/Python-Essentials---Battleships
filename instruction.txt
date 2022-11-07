@@ -17,7 +17,7 @@ manual explaining the games usage along with a legend. The game contains a
 variety of built in cheat codes with various effects to compliment gameplay, 
 these are detailed in the content below.
 
-- The game begins with an intro menu, requesting an input of either 'HELP' or r
+- The game begins with an intro menu, requesting an input of either 'HELP' or 
 'RUN'. If the user inputs 'HELP' the instruction manual shall load with some
 breif in-game help and a legend of the symbols used. If the user inputs 'RUN'
 the game shall start. The next screen requests another input, this time an 
@@ -33,9 +33,10 @@ message beneath the game grid itself and is updated with every shot made
 (provided it is not a 'misfire' AKA invalidated input). Users will be penalised,
 loosing 1 ammo if you miss a target open water, users will also be penalised if 
 they target the same location twice (same input as as previous input). Users 
-will NOT be penalised if you enter an invalid input. Your current ammo count can 
-be increased through the means of two cheatcodes built-in to the game, 'TENSHOTS'
-and 'FIVESHOTS' which when input, will increase ammo by either 10 or 5.
+will NOT be penalised if you enter an invalid input. Your current ammo count 
+can be increased through the means of two cheatcodes built-in to the game, 
+'TENSHOTS' and 'FIVESHOTS' which when input, will increase ammo by either 10 
+or 5.
 
 - The goal is to sink completely, all of the enemies ships to win. Run out of 
 ammo before and you will loose. Helpful messages will appear above the grid to

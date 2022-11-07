@@ -10,7 +10,7 @@ The game features a main menu, where users can navigate through an instruction m
 Refer to Wikipedia for the History of [Battleships](https://en.wikipedia.org/wiki/Battleship_(game))
 
 
-![Responsive](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/responsive-mockup.png)
+![Responsive](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/responsivemockup.png)
 
 ## How to Play 
 
@@ -50,7 +50,7 @@ Refer to Wikipedia for the History of [Battleships](https://en.wikipedia.org/wik
 
 A                          |  B                        
 :-------------------------:|:-------------------------:
-![Intro Menu](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart.png)|![Intro Menu](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart-b.png)
+![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenu.png)|![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenuvalid.png)
 
 - __Game Manual__
 
@@ -60,7 +60,7 @@ A                          |  B
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-![Game Manual](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Game Manual](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Game Manual](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-one.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-two.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/detailed-manual.png)
 
 - __Legend__
 
