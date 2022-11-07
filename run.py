@@ -228,9 +228,7 @@ def run_intro():
                                         r = open(
                                             "instruction.txt",
                                             "r",
-                                            "t",
-                                            encoding="utf-8"
-                                            )
+                                            encoding="utf-8")
                                         instruction = r.read()
                                         print(instruction)
 
