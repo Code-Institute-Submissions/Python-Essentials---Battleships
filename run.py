@@ -217,7 +217,7 @@ def run_intro():
                                         )
 
                                     if next_slide == "MORE":
-                                        webbrowser.open("https://github.com/WHLW27/Python-Essentials---Battleships", new=2)
+                                        webbrowser.open("https://whlw27.github.io/Python-Essentials---Battleships/", new=2)
 
                                     if next_slide == "QUIT":
                                         stage_three = False
