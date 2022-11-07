@@ -38,7 +38,7 @@ import time
 # used to clear the terminal readout
 # in various stages of the script
 import os
-
+import webbrowser
 # used to render illustrative text to the terminal.
 from pyfiglet import Figlet
 
@@ -85,7 +85,6 @@ def run_intro():
     # then print the intro terminal
     print(f.renderText(" BLACKBEARD's"))
     print(f.renderText(" BATTLESHIPS"))
-    print("")
 
     # Required variable to close the below while loop.
     stage_one = True
@@ -216,6 +215,9 @@ def run_intro():
                                     os.system(
                                         'cls' if os.name == 'nt' else 'clear'
                                         )
+
+                                    if next_slide == "MORE":
+                                        webbrowser.open("https://github.com/WHLW27/Python-Essentials---Battleships", new=2)
 
                                     if next_slide == "QUIT":
                                         stage_three = False
@@ -430,6 +432,7 @@ def build_ships():
     """
     # Must access the following
     # global variables.
+    global ammo
     global enemy_counter
     global enemy_power_level
 
@@ -451,13 +454,18 @@ def build_ships():
         # based on the level input by the user
         if set_grid_level.grid_level <= 4:
             ship_size = 1
-            ships_to_place = 2
+            ships_to_place = 3
+            ammo = 10
+
         elif set_grid_level.grid_level < 8:
             ship_size = random.randint(1, 3)
             ships_to_place = 5
+            ammo = 20
+
         else:
             ship_size = random.randint(2, 5)
-            ships_to_place = 6
+            ships_to_place = 7
+            ammo = 30
 
         # once the location, size and direction of the ship
         # are determined, these are passed through
@@ -625,11 +633,11 @@ def print_play_area():
     # the grid.
     if game_start:
         if set_grid_level.grid_level <= 4:
-            print("\033[1;36;40mTwo enemies ", end="")
+            print("\033[1;36;40m3 enemies ", end="")
             print("detected! Must be a scouting party.")
         elif set_grid_level.grid_level < 8:
             print("\033[1;36;40mOur sonar ", end="")
-            print("has detected five enemy vessels!")
+            print("has detected 5 enemy vessels!")
         else:
             print("\033[1;36;40mOur sonar ", end="")
             print("has detected a fleet of 7 ships!")

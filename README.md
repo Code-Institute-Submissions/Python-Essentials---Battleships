@@ -31,6 +31,15 @@ Refer to Wikipedia for the History of [Battleships](https://en.wikipedia.org/wik
 - Blue colored '~': Relates to open water in that grid position.
 - Cyan colored 'O': Relates to an enemy ship in that grid position.
 
+
+## Project Goals
+- The project is a simple take on the Battleships game concept. The player only needs to consider their oponents ships and their current avaiable ammo count.
+- The game has a variety of difficulty options, gird sizes range from 3x3 to 10x10, 3 enemy ships at the lowest level and 7 at the highest. The sizes of the ships are randomised but generally will be larger the higher the level. 
+- You win the game by sinking all ships on the grid before your ammo count reaches 0. 
+
+## User Experience
+- The user experience will be comfortable adn familiar to those acustomed to battlehsips. Color is featured extensively to highlight important information to players providing a good QOL. Commands are simple with straightforward inputs. Cheat codes have been included to enhance the overall experience. 
+
 ### Existing Features
 
 - __Intro Menu__
@@ -65,10 +74,9 @@ A                          |  B
 
 - __Numerous difficulty levels__ 
 
-  - The playing area could be viewed as the primary feature of the site, its in this section that players will ccreat their paterns, the heart of the game itself is contain within this tool, as without it the game could not operate. This tool is responsive, and interactive and encourages the game play loop. 
+  - The difficulty ranges from Low with a 3x3 grid and 3 targets on the grid, to medium with a 5x5 Grid and 5 targets. Then increasing up to High, starting from grid sizes of 8x8 to a max of 10x10 featuring 7 targets. Ammo count will range from 10 at 3x3 (meaning it is only possible to fail 3x3 by making several mistake such as targeting locations twice), to 20 from level 5 and increasing to 30 at mixmum. (This count can be effected by the cheat codes.)
   
-  The styles of the Player One (seen in column A) and Player Two (seen in column B) windows in the PVP Game Type are different to illustrate the change in control. New games are also activated via this tool.
-  - As mentioned above, this tool is the heart of the game itself, no matter which game type you chose, whether player one or player two, you will be acquainted with this tool. Without it the gameplay loop would not exist and players would not be able to operate the games functions outside of the main menu. Therefore this tool could be seen to be the most valuable feature of all. 
+  - This feature gives the game lots of replayability, with challenges increasing in difficulty. There is an option available to younger audiences or those with less skill with the 3x3 giving a fun opportunity to test the game and its features with room to make a mistake without an serious consequence. There is an option for players seeking a challenge, with 10x10, and an ammo count of 30 covering only 30% of the potential target locations, tactical or logical thinking is required. Mistakes are expensive and pressure is much more apparent. The game despite the fixed difficulties also gives users the chance to manipulate the difficulty via the ingame cheats, increasing ammo availablilty at higher levels to bring the pressure down. 
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -76,10 +84,13 @@ A                          |  B                        | C
 
 - __In Game hints__
 
-  - The score chart will appear in both the PVP and P VS Computer game types, in PVP (seen in column A) Player One and Player Two can use this scoreboard to change and set their player name for the game. These names can be carried into new games. The scoreboard also efficiently records and reflects the scores in points for the two players. 
+  - At the beginning stage of the game, as the grid has been printed for the 1st time, depending on the level input for the grid size, a short hint indicative of the number of enemy ships on the grid will appear above the grid itself. The text is descriptive and follows the theme or naval piracy I decided to aim for. These messages make clear the games 'personality' to the user and provide them with the exact number of ships they need to sink. To avoid confusion further into the gameplay this message disapears after the first valid target has been hit. 
+
+  They are then replaced with a second type of message, giving a vague hint of how many ships there may curently be still unsank, these messages are intentionally vague to provide the game with some extra challenge, but I feel they are descriptive enough to benefit the users decisions ingame. 
+
+  A third type of message shall appear to notify the user when they have succesfully hit all connected sections or a target, AKA sank a ship on the grid. 
   
-  In the P VS Computer (seen in column B) game type, only the name for player one can be altered, the scoreboard will instead reflect the scores for the Computer
-  - This is a crucial tool for the gameplay. This records the winners of each of the three rounds in each overall game, then awards points up to a maximum of three to the winning party. Players can predetermine the end goal, such as first to 10 points, this scoreboard allows for these points to be recorded. 
+ - This message center of sorts provides teh user with multiple layers of information, aluding to the challenge ahead, their current progress in game and of their achievments, the messages are not permanent to keep the terminal output clean and readable. This feature is not particularly neccesary beyond stating the number of targets, but it benefits the experience by increasing the interaction between the user and the game itself. The game responds to the user and strengthens their feelings of control over the games outcome, while providing additional oppotunities to give the game some character. 
   
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -96,10 +107,9 @@ A                          |  B                        | C
 
 - __Ammo Counter__
 
-  - The message center will display messages at different stages of the game, if the hidden cheat option is activated, messages are flagged here, images of these messageds are found further in this document. 
-  
-  Including the nuke alerts, the winners of rounds 1, 2 and 3 are declared through these messages, the game will use the chosen player names and declared who wins the point or if the round is a draw. 
-  - This tool notifys players of certain actions taking place within the gameplay, and of the results of each round, without this players can use the scoreboard or compare the paterns via the tool explained above. Theses messages add an extra Quality of Life layer to the game.  
+  - Beneath the Games grid when this had been printed to the terminal, a message shall appear with the text 'You have X shots remaining' where 'X' marks the current ammo count. This game uses the current avaiable ammo count to determine the outcome of the game, the ammo avaiablity contributes a large part of the games challenge at higher diffuclty levels. This count begins at 10 with a 3x3 grid, raising to 20 at 5x5 and 30 from grid sizes of 8 and above. This count can be manipulate in game by the user through the avaibale TENSHOTS and FIVESHOTS cheat codes.
+
+- Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
 
 ![Ammo Counter](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/message.png)
 
@@ -121,8 +131,18 @@ D                          |  E                        | F
 
 - __Cheat Options__
 
-  - This area of the site features a game manual for the Player vs Player game type, it explains the various functions and concepts within the game, such as the patern comparison, the scoring, how to operate the game, it explains how to carry over scores and set the player names.  
-  - This guide covers the PVP game type and its operation in entriety which is invaluable to thos finding difficulty understanding the game at first, this would likely be of most use to an older audience of those less versed in digital technology.
+  - The game features several built-in cheats. They can be input when the program is requesting a user input for the target. The effects range from humorous to exploitative. There are options for increasing the current ammo, options to instantly call a GAME OVER or VICTORY, a Randomised target feature and a God mode style cheat that reveals all enemy ships on the grid. 
+  
+  - These cheat features give the game some extra fun in game, and provide users with the option to manipulate the stakes at higher difficulty levels. This provides a level of freedom to the user along with the chance to choose the difficulty through the grid size. This supliments the loss of freedom from my decision to focus on a 1 Grid concept by contrast to the typical 2 Grid concept. 
+  - Additionaly these features where beneficial to me as the developer in the games testing process and should be of benefit to an assessor for similar reasons. 
+- 
+  ### Cheat codes:
+  - RANDO: Generates a randomised target location.
+  - CHEATMODE: Reveals the enemy ships on the grid.
+  - TENSHOTS: Ammo increased by 5.
+  - FIVESHOTS: Ammo increased by 5.
+  - DAVEYJONES: Instant Game Over.
+  - KRAKENTIME: Instant Victory. 
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -134,8 +154,9 @@ D                          |  E                        | F
 
 - __GAME OVER / VICTORY Screens__
 
-  - This area of the site features a game manual for the Player vs Computer game type, it explains the various functions and concepts within the game, such as the patern comparison, the scoring, how to operate the game, it explains how to carry over scores and set the player name.  
-  - This guide covers the P VS Computer game type and its operation in entriety which is invaluable to thos finding difficulty understanding the game at first, this would likely be of most use to an older audience of those less versed in digital technology.
+  - This screen will display either GAME OVER or VICTORY, rendered illustratively in a graphical font style. These screens pay homage to the classic GAME OVER screens we gamers are all acustomed too. They provide a clear statement, a conclusion, and a visual treat to the user. 
+  
+  - This feature makes the results of the game clear to the user and opens the gates for them to continue the gameplay. The screens are bright, eye catching and (considering the graphical  limitations of a game of this kind) visually apppealing. Although the feature is simple, its neccesary to provide users with an adequate, flowing gaming experience, by providing the penultimate stage of the gameplay loop. 
 
 A                          |  B                        
 :-------------------------:|:-------------------------:
@@ -143,8 +164,9 @@ A                          |  B
 
 - __Play again with validation/confirmation__
 
-  - This button acts as a call-to-action. featured at the bottom of both game manuals, this button shall start the relevant game type without needing to return to the main menu.  
-  - Players who chose first to review the rules of the game and its functions will be pleased to see they do not need to reset the game or make unnecesary clicks and can begin a game with no roadblocks to move around. 
+  - This screen is rather simple and follows from either the GAME OVER or VICTORY screens, an user input is requested, a simple 'N' to close the game or 'Y' to restart the program and thus play again. Inputs in this location are validated and the program shall request input until a valid input has been received. Shoudl the user input 'N' the program shall request a second input as confirmation to exit, incase of accidental inputs. This input is again a 'Y' or 'N' request with validation. 'Y' in this circumstance shall confirm the users decision to exit the program. 
+   
+  - The benefit this feature has to users is by providing an option to loop the game logic and to extend their play session further. Or provides them with a 'ritual' to draw their play session to an end. Quiting is still an action every user will take and this screen gives them the facility to do so with the closure they have 'Completed' their experience.   
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -183,6 +205,9 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
    - I am taking advantage of the '\n' line break through the use of the f-strings
      therefore I have chosen to disregard this message. 
 
+ ### Too many lines in module.
+   - Docstrings at interpreted by the compiler however single line comments are not, removing all single line comments from the module would bring the line count comfortably below the 1000 standard. I feel it is appropriate to disregard the single line comments. 
+
  ### Using the Global Statement. .
    - To ensure that all methods used within the module work correctly and free from any errors
      (That I have been able to discover through testing), some methods require the use of global
@@ -208,26 +233,66 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
 
 - There are no known bugs, clear through extensive testing currently within the game.
 
+## Setting up the Repo
+
+- Log in to GitHub and nvaigate to the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) .
+- Select the 'Use this template' button.
+- Choose a name and description for the repo.
+- Select the 'Creat repository from template' button.
+
+## Forking
+
+- Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
+- Select the 'Fork' button at the top right hand side of the webpage.
+- Choose a name and description for the fork.
+- Select the 'Create Fork' button.
+
+## Cloning
+
+- Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
+- Above the file table click the ‘code’ button.
+- Several options are avaliable, HTTPS, SSH and GitHub CLI, make a choice and select the 'Copy to clipboard' button next to the URL.
+- Open git bash.
+- Type ‘git clone’ and then paste the URL you copied. Press Enter.
+- For more information read the topic [Cloning a Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
 ## Deployment
 
 - The code was deployed to the Code Institutes mock Terminal on Heroku. The steps to deploy are as follows: 
   - Fork or clone this repository. Or create a project via the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) 
+  - If your requirements.txt file has not changed you can skip this step. Otherwise, in your terminal type 'pip3 freeze > requirements.txt' then save and push the changes.
+  - Sign in to Heroku.com
   - Create a new app via Heroku, name the app something descriptive. 
-  - From the settings page add the following build packs in this order: 1st Python, 2nd node.js.
+  - From the 'Settings' tab find the 'Config Vars' section and click the 'Reveal Config Vars' button.
   - Add a Config Var with the following details: KEY = PORT, VALUE = 8000.
-  - Selecte the 'Deploy' tab chose the 'GitHub' dpeloyment method and connect with the relevant GitHub repo.
+  - (The next step applies only if your project requires a creds.json file) In the field for 'KEY' enter the value 'CREDS' in all capitals. In the field for 'VALUE' copy and paste the entire contents of your creds.json file from your project. Then click 'Add'.
+  - From the settings page add the following build packs by selecting the 'Add Buildpacks' button. Add packs in this order: 1st Python, 2nd node.js.
+  - Selecte the 'Deploy' tab chose the 'GitHub' deployment method and connect with the relevant GitHub repo.
   - It is avisable to chose the 'Manual Deploy' method, selecting the 'Main' branch then selcting 'Deploy'
+  - If you want to rebuild your app automatically you can also select the 'Enable Automatic Deploys' button which will then rebuild the app every time you push any changes.
   - Wait for the terminal to complete and deploy the app. 
 
-The live link can be found here - [BLACKBEARD's BATTLESHIPS](https://whlw27.github.io/JavaScript-Essentials---Rock-Paper-Scissors-Spock/).
+The live link can be found here - [BLACKBEARD's BATTLESHIPS](https://blackbeards-battleships.herokuapp.com/).
 
 
 ## Credits  
 
-### Helpful information
+- Code Institute for the Python Template used. 
+
+### Code resources and guidance.
 
 - Additional guidance on Python was found on [W3 Schools](https://www.w3schools.com/).
+- Additional guidance on Python was found on [GeeksforGeeks](https://www.geeksforgeeks.org/).
+- Additional guidance on Python was found on [Stack Overflow](https://stackoverflow.com/).
 - Additional self-lead projects and study on Python was found on [Codecademy](https://www.codecademy.com/learn) via the PRO subscription.
+- Helpful Python videos on youtube by [Knowledge Mavens](https://www.youtube.com/c/KnowledgeMavens1).
+- Helpful Python videos on youtube by [CS Students](https://www.youtube.com/channel/UCI1-IN8JwmFxtY_eVcIATTg).
+
+### Technologies used
+- Python
+- Heroku.com
+- GitHub
+- GitPod
 
 ### Python Libraries used
 
