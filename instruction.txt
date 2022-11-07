@@ -1,48 +1,64 @@
-WELCOME
+Welcome to Blackbeard's Battleships a Python terminal based battleships game 
+deployed via the Code Institute mock Terminal on Heroku.
 
-Welcome to Blackbeard's Battleships a Python terminal based battleships game deployed via the Code Institute
-mock Terminal on Heroku.
-
-The game is one player, users will battle against the computer. Users can chose from several difficulty
-options ranging from 3 to 10 with grid sizes starting at 3x3 then incrementing by 1x1 to 10x10 at max. The
-size range, and number of ships will also increase with higher levels. Positions, directions and ship
+The game is one player, users will battle against the computer. Users can chose 
+from several difficulty options ranging from 3 to 10 with grid sizes starting 
+at 3x3 then incrementing by 1x1 to 10x10 at max. The size range, and number of
+ships will also increase with higher levels. Positions, directions and ship
 lengths are all randomised each game.
 
-Users can input coordinates from the grid in a 'CharacterNumber' format such as A1. These coordinates are
-validated and an outcome is determined. Ammo is limited to 30 shots per game, if users reach 0 before
-sinking all enemy ships they will loose. Users must sink all enemy ships to win.
+Users can input coordinates from the grid in a 'CharacterNumber' format such as 
+A1. These coordinates are validated and an outcome is determined. Ammo is 
+limited to 30 shots per game, if users reach 0 before sinking all enemy ships
+they will loose. Users must sink all enemy ships to win.
 
-The game features a main menu, where users can navigate through an instruction manual explaining the games
-usage along with a legend. The game contains a variety of built in cheat codes with various effects to
-compliment gameplay, these are detailed in the content below.
+The game features a main menu, where users can navigate through an instruction 
+manual explaining the games usage along with a legend. The game contains a 
+variety of built in cheat codes with various effects to compliment gameplay, 
+these are detailed in the content below.
 
-- The game begins with an intro menu, requesting an input of either 'HELP' or 'RUN'. If the user inputs
-'HELP' the instruction manual shall load with some breif in-game help and a legend of the symbols used. If
-the user inputs 'RUN' the game shall start. The next screen requests another input, this time an integer
-from 3 to 10, validation is present throughout all input areas within the module, and will catch any inputs
-deemed invalid. This number is used to determin the playing area of the game. Entering 4 for example, will
-produce a 4x4 grid, entering 10 will produce a 10x10 grid. Higher numbers will also effect the range to
-randomised ship length and the number of indidual targets to generate on the grid.
+- The game begins with an intro menu, requesting an input of either 'HELP' or r
+'RUN'. If the user inputs 'HELP' the instruction manual shall load with some
+breif in-game help and a legend of the symbols used. If the user inputs 'RUN'
+the game shall start. The next screen requests another input, this time an 
+integer from 3 to 10, validation is present throughout all input areas within
+the module, and will catch any inputs deemed invalid. This number is used to
+determin the playing area of the game. Entering 4 for example, will produce a
+4x4 grid, entering 10 will produce a 10x10 grid. Higher numbers will also 
+effect the range to randomised ship length and the number of indidual targets
+to generate on the grid.
 
-- Users have a limited amount of shots available, these are displayed in a clear message beneath the game
-grid itself and is updated with every shot made (provided it is not a 'misfire' AKA invalidated input).
-Users will be penalised, loosing 1 ammo if you miss a target open water, users will also be penalised if a
-user targets the same location twice (same input as as previous input). Users will NOT be penalised if you
-enter an invalid input. Your current ammo count can be increased through the means of two cheatcodes
-built-in to the game, 'TENSHOTS' and 'FIVESHOTS' which when input, will increase ammo by either 10 or 5.
+- Users have a limited amount of shots available, these are displayed in a clear
+message beneath the game grid itself and is updated with every shot made 
+(provided it is not a 'misfire' AKA invalidated input). Users will be penalised,
+loosing 1 ammo if you miss a target open water, users will also be penalised if 
+they target the same location twice (same input as as previous input). Users 
+will NOT be penalised if you enter an invalid input. Your current ammo count can 
+be increased through the means of two cheatcodes built-in to the game, 'TENSHOTS'
+and 'FIVESHOTS' which when input, will increase ammo by either 10 or 5.
 
-- The goal is to sink completely, all of the enemies ships to win. Run out of ammo before and you will
-loose. Helpful messages will appear above the grid to alert users when a ship has been completely destroyed.
-Messages that take the form of vague indications towards the remaining amount of ships will also be printed
-above the grid.
+- The goal is to sink completely, all of the enemies ships to win. Run out of 
+ammo before and you will loose. Helpful messages will appear above the grid to
+alert users when a ship has been completely destroyed. Messages that take the
+form of vague indications towards the remaining amount of ships will also be 
+printed above the grid.
 
-- When the user has chosen a valid level, The grid is populated with enemy ships and printed to the
-terminal, the game shall then request a target on the grid. The input for this request takes the from of
-first an alphabetical character, then a number such as 'A1'. Cheat codes can also be entered when the
-computer requests a target, when input correctly, a message shall appear with the text 'Cheat Activated' and
-a description of the effect. At any time when an input is requested from the user, enter 'EXIT' to close the
-game.
+- When the user has chosen a valid level, The grid is populated with enemy ships
+and printed to the terminal, the game shall then request a target on the grid. 
+The input for this request takes the from of first an alphabetical character, 
+then a number such as 'A1'. Cheat codes can also be entered when the computer 
+requests a target, when input correctly, a message shall appear with the text 
+'Cheat Activated' and a description of the effect. At any time when an input is 
+requested from the user, enter 'EXIT' to close the game.
 
-- The user will be notified when either a Victory or Game Over scneario occurs, confirmation of what level
-they either failed or completed shall appear in the terminal. Then a request from the user to play again or
-leave the game.
+- The user will be notified when either a Victory or Game Over scneario occurs,
+confirmation of what level they either failed or completed shall appear in the 
+terminal. Then a request from the user to play again or leave the game.
+
+Cheat codes:
+RANDO: Generates a randomised target location.
+CHEATMODE: Reveals the enemy ships on the grid.
+TENSHOTS: Ammo increased by 5.
+FIVESHOTS: Ammo increased by 5.
+DAVEYJONES: Instant Game Over.
+KRAKENTIME: Instant Victory.
