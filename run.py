@@ -213,6 +213,8 @@ def run_intro():
                                 try:
                                     print("Input 'QUIT' to return", end="")
                                     print(" to the main menu or ", end="")
+                                    print("'MORE' for detailed instructions.")
+                                    print("Otherwise input ", end="")
                                     print("'START' to play", end="")
                                     print(f" the game.\033[1;32;40m\n")
                                     next_slide = input("INPUT: ")
