@@ -58,9 +58,9 @@ A                          |  B
   
   - The benefit this feature has is clear in the information it provides to the user, the games operation is covered here, the cheat features are referenced here and a legend is located here also. This feature would be invaluable to a user not familiar with the game and its functions.
 
-A                          |  B                        | C
-:-------------------------:|:-------------------------:|:-------------------------:
-![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-one.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-two.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/detailed-manual.png)
+A                          |  B                        | C                         | D
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-one.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-two.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/detailed-manual.png)|![Game Manual](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-valid.png)
 
 - __Legend__
 
@@ -78,19 +78,13 @@ A                          |  B                        | C
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-A                          |  B                        | C
-:-------------------------:|:-------------------------:|:-------------------------:
 ![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid3.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid5.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid10.png)
 
 - __In Game hints__
 
-  - At the beginning stage of the game, as the grid has been printed for the 1st time, depending on the level input for the grid size, a short hint indicative of the number of enemy ships on the grid will appear above the grid itself. The text is descriptive and follows the theme or naval piracy I decided to aim for. These messages make clear the games 'personality' to the user and provide them with the exact number of ships they need to sink. To avoid confusion further into the gameplay this message disapears after the first valid target has been hit. 
-
-  They are then replaced with a second type of message, giving a vague hint of how many ships there may curently be still unsank, these messages are intentionally vague to provide the game with some extra challenge, but I feel they are descriptive enough to benefit the users decisions ingame. 
-
-  A third type of message shall appear to notify the user when they have succesfully hit all connected sections or a target, AKA sank a ship on the grid. 
+  - At the beginning stage of the game, as the grid has been printed for the 1st time, depending on the level input for the grid size, a short hint indicative of the number of enemy ships on the grid will appear above the grid itself. The text is descriptive and follows the theme or naval piracy I decided to aim for. These messages make clear the games 'personality' to the user and provide them with the exact number of ships they need to sink. To avoid confusion further into the gameplay this message disapears after the first valid target has been hit. They are then replaced with a second type of message, giving a vague hint of how many ships there may curently be still unsank, these messages are intentionally vague to provide the game with some extra challenge, but I feel they are descriptive enough to benefit the users decisions ingame. A third type of message shall appear to notify the user when they have succesfully hit all connected sections or a target, AKA sank a ship on the grid. 
   
- - This message center of sorts provides teh user with multiple layers of information, aluding to the challenge ahead, their current progress in game and of their achievments, the messages are not permanent to keep the terminal output clean and readable. This feature is not particularly neccesary beyond stating the number of targets, but it benefits the experience by increasing the interaction between the user and the game itself. The game responds to the user and strengthens their feelings of control over the games outcome, while providing additional oppotunities to give the game some character. 
+  - This message center of sorts provides teh user with multiple layers of information, aluding to the challenge ahead, their current progress in game and of their achievments, the messages are not permanent to keep the terminal output clean and readable. This feature is not particularly neccesary beyond stating the number of targets, but it benefits the experience by increasing the interaction between the user and the game itself. The game responds to the user and strengthens their feelings of control over the games outcome, while providing additional oppotunities to give the game some character. 
   
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -98,9 +92,7 @@ A                          |  B                        | C
 
 - __The Grid__
 
-  - The heart of the game itself, the Grid is the most important feature of the game. It is what defines the gameplay, it acts as a record sheet, tracking succesful hits, misses and potential target locations. It acts as an extension of the games legend, showing symbols relative to each object. It acts as your target locator or recticle of sorts. It tracks game progress. The grid can vary in size from 3x3 to 10x10 with 9 potential targets and up to 100. By entering the cheat code 'CHEATMODE' users cna reveal all ships on the grid, indicated by the character 'O'. 
-
-  In normal gameplay, potential targets are marked by a '~', direct hits on target with a 'X' and misses are marked with a '#'. The alphabetical characters on the left side and the number beneath will vary depending on the grid size but begin at 'A' and '0'.
+  - The heart of the game itself, the Grid is the most important feature of the game. It is what defines the gameplay, it acts as a record sheet, tracking succesful hits, misses and potential target locations. It acts as an extension of the games legend, showing symbols relative to each object. It acts as your target locator or recticle of sorts. It tracks game progress. The grid can vary in size from 3x3 to 10x10 with 9 potential targets and up to 100. By entering the cheat code 'CHEATMODE' users cna reveal all ships on the grid, indicated by the character 'O'. In normal gameplay, potential targets are marked by a '~', direct hits on target with a 'X' and misses are marked with a '#'. The alphabetical characters on the left side and the number beneath will vary depending on the grid size but begin at 'A' and '0'.
   
   - This feature is invaluble to users, it provide a facility to track their progress through the game, gives a QOL feature by clearly indicating missed targets or succesful hits which the user can then use to guess their next shot with more logical accuracy. The grid can be manipulated by the player through cheat codes, giving users more control. Color is featured heavily in this area to provide a visual treat to the user. 
 
@@ -110,17 +102,13 @@ A                          |  B                        | C
 
   - Beneath the Games grid when this had been printed to the terminal, a message shall appear with the text 'You have X shots remaining' where 'X' marks the current ammo count. This game uses the current avaiable ammo count to determine the outcome of the game, the ammo avaiablity contributes a large part of the games challenge at higher diffuclty levels. This count begins at 10 with a 3x3 grid, raising to 20 at 5x5 and 30 from grid sizes of 8 and above. This count can be manipulate in game by the user through the avaibale TENSHOTS and FIVESHOTS cheat codes.
 
-- Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
+ - Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
 
 ![Ammo Counter](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/ammo.png)
 
 - __Input with validation__
 
-  - Validation is featured in every situation where an input is requested from the user, messages will appear to notify the user of invalid inputs and the program shall request the particular input again, and shall continue to do so until a valid input has been provided. 
-
-  Most inputs are looking for a simple string response and will notify the user of what partiuclar word the program is looking for in the invalid input warnings. 
-
-  The method to set the games grid level will produce different error messages depending in the data input, too long of an input will produce a different message to an input made entirely of integers or an input of unrecognised characters. Examples of the warnings users might experience can be veiwed in the table below.
+  - Validation is featured in every situation where an input is requested from the user, messages will appear to notify the user of invalid inputs and the program shall request the particular input again, and shall continue to do so until a valid input has been provided. Most inputs are looking for a simple string response and will notify the user of what partiuclar word the program is looking for in the invalid input warnings. The method to set the games grid level will produce different error messages depending in the data input, too long of an input will produce a different message to an input made entirely of integers or an input of unrecognised characters. Examples of the warnings users might experience can be veiwed in the table below.
   
   - This feature provides the user with some security in knowing they cannot drastically damage their experience through invalid inputs, or have the gameplay be efffected by any glitch or bug as a result of thier error. They can play the game at their own pace. Each warning the user might experience is descriptive and explains what situation may have occured, such as landing a hit on the same spot twice. The warnings give the user the information neccesary to understand what will be valid.
 
@@ -128,7 +116,6 @@ A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
 ![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
 D                          |  E                        | F
-:-------------------------:|:-------------------------:|:-------------------------:
 ![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
 
 
@@ -139,23 +126,22 @@ D                          |  E                        | F
   - These cheat features give the game some extra fun in game, and provide users with the option to manipulate the stakes at higher difficulty levels. This provides a level of freedom to the user along with the chance to choose the difficulty through the grid size. This supliments the loss of freedom from my decision to focus on a 1 Grid concept by contrast to the typical 2 Grid concept. 
   Additionaly these features where beneficial to me as the developer in the games testing process and should be of benefit to an assessor for similar reasons. 
  
-![Ammo Counter](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/cheats.png)
+![Cheat Codes](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/cheats.png)
 
 
-  ### Cheat codes:
-  - RANDO: Generates a randomised target location.
-  - CHEATMODE: Reveals the enemy ships on the grid.
-  - TENSHOTS: Ammo increased by 5.
-  - FIVESHOTS: Ammo increased by 5.
-  - DAVEYJONES: Instant Game Over.
-  - KRAKENTIME: Instant Victory. 
+   ### Cheat codes:
+    - RANDO: Generates a randomised target location.
+    - CHEATMODE: Reveals the enemy ships on the grid.
+    - TENSHOTS: Ammo increased by 5.
+    - FIVESHOTS: Ammo increased by 5.
+    - DAVEYJONES: Instant Game Over.
+    - KRAKENTIME: Instant Victory. 
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-one.png)|![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-two.png)|![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-three.png)
+![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/fiveshots.png)|![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/tenshots.png)|![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/cheatmode.png)
 D                          |  E                        | F
-:-------------------------:|:-------------------------:|:-------------------------:
-![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-one.png)|![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-two.png)|![Cheat Options](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-three.png)
+![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/rando.png)|![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/davey.png)|![Cheat Options](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/kraken.png)
 
 
 - __GAME OVER / VICTORY Screens__
