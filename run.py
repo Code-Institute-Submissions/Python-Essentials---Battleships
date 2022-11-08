@@ -52,10 +52,9 @@ characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 enemy_counter = 0
 enemy_power_level = 0
 power_level = 0
-game_start = True
 game_running = True
 result = ""
-debug_mode = False
+debug_mode = [False]
 
 
 def run_intro():
@@ -77,6 +76,8 @@ def run_intro():
     f = Figlet(font='xttyb')
 
     print(f"Welcome to...\n")
+
+    time.sleep(1.5)
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -113,32 +114,41 @@ def run_intro():
                 # close the parent loop.
                 stage_one = False
 
-                print(f.renderText(" BLACKBEARD's"))
-                print(f.renderText(" BATTLESHIPS"))
-
                 print(f"\033[1;34;40mHow to Play:\033[0;37;40m\n")
                 print("\033[0;37;40m When starting the game", end="")
                 run_manual_two(
                     " the computer shall request",
-                    " a Number from 3 to 10.\n",
+                    " a Number from 3 to 10.",
                     " This number is used to determin")
 
-                print(f" the playing area of the game.\n")
-                print(f" Entering 4 for example, will produce a 4x4 grid.\n")
+                print(f" the playing area of the game.")
+                print(f" Entering 4 for example, will produce a 4x4 grid.")
                 run_manual_one(
                     " Higher numbers will also effect the size",
-                    " and number of enemy ships on the grid.\n")
+                    " and number of enemy ships on the grid.")
 
-                print(f" You have a limited amount of shots available.\n")
+                print(f" You have a limited amount of shots available.")
                 run_manual_two(
                     " You will be penalised ",
                     "if you miss of shoot a target twice.\n",
                     " You will NOT be penalised ")
 
-                print(f"if you enter an invalid input.\n")
+                print(f"if you enter an invalid input.")
                 run_manual_one(
                     " Your current ammo count shall ",
-                    " be displayed beneath the grid.\n")
+                    " be displayed beneath the grid.")
+
+                run_manual_two(
+                                "\033[0;37;40m Sink completely, ",
+                                "all of the enemies ships to win.",
+                                " Run out of ammo before ")
+
+                print(f"and you will loose.")
+                print(" You will be alerted when ", end="")
+                print(f"ships have been destroyed.")
+                run_manual_one(
+                    " Hints towards remaining amount of ",
+                    "ships will be printed above the grid.")
 
                 # Required variable to close the below while loop.
                 stage_two = True
@@ -156,36 +166,22 @@ def run_intro():
 
                             stage_two = False
 
-                            print(f.renderText(" BLACKBEARD's"))
-                            print(f.renderText(" BATTLESHIPS"))
-
                             print(f"\033[1;34;40mContinued...\033[0;37;40m\n")
-                            run_manual_two(
-                                "\033[0;37;40m Sink completely, ",
-                                "all of the enemies ships to win.\n",
-                                " Run out of ammo before ")
-
-                            print(f"and you will loose.\n")
-                            print(" You will be alerted when ", end="")
-                            print(f"ships have been destroyed.\n")
-                            run_manual_one(
-                                " Hints towards remaining amount of ",
-                                "ships will be printed above the grid.\n")
 
                             print(" When you have input the level ", end="")
                             run_manual_two(
                                 ", the game shall request ",
-                                "a target on the grid.\n",
+                                "a target on the grid.",
                                 " Input first an ")
 
                             run_manual_two(
                                 "alphabetical character",
-                                ", then a number such as 'A1'\n",
+                                ", then a number such as 'A1'",
                                 " Cheat codes can be entered when ")
 
                             run_manual_one(
                                 "the computer requests ",
-                                "your target input.\n")
+                                "your target input.")
                             print(" At anytime enter ", end="")
                             print(f"'EXIT' to leave the game.\n")
 
@@ -207,6 +203,21 @@ def run_intro():
                             print("Relates to an enemy ", end="")
                             print(f"ship in that grid position.\n")
 
+                            print(f"\033[1;34;40mCHEAT CODES:\033[0;37;40m\n")
+                            print("TENSHOTS:", end="")
+                            print("Increases Ammo by 10.")
+                            print("FIVESHOTS:", end="")
+                            print("Increases Ammo by 5")
+                            print("RANDO:", end="")
+                            print("Selects a random location ", end="")
+                            print("on the grid to target.")
+                            print("KRAKENTIME:", end="")
+                            print("Will cause an instant VICTORY.")
+                            print("DAVEYJONES:", end="")
+                            print("Will cause an instant GAME OVER.")
+                            print("CHEATMODE:", end="")
+                            print(f"Will reveal all ships on the grid.\n")
+
                             stage_three = True
 
                             while stage_three:
@@ -224,13 +235,33 @@ def run_intro():
                                         'cls' if os.name == 'nt' else 'clear'
                                         )
 
+                                    # The code below will read the game
+                                    # manual from a txt file and print it
+                                    # to the terminal then continue the Input
+                                    # request.
                                     if next_slide == "MORE":
+                                        print("")
+                                        print("Printing game manual, ", end="")
+                                        print("please scroll up to", end="")
+                                        print(" view the full document.")
+                                        print("\033[0;37;40m")
+
+                                        time.sleep(2)
+
+                                        os.system(
+                                            'cls' if os.name == 'nt' else
+                                            'clear'
+                                            )
+
                                         r = open(
                                             "instruction.txt",
                                             "r",
                                             encoding="utf-8")
                                         instruction = r.read()
                                         print(instruction)
+
+                                        print("\033[1;32;40m")
+                                        continue
 
                                     if next_slide == "QUIT":
                                         stage_three = False
@@ -240,10 +271,15 @@ def run_intro():
                                             )
                                         run_intro()
                                         break
+
                                     if next_slide == "START":
+                                        os.system(
+                                            'cls' if os.name == 'nt' else
+                                            'clear')
                                         stage_three = False
                                         set_grid_level()
                                         break
+
                                     if next_slide == "EXIT":
                                         stage_three = False
                                         print("Thank you for playing!")
@@ -251,20 +287,24 @@ def run_intro():
                                         print("Leaving game...")
                                         time.sleep(0.75)
                                         exit()
+
                                     else:
                                         if not stage_three:
                                             break
                                         print("Input not recognised", end="")
                                         print(f", please try again\n")
                                         continue
+
                                 except ValueError():
                                     print(f"\031[0;32;40mYour", end="")
                                     print(" input is not ", end="")
                                     print(f"valid. Please try again.\n")
                                     print("")
                                     continue
+
                                 else:
                                     break
+
                         if next_slide == "EXIT":
                             stage_two = False
                             print("Thank you for playing!")
@@ -278,21 +318,25 @@ def run_intro():
                             os.system('cls' if os.name == 'nt' else 'clear')
                             run_intro()
                             break
+
                         else:
                             if not stage_two:
                                 break
                             print(f"Input not recognised, please try again\n")
                             continue
+
                     except ValueError():
                         print("\031[0;32;40mYour input is", end="")
                         print(f" not valid. Please try again.\n")
                         print("")
                         continue
+
                     else:
                         break
 
             # If RUN start the game
             if user_call == "RUN":
+                os.system('cls' if os.name == 'nt' else 'clear')
                 stage_one = False
                 set_grid_level()
                 break
@@ -305,15 +349,18 @@ def run_intro():
                 print("Leaving game...")
                 time.sleep(0.75)
                 exit()
+
             else:
                 if not stage_one:
                     break
                 print(f"Input not recognised, please try again\n")
                 continue
+
         except ValueError():
             print(f"\031[0;32;40mYour input is not valid. Please try again.\n")
             print("")
             continue
+
         else:
             break
 
@@ -359,9 +406,21 @@ def set_grid_level():
     an integer, equal to or less then 3 and equal
     too or less than 10.
     """
+    # Set colors of text to be printed.
+    print("\033[1;31;40m")
+
+    # setup figlet fonts.
+    f = Figlet(font='xttyb')
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    # then print the intro terminal
+    print(f.renderText(" BLACKBEARD's"))
+    print(f.renderText(" BATTLESHIPS"))
+
     while True:
         try:
-            # get an integer from 3 to f10 from user
+            # get an integer from 3 to 10 from user
             set_grid_level.grid_level = int(input(
                 "\033[0;37;40mEnter a number from 3 - 10: \033[1;32;40m"))
             print("")
@@ -372,6 +431,7 @@ def set_grid_level():
                 set_grid_level.grid_level >= 3 and
                 set_grid_level.grid_level <= 10
                     ):
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print("\033[0;37;40mSetting difficulty...")
                 print("")
                 make_grid()
@@ -428,7 +488,7 @@ def make_grid():
 
     # once ships have been placed, call method to print
     # the grid to the terminal.
-    print_play_area()
+    print_first_message()
 
 
 def build_ships():
@@ -620,6 +680,40 @@ def place_ship(latitude, longitude, heading, size):
     return position_valid
 
 
+def print_first_message():
+    """
+    The code within this function was extracted from
+    print_play_area its prupose is to print a hint message
+    to the terminal regarding the number of enemies. Originally
+    this code relied on a global, this code extracted as its own method
+    will now only fire once at the beginning of the game, once the grid
+    has been created by make_grid.
+    """
+    game_start = 0
+
+    # The code below will read the grid level chosen by
+    # the user and print a statement when the grid is printed
+    # for the first time, indicating how many enemies are on
+    # the grid.
+    if game_start == 0:
+        if set_grid_level.grid_level <= 4:
+            print("\033[1;36;40m3 enemies ", end="")
+            print("detected! Must be a scouting party.")
+            game_start = game_start + 1
+        elif set_grid_level.grid_level < 8:
+            print("\033[1;36;40mOur sonar ", end="")
+            print("has detected 5 enemy vessels!")
+            game_start = game_start + 1
+        else:
+            print("\033[1;36;40mOur sonar ", end="")
+            print("has detected a fleet of 7 ships!")
+            game_start = game_start + 1
+        print("")
+
+        # Finally print the grid itself.
+        print_play_area()
+
+
 def print_play_area():
     """
     This method is called first once the game grid has
@@ -635,45 +729,21 @@ def print_play_area():
     which when activated will reveal the position of ships
     on the grid with a O.
     """
-    # Must access the following
-    # global variables.
-    global game_start
-
-    # The code below will read the grid level chosen by
-    # the user and print a statement when the grid is printed
-    # for the first time, indicating how many enemies are on
-    # the grid.
-    if game_start:
-        if set_grid_level.grid_level <= 4:
-            print("\033[1;36;40m3 enemies ", end="")
-            print("detected! Must be a scouting party.")
-        elif set_grid_level.grid_level < 8:
-            print("\033[1;36;40mOur sonar ", end="")
-            print("has detected 5 enemy vessels!")
-        else:
-            print("\033[1;36;40mOur sonar ", end="")
-            print("has detected a fleet of 7 ships!")
-        print("")
-        # The line below ensures that the print statments above only
-        # occur on the first printing of the grid.
-        game_start = False
-
+    # The code below keeps track of the current number
+    # of enemy vessels still on the grid. It shall print
+    # clue statements as an indictation of the users progress.
+    tracker = enemy_counter - power_level
+    if tracker <= 1:
+        print("\033[1;32;40mThe battle is ours!")
+    elif tracker < 3:
+        print("\033[1;36;40mTheir forces are weak!")
+    elif tracker == 3:
+        print("\033[1;34;40mThe battle could be over soon, brace!")
+    elif tracker >= 4:
+        print("\033[1;35;40mIt's not over yet, stay frosty!")
     else:
-        # The code below keeps track of the current number
-        # of enemy vessels still on the grid. It shall print
-        # clue statements as an indictation of the users progress.
-        tracker = enemy_counter - power_level
-        if tracker <= 1:
-            print("\033[1;32;40mThe battle is ours!")
-        elif tracker < 3:
-            print("\033[1;36;40mTheir forces are weak!")
-        elif tracker == 3:
-            print("\033[1;34;40mThe battle could be over soon, brace!")
-        elif tracker >= 4:
-            print("\033[1;35;40mIt's not over yet, stay frosty!")
-        else:
-            print("\033[1;31;40mThe enemy approaches, ready the cannons!")
-        print("")
+        print("\033[1;31;40mThe enemy approaches, ready the cannons!")
+    print("")
 
     # Begin printing the rows of the Grid, start with
     # the alphabetical character beginning with A, and
@@ -691,7 +761,7 @@ def print_play_area():
             # are revealed when the grid is printed to the terminal
             # this allows assessors to confirm their placement.
             if game_grid[row][col] == "O":
-                if debug_mode:
+                if debug_mode[0]:
                     print("\033[1;36;40mO\033[0;34;40m", end=" ")
                 else:
                     # If debug is flase, the standard grid is
@@ -736,7 +806,6 @@ def fire_cannons():
     # must be able to read from and change the
     # following globals.
     global power_level
-    global debug_mode
 
     # creates a loop that shall run until
     # an engame situation occurs
@@ -800,15 +869,23 @@ def fire_cannons():
             # CHEATCODE: Will activate debug_mode causing
             # enemy ships to appear on the grid.
             if target == "CHEATMODE":
-                time.sleep(0.5)
-                debug_mode = True
-                if debug_mode:
-                    print("\033[1;37;40mCheat activated!", end="")
-                    print("\033[0;37;40m All ships have been revealed!")
+                if debug_mode[0]:
+                    toggle_debug()
+                    print("\033[1;37;40mCheat disabled", end="")
+                    print("\033[0;37;40m All ships have been hidden!")
                     time.sleep(1.5)
                     os.system('cls' if os.name == 'nt' else 'clear')
                     print_play_area()
                     continue
+                else:
+                    toggle_debug()
+                    if debug_mode[0]:
+                        print("\033[1;37;40mCheat activated!", end="")
+                        print("\033[0;37;40m All ships have been revealed!")
+                        time.sleep(1.5)
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        print_play_area()
+                        continue
 
             # CHEATCODE: Will increase current ammo count by 5.
             if target == "FIVESHOTS":
@@ -984,6 +1061,21 @@ def fire_cannons():
         # finally reprint the grid with the updated
         # hit or miss so the user can track their hits.
         print_play_area()
+
+
+def toggle_debug():
+    """
+    This method has a single purpose, to toggle
+    the boolean value stored in the debug_mode
+    mutable list from True if false and to false
+    if True. This method is called when the user inputs
+    the 'CHEATMODE' cheat and gives the user control
+    to toggle the effect at will during gameplay.
+    """
+    if debug_mode[0]:
+        debug_mode[0] = False
+    else:
+        debug_mode[0] = True
 
 
 def track_kills(lat, long):

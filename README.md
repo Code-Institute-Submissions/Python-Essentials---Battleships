@@ -50,11 +50,11 @@ Refer to Wikipedia for the History of [Battleships](https://en.wikipedia.org/wik
 
 A                          |  B                        
 :-------------------------:|:-------------------------:
-![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenu.png)|![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenuvalid.png)
+![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenu.png)|![Intro Menu](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenu-valid.png)
 
 - __Game Manual__
 
-  - The game manual is a second feature created by the run_intro method. It features a brief explanantion of the games features and operation, this areas inputs come complete with validation. This area leads to the legend (covered below) and gives users an option to either return to the intro menu, or jump directly into the game having consulted the manual first. The games cheat features are referenced here also.
+  - The game manual is a second feature created by the run_intro method. It features a brief explanantion of the games features and operation, this areas inputs come complete with validation. This area leads to the legend (covered below)  documents the games cheat codes and their effects, There is also an option to view a detailed print of the games instructions (read from a .txt and printed to the terminal) and gives users an option to either return to the intro menu, or jump directly into the game having consulted the manual first. The games cheat features are referenced here also.
   
   - The benefit this feature has is clear in the information it provides to the user, the games operation is covered here, the cheat features are referenced here and a legend is located here also. This feature would be invaluable to a user not familiar with the game and its functions.
 
