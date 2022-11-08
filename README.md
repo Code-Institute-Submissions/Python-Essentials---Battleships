@@ -68,9 +68,7 @@ A                          |  B                        | C
   
   - The benefit of this feature to users is found in the information it provides, familiarising the user with the symbols that appear on the game grid. This feature, along with the intro menu and the game manual are of most benefit to new users, providing all the neccesary information to play the game properly. They would likely not be of much benefit to returning users. 
 
-A                          |  B                        
-:-------------------------:|:-------------------------:
-![Legend](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart.png)|![Legend](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart-b.png)
+![Legend](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/legend.png)
 
 - __Numerous difficulty levels__ 
 
@@ -80,7 +78,9 @@ A                          |  B
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-![Numerous difficulty levels](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Numerous difficulty levels](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Numerous difficulty levels](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+A                          |  B                        | C
+:-------------------------:|:-------------------------:|:-------------------------:
+![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid3.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid5.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid10.png)
 
 - __In Game hints__
 
@@ -104,9 +104,7 @@ A                          |  B                        | C
   
   - This feature is invaluble to users, it provide a facility to track their progress through the game, gives a QOL feature by clearly indicating missed targets or succesful hits which the user can then use to guess their next shot with more logical accuracy. The grid can be manipulated by the player through cheat codes, giving users more control. Color is featured heavily in this area to provide a visual treat to the user. 
 
-A                          |  B                        | C
-:-------------------------:|:-------------------------:|:-------------------------:
-![The Grid](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![The Grid](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![The Grid](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+![The Grid](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/thegrid.png)
 
 - __Ammo Counter__
 
@@ -114,7 +112,7 @@ A                          |  B                        | C
 
 - Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
 
-![Ammo Counter](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/message.png)
+![Ammo Counter](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/ammo.png)
 
 - __Input with validation__
 
@@ -139,8 +137,11 @@ D                          |  E                        | F
   - The game features several built-in cheats. They can be input when the program is requesting a user input for the target. The effects range from humorous to exploitative. There are options for increasing the current ammo, options to instantly call a GAME OVER or VICTORY, a Randomised target feature and a God mode style cheat that reveals all enemy ships on the grid. 
   
   - These cheat features give the game some extra fun in game, and provide users with the option to manipulate the stakes at higher difficulty levels. This provides a level of freedom to the user along with the chance to choose the difficulty through the grid size. This supliments the loss of freedom from my decision to focus on a 1 Grid concept by contrast to the typical 2 Grid concept. 
-  - Additionaly these features where beneficial to me as the developer in the games testing process and should be of benefit to an assessor for similar reasons. 
-- 
+  Additionaly these features where beneficial to me as the developer in the games testing process and should be of benefit to an assessor for similar reasons. 
+ 
+![Ammo Counter](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/cheats.png)
+
+
   ### Cheat codes:
   - RANDO: Generates a randomised target location.
   - CHEATMODE: Reveals the enemy ships on the grid.
@@ -165,7 +166,7 @@ D                          |  E                        | F
 
 A                          |  B                        
 :-------------------------:|:-------------------------:
-![Legend](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart.png)|![Legend](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/score-chart-b.png)
+![Legend](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/gameover.png)|![Legend](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/victory.png)
 
 - __Play again with validation/confirmation__
 
@@ -173,9 +174,8 @@ A                          |  B
    
   - The benefit this feature has to users is by providing an option to loop the game logic and to extend their play session further. Or provides them with a 'ritual' to draw their play session to an end. Quiting is still an action every user will take and this screen gives them the facility to do so with the closure they have 'Completed' their experience.   
 
-A                          |  B                        | C
-:-------------------------:|:-------------------------:|:-------------------------:
-![Play again with validation/confirmation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-one.png)|![Play again with validation/confirmation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-two.png)|![Play again with validation/confirmation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/nuke-three.png)
+
+![Play again with validation/confirmation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/playagain.png)
 
 ### Potential features to Implement
 

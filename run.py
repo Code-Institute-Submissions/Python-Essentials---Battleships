@@ -43,8 +43,7 @@ import os
 from pyfiglet import Figlet
 
 # The following variables are used or altered by
-# more than 1 of the methods below and are required
-# to be in global scope.
+# more than 1 of the methods below.
 grid_level = 0
 game_grid = []
 hit_tracker = []
@@ -1021,9 +1020,6 @@ def fire_cannons():
             # close the looping request
             if game_grid[lat][long] in ["~", "O"]:
                 valid_target = True
-
-            # clears the terminal to prevent long flowing readouts
-            # os.system('cls' if os.name == 'nt' else 'clear')
 
         # once target confirmed valid if open water,
         # annouce a miss and reduce ammo count
