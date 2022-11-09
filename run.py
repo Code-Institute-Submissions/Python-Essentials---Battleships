@@ -732,13 +732,16 @@ def print_play_area():
     # of enemy vessels still on the grid. It shall print
     # clue statements as an indictation of the users progress.
     tracker = enemy_counter - power_level
-    if tracker <= 1:
+    print(enemy_counter)
+    print(power_level)
+    print(tracker)
+    if tracker <= 2:
         print("\033[1;32;40mThe battle is ours!")
-    elif tracker < 3:
-        print("\033[1;36;40mTheir forces are weak!")
     elif tracker == 3:
+        print("\033[1;36;40mTheir forces are weak!")
+    elif tracker == 4:
         print("\033[1;34;40mThe battle could be over soon, brace!")
-    elif tracker >= 4:
+    elif tracker >= 5:
         print("\033[1;35;40mIt's not over yet, stay frosty!")
     else:
         print("\033[1;31;40mThe enemy approaches, ready the cannons!")

@@ -14,22 +14,21 @@ Refer to Wikipedia for the History of [Battleships](https://en.wikipedia.org/wik
 
 ## How to Play 
 
-- The game begins with an intro menu, requesting an input of either 'HELP' or 'RUN'. If the user inputs 'HELP' the instruction manual shall load with some breif in-game help and a legend of the symbols used. If the user inputs 'RUN' the game shall start. The next screen requests another input, this time an integer from 3 to 10, validation is present throughout all input areas within the module, and will catch any inputs deemed invalid. This number is used to determin the playing area of the game. Entering 4 for example, will produce a 4x4 grid, entering 10 will produce a 10x10 grid. Higher numbers will also effect the range to randomised ship length and the number of indidual targets to generate on the grid.
+      - The game begins with an intro menu, requesting an input of either 'HELP' or 'RUN'. If the user inputs 'HELP' the instruction manual shall load with some breif in-game help and a legend of the symbols used. If the user inputs 'RUN' the game shall start. The next screen requests another input, this time an integer from 3 to 10, validation is present throughout all input areas within the module, and will catch any inputs deemed invalid. This number is used to determin the playing area of the game. Entering 4 for example, will produce a 4x4 grid, entering 10 will produce a 10x10 grid. Higher numbers will also effect the range to randomised ship length and the number of indidual targets to generate on the grid.
 
-- Users have a limited amount of shots available, these are displayed in a clear message beneath the game grid itself and is updated with every shot made (provided it is not a 'misfire' AKA invalidated input). Users will be penalised, loosing 1 ammo if you miss a target open water, users will also be penalised if a user targets the same location twice (same input as as previous input). Users will NOT be penalised if you enter an invalid input. Your current ammo count can be increased through the means of two cheatcodes built-in to the game, 'TENSHOTS' and 'FIVESHOTS' which when input, will increase ammo by either 10 or 5.
+      - Users have a limited amount of shots available, these are displayed in a clear message beneath the game grid itself and is updated with every shot made (provided it is not a 'misfire' AKA invalidated input). Users will be penalised, loosing 1 ammo if you miss a target open water, users will also be penalised if a user targets the same location twice (same input as as previous input). Users will NOT be penalised if you enter an invalid input. Your current ammo count can be increased through the means of two cheatcodes built-in to the game, 'TENSHOTS' and 'FIVESHOTS' which when input, will increase ammo by either 10 or 5.
 
-- The goal is to sink completely, all of the enemies ships to win. Run out of ammo before and you will loose. Helpful messages will appear above the grid to alert users when a ship has been completely destroyed. Messages that take the form of vague indications towards the remaining amount of ships will also be printed above the grid. 
+      - The goal is to sink completely, all of the enemies ships to win. Run out of ammo before and you will loose. Helpful messages will appear above the grid to alert users when a ship has been completely destroyed. Messages that take the form of vague indications towards the remaining amount of ships will also be printed above the grid. 
 
-- When the user has chosen a valid level, The grid is populated with enemy ships and printed to the terminal, the game shall then request a target on the grid. The input for this request takes the from of first an alphabetical character, then a number such as 'A1'. Cheat codes can also be entered when the computer requests a target, when input correctly, a message shall appear with the text 'Cheat Activated' and a description of the effect. At any time when an input is requested from the user, enter 'EXIT' to close the game.
+      - When the user has chosen a valid level, The grid is populated with enemy ships and printed to the terminal, the game shall then request a target on the grid. The input for this request takes the from of first an alphabetical character, then a number such as 'A1'. Cheat codes can also be entered when the computer requests a target, when input correctly, a message shall appear with the text 'Cheat Activated' and a description of the effect. At any time when an input is requested from the user, enter 'EXIT' to close the game.
 
-- The user will be notified when either a Victory or Game Over scneario occurs, confirmation of what level they either failed or completed shall appear in the terminal. Then a request from the user to play again or leave the game.
+      - The user will be notified when either a Victory or Game Over scneario occurs, confirmation of what level they either failed or completed shall appear in the terminal. Then a request from the user to play again or leave the game. 
 
-### Legend:
-
-- Green colored 'X': Relates to an succesful hit in that grid position.
-- Red colored '#': Relates to a previous target in that grid position.
-- Blue colored '~': Relates to open water in that grid position.
-- Cyan colored 'O': Relates to an enemy ship in that grid position.
+   ### Legend:
+      - Green colored 'X': Relates to an succesful hit in that grid position.
+      - Red colored '#': Relates to a previous target in that grid position.
+      - Blue colored '~': Relates to open water in that grid position.
+      - Cyan colored 'O': Relates to an enemy ship in that grid position.
 
 
 ## Project Goals
@@ -88,7 +87,14 @@ A                          |  B                        | C
   
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-![In Game hints](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![In Game hints](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![In Game hints](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint1.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint2.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint3.png)
+D                          |  E                        | F
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint4.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint5.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint6.png)
+G                          |  H                        | I
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint7.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint8.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint9.png)
+J                          
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/sank-hint.png)
+
 
 - __The Grid__
 
@@ -102,7 +108,7 @@ A                          |  B                        | C
 
   - Beneath the Games grid when this had been printed to the terminal, a message shall appear with the text 'You have X shots remaining' where 'X' marks the current ammo count. This game uses the current avaiable ammo count to determine the outcome of the game, the ammo avaiablity contributes a large part of the games challenge at higher diffuclty levels. This count begins at 10 with a 3x3 grid, raising to 20 at 5x5 and 30 from grid sizes of 8 and above. This count can be manipulate in game by the user through the avaibale TENSHOTS and FIVESHOTS cheat codes.
 
- - Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
+  - Without this feature the user would find the game play much more difficult at higher levels, its abesence overall would be a nuisance to the user given the games logic relies on the ammo value. This feature helps users track their progress and draws their attention towards how many chances they have remaining to beat the level which in some circumstance can add to the pressure of thec challenge. 
 
 ![Ammo Counter](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/ammo.png)
 
@@ -226,42 +232,42 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
 
 ## Setting up the Repo
 
-- Log in to GitHub and nvaigate to the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) .
-- Select the 'Use this template' button.
-- Choose a name and description for the repo.
-- Select the 'Creat repository from template' button.
+      - Log in to GitHub and nvaigate to the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) .
+      - Select the 'Use this template' button.
+      - Choose a name and description for the repo.
+      - Select the 'Creat repository from template' button.
 
 ## Forking
 
-- Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
-- Select the 'Fork' button at the top right hand side of the webpage.
-- Choose a name and description for the fork.
-- Select the 'Create Fork' button.
+      - Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
+      - Select the 'Fork' button at the top right hand side of the webpage.
+      - Choose a name and description for the fork.
+      - Select the 'Create Fork' button.
 
 ## Cloning
 
-- Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
-- Above the file table click the ‘code’ button.
-- Several options are avaliable, HTTPS, SSH and GitHub CLI, make a choice and select the 'Copy to clipboard' button next to the URL.
-- Open git bash.
-- Type ‘git clone’ and then paste the URL you copied. Press Enter.
-- For more information read the topic [Cloning a Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+      - Sign in to Github and go to [BLACKBEARD's BATTLESHIPS](https://github.com/WHLW27/Python-Essentials---Battleships).
+      - Above the file table click the ‘code’ button.
+      - Several options are avaliable, HTTPS, SSH and GitHub CLI, make a choice and select the 'Copy to clipboard' button next to the URL.
+      - Open git bash.
+      - Type ‘git clone’ and then paste the URL you copied. Press Enter.
+      - For more information read the topic [Cloning a Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 
 ## Deployment
+The code was deployed to the Code Institutes mock Terminal on Heroku. The steps to deploy are as follows: 
 
-- The code was deployed to the Code Institutes mock Terminal on Heroku. The steps to deploy are as follows: 
-  - Fork or clone this repository. Or create a project via the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) 
-  - If your requirements.txt file has not changed you can skip this step. Otherwise, in your terminal type 'pip3 freeze > requirements.txt' then save and push the changes.
-  - Sign in to Heroku.com
-  - Create a new app via Heroku, name the app something descriptive. 
-  - From the 'Settings' tab find the 'Config Vars' section and click the 'Reveal Config Vars' button.
-  - Add a Config Var with the following details: KEY = PORT, VALUE = 8000.
-  - (The next step applies only if your project requires a creds.json file) In the field for 'KEY' enter the value 'CREDS' in all capitals. In the field for 'VALUE' copy and paste the entire contents of your creds.json file from your project. Then click 'Add'.
-  - From the settings page add the following build packs by selecting the 'Add Buildpacks' button. Add packs in this order: 1st Python, 2nd node.js.
-  - Selecte the 'Deploy' tab chose the 'GitHub' deployment method and connect with the relevant GitHub repo.
-  - It is avisable to chose the 'Manual Deploy' method, selecting the 'Main' branch then selcting 'Deploy'
-  - If you want to rebuild your app automatically you can also select the 'Enable Automatic Deploys' button which will then rebuild the app every time you push any changes.
-  - Wait for the terminal to complete and deploy the app. 
+        - Fork or clone this repository. Or create a project via the [CI Python Template](https://github.com/Code-Institute-Org/python-essentials-template) 
+        - If your requirements.txt file has not changed you can skip this step. Otherwise, in your terminal type 'pip3 freeze > requirements.txt' then save and push the changes.
+        - Sign in to Heroku.com
+        - Create a new app via Heroku, name the app something descriptive. 
+        - From the 'Settings' tab find the 'Config Vars' section and click the 'Reveal Config Vars' button.
+        - Add a Config Var with the following details: KEY = PORT, VALUE = 8000.
+        - (The next step applies only if your project requires a creds.json file) In the field for 'KEY' enter the value 'CREDS' in all capitals. In the field for 'VALUE' copy and paste the entire contents of your creds.json file from your project. Then click 'Add'.
+        - From the settings page add the following build packs by selecting the 'Add Buildpacks' button. Add packs in this order: 1st Python, 2nd node.js.
+        - Selecte the 'Deploy' tab chose the 'GitHub' deployment method and connect with the relevant GitHub repo.
+        - It is avisable to chose the 'Manual Deploy' method, selecting the 'Main' branch then selcting 'Deploy'
+        - If you want to rebuild your app automatically you can also select the 'Enable Automatic Deploys' button which will then rebuild the app every time you push any changes.
+        - Wait for the terminal to complete and deploy the app. 
 
 The live link can be found here - [BLACKBEARD's BATTLESHIPS](https://blackbeards-battleships.herokuapp.com/).
 
