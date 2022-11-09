@@ -75,9 +75,11 @@ A                          |  B                        | C                      
   
   - This feature gives the game lots of replayability, with challenges increasing in difficulty. There is an option available to younger audiences or those with less skill with the 3x3 giving a fun opportunity to test the game and its features with room to make a mistake without an serious consequence. There is an option for players seeking a challenge, with 10x10, and an ammo count of 30 covering only 30% of the potential target locations, tactical or logical thinking is required. Mistakes are expensive and pressure is much more apparent. The game despite the fixed difficulties also gives users the chance to manipulate the difficulty via the ingame cheats, increasing ammo availablilty at higher levels to bring the pressure down. 
 
+A                          |  B                        | C                         | D
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid3.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid5.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid10.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/gridlevel.png)
 A                          |  B                        | C
-:-------------------------:|:-------------------------:|:-------------------------:
-![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid3.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid5.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/grid10.png)
+![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire2.png)|![Difficulty](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire3.png)
 
 - __In Game hints__
 
@@ -89,11 +91,9 @@ A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
 ![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint1.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint2.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint3.png)
 D                          |  E                        | F
-![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint4.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint5.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint6.png)
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint6.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint4.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint5.png)
 G                          |  H                        | I
-![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint7.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint8.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint9.png)
-J                          
-![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/sank-hint.png)
+![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint7.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/hint8.png)|![In Game hints](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/sank-hint.png)
 
 
 - __The Grid__
@@ -120,9 +120,11 @@ J
 
 A                          |  B                        | C
 :-------------------------:|:-------------------------:|:-------------------------:
-![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/mainmenu-valid.png)|![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/manual-valid.png)|![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/playagain.png)
 D                          |  E                        | F
-![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-one.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-two.png)|![Input with validation](https://github.com/WHLW27/JavaScript-Essentials---Rock-Paper-Scissors-Spock/blob/main/assets/images/readme/pvc-three.png)
+![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire.png)|![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire2.png)|![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/misfire3.png)
+D
+|![Input with validation](https://github.com/WHLW27/Python-Essentials---Battleships/blob/main/assets/images/gridvalid.png)
 
 
 - __Cheat Options__
