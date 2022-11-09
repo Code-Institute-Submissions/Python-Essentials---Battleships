@@ -209,10 +209,10 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
 
    - ### LINESTATS: INSTALLATION: '$ pip install linestats' USAGE: '$ linestats -p run.py'
   
-         - Code: 672 - 51.6%
-         - Docstrings: 181 - 13.8%
-         - Single line Comments - 255 - 19.6%
-         - Empty Lines: 194 - 14.9%
+         - Code: 672 - 51.7%
+         - Docstrings: 181 - 13.9%
+         - Single line Comments - 253 - 19.5%
+         - Empty Lines: 193 - 14.9%
 
  ### Constant does not conform to UPPER_CASE naming style.
    - This relates to the names given to my methods, I have chosen to use lower_case naming conventions.
