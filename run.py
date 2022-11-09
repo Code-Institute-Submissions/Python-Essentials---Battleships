@@ -49,7 +49,7 @@ game_grid = []
 hit_tracker = []
 characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 enemy_power_level = 0
-game_running = True
+game_running = [True]
 result = ""
 debug_mode = [False]
 
@@ -500,8 +500,6 @@ def build_ships():
     tracks how many ships have been placed and shall continue
     placing ships until the required figure has been reached.
     """
-    # Must access the following
-    # global variables.
     build_ships.enemy_power_level = 0
 
     # create a variable for the amount
@@ -730,28 +728,29 @@ def print_play_area():
     # The code below keeps track of the current number
     # of enemy vessels still on the grid. It shall print
     # clue statements as an indictation of the users progress.
+    print(build_ships.enemy_power_level)
     if set_grid_level.grid_level < 8:
-        if tracker == 2:
+        if build_ships.enemy_power_level == 2:
             print("\033[1;36;40mTheir forces are weak!")
-        elif tracker == 3:
+        elif build_ships.enemy_power_level == 3:
             print("\033[1;34;40mThe battle could be over soon, brace!")
-        elif tracker == 4:
+        elif build_ships.enemy_power_level == 4:
             print("\033[1;35;40mIt's not over yet, stay frosty!")
-        elif tracker >= 5:
+        elif build_ships.enemy_power_level >= 5:
             print("\033[1;31;40mThe enemy approaches, ready the cannons!")
         else:
             print("\033[1;32;40mThe battle is ours!")
 
     else:
-        if tracker == 1:
+        if build_ships.enemy_power_level == 1:
             print("\033[1;32;40mThe battle is ours!")
-        elif tracker <= 3:
+        elif build_ships.enemy_power_level <= 3:
             print("\033[1;36;40mTheir forces are weak!")
-        elif tracker <= 8:
+        elif build_ships.enemy_power_level <= 8:
             print("\033[1;34;40mThe battle could be over soon, brace!")
-        elif tracker <= 13:
+        elif build_ships.enemy_power_level <= 13:
             print("\033[1;35;40mIt's not over yet, stay frosty!")
-        elif tracker >= 14:
+        elif build_ships.enemy_power_level >= 14:
             print("\033[1;31;40mThe enemy approaches, ready the cannons!")
         else:
             print("\033[1;32;40mBrace!")
@@ -1088,7 +1087,7 @@ def track_kills(lat, long):
     This method fires on the condition that the user
     has performed a direct hit on an enemy vessel.
     its purpose is to iterate through the track ship
-    positions in the hit_tracker global, checking if
+    positions in the hit_tracker, checking if
     they match against the users input. if so, the
     ship_located method is called. On the condition
     that the targetted ship's size is above 0, This
@@ -1096,7 +1095,7 @@ def track_kills(lat, long):
     of the targetted ship have been hit, to confirm
     a sunken vessel.
     """
-    # Assigns the list values from the hit_tracker global
+    # Assigns the list values from the hit_tracker
     # to variables
     for hit in hit_tracker:
         lat_start = hit[0]
@@ -1134,10 +1133,11 @@ def ship_located():
     its purpose is to check the current ammo count for the user,
     to check and alter the current enemy_power_level, to call the
     method to win or loose the game if conditions are met, or run
-    code to reduce the value asssigned to the enemy_power_level global.
+    code to reduce the value asssigned to the enemy_power_level.
     which is neccesary for the game to accurately call a victory or game
     over.
-    """# The code below will only run if the value
+    """
+    # The code below will only run if the value
     # of the target_located variable is 0.
     # This ensures the indented code runs only
     # once per confirmed hit on target.
@@ -1158,7 +1158,7 @@ def ship_located():
         end_game()
 
     # The code below will run if the value of the ammo
-    # global is 0 whilst the enemy_power_level is simultaneously
+    # is 0 whilst the enemy_power_level is simultaneously
     # greater than 0. This is to ensure that the users final shot
     # can still win the game if it sinks the final target.
     elif build_ships.ammo <= 0 and build_ships.enemy_power_level > 0:
@@ -1178,11 +1178,8 @@ def end_game():
     the input given. This method will either restart the program
     or exit the program.
     """
-    # Must be able to alter the game_running global
-    global game_running
-
     # Stop the loop requesting user input if a target.
-    game_running = False
+    game_running[0] = False
 
     # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
