@@ -48,9 +48,7 @@ grid_level = 0
 game_grid = []
 hit_tracker = []
 characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-enemy_counter = 0
 enemy_power_level = 0
-power_level = 0
 game_running = True
 result = ""
 debug_mode = [False]
@@ -504,12 +502,13 @@ def build_ships():
     """
     # Must access the following
     # global variables.
-    global enemy_counter
-    global enemy_power_level
+    build_ships.enemy_power_level = 0
 
     # create a variable for the amount
     # of enemy ships to place on grid.
+    # and another to track their placement.
     ships_to_place = 1
+    enemy_counter = 0
 
     # while the amount of ships placed is NOT equal
     # to the amount of ships to BE placed the
@@ -524,12 +523,12 @@ def build_ships():
         # the size of ships being placed
         # based on the level input by the user
         if set_grid_level.grid_level <= 4:
-            ship_size = 1
+            ship_size = random.randint(1, 2)
             ships_to_place = 3
             build_ships.ammo = 10
 
         elif set_grid_level.grid_level < 8:
-            ship_size = random.randint(1, 3)
+            ship_size = random.randint(1, 4)
             ships_to_place = 5
             build_ships.ammo = 20
 
@@ -545,7 +544,7 @@ def build_ships():
         # grid for ship placement.
         if place_ship(latitude, longitude, heading, ship_size):
             enemy_counter = enemy_counter + 1
-            enemy_power_level += ship_size
+            build_ships.enemy_power_level += ship_size
 
 
 def place_ship(latitude, longitude, heading, size):
@@ -731,20 +730,32 @@ def print_play_area():
     # The code below keeps track of the current number
     # of enemy vessels still on the grid. It shall print
     # clue statements as an indictation of the users progress.
-    tracker = enemy_counter - power_level
-    print(enemy_counter)
-    print(power_level)
-    print(tracker)
-    if tracker <= 2:
-        print("\033[1;32;40mThe battle is ours!")
-    elif tracker == 3:
-        print("\033[1;36;40mTheir forces are weak!")
-    elif tracker == 4:
-        print("\033[1;34;40mThe battle could be over soon, brace!")
-    elif tracker >= 5:
-        print("\033[1;35;40mIt's not over yet, stay frosty!")
+    if set_grid_level.grid_level < 8:
+        if tracker == 2:
+            print("\033[1;36;40mTheir forces are weak!")
+        elif tracker == 3:
+            print("\033[1;34;40mThe battle could be over soon, brace!")
+        elif tracker == 4:
+            print("\033[1;35;40mIt's not over yet, stay frosty!")
+        elif tracker >= 5:
+            print("\033[1;31;40mThe enemy approaches, ready the cannons!")
+        else:
+            print("\033[1;32;40mThe battle is ours!")
+
     else:
-        print("\033[1;31;40mThe enemy approaches, ready the cannons!")
+        if tracker == 1:
+            print("\033[1;32;40mThe battle is ours!")
+        elif tracker <= 3:
+            print("\033[1;36;40mTheir forces are weak!")
+        elif tracker <= 8:
+            print("\033[1;34;40mThe battle could be over soon, brace!")
+        elif tracker <= 13:
+            print("\033[1;35;40mIt's not over yet, stay frosty!")
+        elif tracker >= 14:
+            print("\033[1;31;40mThe enemy approaches, ready the cannons!")
+        else:
+            print("\033[1;32;40mBrace!")
+
     print("")
 
     # Begin printing the rows of the Grid, start with
@@ -805,10 +816,6 @@ def fire_cannons():
     either fired upon already, is a miss, or a direct
     hit.
     """
-    # must be able to read from and change the
-    # following globals.
-    global power_level
-
     # creates a loop that shall run until
     # an engame situation occurs
     while game_running:
@@ -1052,10 +1059,9 @@ def fire_cannons():
             # pass the chosen location to a method
             # that will check if the entire ship placed
             # in that location has been hit. if so
-            # annouce sunk and increment power_level.
+            # annouce sunk.
             if track_kills(lat, long):
                 print(f"\033[0;35;40mThat's a vessel sunk!\n")
-                power_level = power_level + 1
 
         # finally reprint the grid with the updated
         # hit or miss so the user can track their hits.
@@ -1131,12 +1137,7 @@ def ship_located():
     code to reduce the value asssigned to the enemy_power_level global.
     which is neccesary for the game to accurately call a victory or game
     over.
-    """
-    # Must access the following
-    # global variables.
-    global enemy_power_level
-
-    # The code below will only run if the value
+    """# The code below will only run if the value
     # of the target_located variable is 0.
     # This ensures the indented code runs only
     # once per confirmed hit on target.
@@ -1144,7 +1145,7 @@ def ship_located():
 
         # Will reduce the value of enemy_power_level by 1
         # to track for a winning situation.
-        enemy_power_level = enemy_power_level - 1
+        build_ships.enemy_power_level = build_ships.enemy_power_level - 1
 
         # Increments target_located by 1 to prevent
         # running twice per hit target.
@@ -1152,7 +1153,7 @@ def ship_located():
 
     # If the value of enemy_power_level is equal to 0
     # call the win_game method.
-    if enemy_power_level == 0:
+    if build_ships.enemy_power_level == 0:
         fire_cannons.result = "win"
         end_game()
 
@@ -1160,7 +1161,7 @@ def ship_located():
     # global is 0 whilst the enemy_power_level is simultaneously
     # greater than 0. This is to ensure that the users final shot
     # can still win the game if it sinks the final target.
-    elif build_ships.ammo <= 0 and enemy_power_level > 0:
+    elif build_ships.ammo <= 0 and build_ships.enemy_power_level > 0:
         fire_cannons.result = "loose"
         end_game()
 

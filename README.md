@@ -207,10 +207,12 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
  ### Too many lines in module.
    - Docstrings at interpreted by the compiler however single line comments are not, removing all single line comments from the module would bring the line count comfortably below the 1000 standard. I feel it is appropriate to disregard the single line comments. 
 
- ### Using the Global Statement. .
-   - To ensure that all methods used within the module work correctly and free from any errors
-     (That I have been able to discover through testing), some methods require the use of global
-     statements.
+   - ### LINESTATS: INSTALLATION: '$ pip install linestats' USAGE: '$ linestats -p run.py'
+  
+         - Code: 672 - 51.6%
+         - Docstrings: 181 - 13.8%
+         - Single line Comments - 255 - 19.6%
+         - Empty Lines: 194 - 14.9%
 
  ### Constant does not conform to UPPER_CASE naming style.
    - This relates to the names given to my methods, I have chosen to use lower_case naming conventions.
@@ -301,4 +303,5 @@ The live link can be found here - [BLACKBEARD's BATTLESHIPS](https://blackbeards
 - [PyFiglet](https://pypi.org/project/pyfiglet/0.7/) - Figlet was used to render some print text in the terminal through an illustrative font style, adding some visual elements to the text. 
 - [OS](https://docs.python.org/3/library/os.html) - used to clear the terminal at various points within the game logic, in an IDE this will clear the terminal output, with heroku this will move the text currently printed in the terminal out of sight and above new text to be printed.
 - [Itertools](https://docs.python.org/3/library/itertools.html) -.product was used to refactor a statement iterating through lists into a faster and more code effficient solution by locating the cartesian product of the given iterators.  
+- [Linestats](https://github.com/fpavogt/linestats) - Used to count the number of Code lines, Docstrings, Comments and empty lines seperately within the module, printing percentages and figures to the terminal with 
 
