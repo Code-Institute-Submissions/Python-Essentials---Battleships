@@ -209,7 +209,7 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
 
    - ### LINESTATS: INSTALLATION: '$ pip install linestats' USAGE: '$ linestats -p run.py'
   
-         - Code: 672 - 51.7%
+         - Code: 671 - 51.7%
          - Docstrings: 181 - 13.9%
          - Single line Comments - 253 - 19.5%
          - Empty Lines: 193 - 14.9%
@@ -232,7 +232,7 @@ Below are various message that appeared in the 'Problems' window of my Gitpod Wo
 
 ### Unfixed Bugs
 
-- There are no known bugs, clear through extensive testing currently within the game.
+- At times throught the script where 'time.sleep(secs)' is used, any keyboard input from the user, input during the sleep interval, shall be recorded by the program and apended to whatever input the user puts through next. This will cause a misfire or invalid input in most circumstances. Other than causing a misfire message to appear, this bug has little effect on gameplay and user experience. 
 
 ## Setting up the Repo
 

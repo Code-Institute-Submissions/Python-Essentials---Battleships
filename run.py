@@ -728,7 +728,6 @@ def print_play_area():
     # The code below keeps track of the current number
     # of enemy vessels still on the grid. It shall print
     # clue statements as an indictation of the users progress.
-    print(build_ships.enemy_power_level)
     if set_grid_level.grid_level < 8:
         if build_ships.enemy_power_level == 2:
             print("\033[1;36;40mTheir forces are weak!")
@@ -927,7 +926,7 @@ def fire_cannons():
                 time.sleep(1.5)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("")
-                print("\033[0;31;40mDavey Jones ", end="")
+                print("\033[1;31;40mDavey Jones ", end="")
                 print("has arrived to collect your soul!")
                 time.sleep(1.5)
                 fire_cannons.result = "loose"
@@ -944,7 +943,7 @@ def fire_cannons():
                 time.sleep(1.5)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("")
-                print("\033[0;31;40mThe Kraken has swallowed the enemy whole!")
+                print("\033[1;31;40mThe Kraken has swallowed the enemy whole!")
                 time.sleep(1.5)
                 fire_cannons.result = "win"
                 end_game()
